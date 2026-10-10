@@ -1,0 +1,3715 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tratamiento y Clasificación de la Información — analiza, clasifica y evalúa</title>
+  <style>
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --blue: #2A5C8A;
+      --blue-dark: #1E4463;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: inherit;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: 0.72rem;
+      letter-spacing: .03em;
+      color: var(--ink-soft);
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* ---------- Hero + nav ---------- */
+    .hero {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 44px 24px 0;
+    }
+
+    .hero-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .hero-text {
+      margin-bottom: 28px;
+    }
+
+    .hero .tag {
+      color: #9FB3D6;
+    }
+
+    .hero h1 {
+      color: #FFFFFF;
+      font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 8px 0 4px;
+      text-wrap: balance;
+    }
+
+    .hero-header-flex {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin: 8px 0 14px;
+    }
+
+    .hero-title-img {
+      height: 140px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35));
+      flex-shrink: 0;
+    }
+
+    .hero-header-titles {
+      flex: 1 1 auto;
+    }
+
+    .hero-header-titles h1 {
+      margin: 0 0 6px;
+    }
+
+    .hero-header-titles .hero-sub {
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .hero-header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .hero-title-img {
+        height: 100px;
+      }
+    }
+
+    .hero .hero-sub {
+      color: #FFFFFF;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.25;
+      font-weight: 700;
+      margin: 0 0 14px;
+    }
+
+    .hero p.lead {
+      color: #C9D3E6;
+      font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+      margin-bottom: 0;
+      text-wrap: pretty;
+      max-width: 760px;
+    }
+
+    nav.tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding-bottom: 0;
+    }
+
+    nav.tabs button,
+    nav.tabs a.tab-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, .06);
+      color: #D7DEEC;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-bottom: none;
+      padding: 12px 16px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    nav.tabs button.active,
+    nav.tabs a.tab-btn.active {
+      background: var(--parchment);
+      color: var(--navy);
+      border-color: var(--parchment);
+    }
+
+    nav.tabs button:hover:not(.active),
+    nav.tabs a.tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, .13);
+      color: #fff;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    section {
+      display: none;
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn .35s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ---------- Introducción ---------- */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      margin-bottom: 10px;
+    }
+
+    .card-basic {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .quick-links button {
+      text-align: left;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 0.92rem;
+      color: var(--ink);
+    }
+
+    .quick-links button:hover {
+      background: #FBFAF6;
+    }
+
+    @media (max-width:760px) {
+      .intro-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ---------- PDF viewer ---------- */
+    .pdf-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pdf-btn-open {
+      background: var(--navy);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .2s ease;
+    }
+
+    .pdf-btn-open:hover {
+      background: var(--navy-2);
+    }
+
+    .pdf-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 10px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .2s ease;
+    }
+
+    .pdf-btn-dl:hover {
+      background: #FBFAF6;
+    }
+
+    .pdf-container {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .08);
+      height: 82vh;
+      min-height: 600px;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ---------- LucIA ---------- */
+    .lucia-presentation-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 36px 40px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .08);
+      border-left: 6px solid var(--teal);
+    }
+
+    .lucia-presentation-header {
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .lucia-presentation-header h2 {
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+      margin: 4px 0 0;
+    }
+
+    .lucia-presentation-sub {
+      font-size: 1.1rem;
+      color: var(--navy);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .lucia-highlight {
+      font-size: 1.02rem;
+      color: var(--teal-dark);
+      margin-bottom: 12px;
+    }
+
+    .lucia-presentation-body p {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .lucia-tips {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .lucia-tip {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width:600px) {
+      .lucia-presentation-card {
+        padding: 24px 20px;
+      }
+    }
+
+    /* ---------- Material de apoyo ---------- */
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 22px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      border-left: 6px solid var(--teal);
+      transition: all .2s ease;
+    }
+
+    .material-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .12);
+      border-color: var(--teal);
+      background: #FBFAF7;
+    }
+
+    .material-icon {
+      font-size: 2.1rem;
+      flex: 0 0 auto;
+      line-height: 1;
+    }
+
+    .material-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .material-body h3 {
+      font-size: 1.1rem;
+      margin: 4px 0 6px;
+    }
+
+    .material-body p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .material-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--teal);
+      background: rgba(31, 122, 108, .1);
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: all .2s ease;
+    }
+
+    .material-card:hover .material-btn {
+      background: var(--teal);
+      color: #fff;
+    }
+
+    /* ---------- Características / Clasificación cards ---------- */
+    .char-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .char-card.c-validez {
+      border-left-color: var(--teal);
+    }
+
+    .char-card.c-vigencia {
+      border-left-color: var(--gold);
+    }
+
+    .char-card.c-importancia {
+      border-left-color: var(--coral);
+    }
+
+    .char-card.c-significado {
+      border-left-color: var(--blue);
+    }
+
+    .eje-img-box {
+      margin-bottom: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 220px;
+      box-shadow: 0 2px 8px rgba(20, 33, 61, .08);
+      background: #f8fafc;
+    }
+
+    .eje-card-img {
+      width: 100%;
+      height: 130px;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px;
+      transition: transform .2s ease;
+    }
+
+    .eje-img-box:hover .eje-card-img {
+      transform: scale(1.03);
+    }
+
+    .char-head {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .char-head h3 {
+      font-size: 1.2rem;
+    }
+
+    .char-example {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 0.87rem;
+      margin-top: 8px;
+    }
+
+    .char-example strong {
+      color: var(--navy);
+    }
+
+    details.deepen {
+      margin-top: 22px;
+    }
+
+    details.deepen summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 10px 0;
+    }
+
+    .subgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    .subgrid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .subgrid.cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width:900px) {
+
+      .subgrid.cols-3,
+      .subgrid.cols-4 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width:600px) {
+
+      .subgrid,
+      .subgrid.cols-3,
+      .subgrid.cols-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .class-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 14px;
+      border-left-width: 6px;
+      border-left-style: solid;
+    }
+
+    .class-card.publica {
+      border-left-color: var(--teal);
+    }
+
+    .class-card.privada {
+      border-left-color: var(--gold);
+    }
+
+    .class-card.confidencial {
+      border-left-color: var(--coral);
+    }
+
+    .class-card.personal {
+      border-left-color: var(--blue);
+    }
+
+    .class-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 3px 10px;
+      border-radius: 20px;
+      margin-bottom: 8px;
+    }
+
+    .class-badge.publica {
+      background: rgba(31, 122, 108, .12);
+      color: var(--teal-dark);
+    }
+
+    .class-badge.privada {
+      background: rgba(198, 138, 46, .14);
+      color: var(--gold-dark);
+    }
+
+    .class-badge.confidencial {
+      background: rgba(214, 91, 74, .14);
+      color: var(--coral-dark);
+    }
+
+    .class-badge.personal {
+      background: rgba(42, 92, 138, .14);
+      color: var(--blue-dark);
+    }
+
+    table.quality-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 0.86rem;
+    }
+
+    table.quality-table th,
+    table.quality-table td {
+      border: 1px solid var(--border-cool);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    table.quality-table th {
+      background: var(--parchment);
+      color: var(--navy);
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0;
+    }
+
+    .checklist li {
+      padding: 6px 0 6px 26px;
+      position: relative;
+      font-size: 0.9rem;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--teal);
+      font-weight: 800;
+    }
+
+    /* ---------- Evaluador (quiz) ---------- */
+    .subnav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .subnav button {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--ink);
+    }
+
+    .subnav button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy);
+    }
+
+    .eval-panel {
+      display: none;
+    }
+
+    .eval-panel.active {
+      display: block;
+    }
+
+    .quiz-item {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 16px;
+    }
+
+    .quiz-item .q-num {
+      font-family: ui-monospace, monospace;
+      font-size: .72rem;
+      color: var(--ink-soft);
+      letter-spacing: .04em;
+    }
+
+    .quiz-item .q-prompt {
+      font-size: .98rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin: 4px 0 12px;
+    }
+
+    .quiz-opts {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .quiz-opt {
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: .9rem;
+      cursor: pointer;
+      background: #fff;
+      flex: 1 1 180px;
+      text-align: center;
+      transition: all .15s ease;
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--navy);
+    }
+
+    .quiz-opt.selected {
+      border-color: var(--navy);
+      background: #EEF1F7;
+      font-weight: 700;
+    }
+
+    .quiz-opt.tf {
+      flex: 1 1 120px;
+    }
+
+    .quiz-item select.quiz-select {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-cool);
+      font-size: .92rem;
+      background: #fff;
+      color: var(--ink);
+    }
+
+    .quiz-item input.quiz-fill {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-cool);
+      font-size: .92rem;
+    }
+
+    .quiz-feedback {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: .87rem;
+    }
+
+    .quiz-feedback.show {
+      display: block;
+    }
+
+    .quiz-feedback.ok {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+      color: var(--teal-dark);
+    }
+
+    .quiz-feedback.bad {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+      color: var(--coral-dark);
+    }
+
+    .match-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 4px;
+    }
+
+    @media (max-width:700px) {
+      .match-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .match-terms {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-term {
+      border: 2px dashed var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--navy);
+      background: var(--parchment);
+      cursor: grab;
+      user-select: none;
+    }
+
+    .match-term.placed {
+      opacity: .35;
+      cursor: default;
+    }
+
+    .match-term.picked {
+      border-color: var(--navy);
+      background: #EEF1F7;
+    }
+
+    .match-targets {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .match-target {
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: .86rem;
+      min-height: 46px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+    }
+
+    .match-target.dragover {
+      border-color: var(--teal);
+      background: #E9F3EE;
+    }
+
+    .match-target .slot {
+      flex: 0 0 auto;
+      font-size: .74rem;
+      font-weight: 800;
+      color: #fff;
+      background: var(--ink-soft);
+      border-radius: 6px;
+      padding: 3px 8px;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .match-target.correct .slot {
+      background: var(--teal);
+    }
+
+    .match-target.incorrect .slot {
+      background: var(--coral);
+    }
+
+    .match-hint {
+      font-size: .82rem;
+      color: var(--ink-soft);
+      margin-bottom: 10px;
+    }
+
+    .eval-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 22px 0;
+      flex-wrap: wrap;
+    }
+
+    button.primary {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: .95rem;
+    }
+
+    button.primary:hover {
+      background: var(--teal-dark);
+    }
+
+    button.ghost {
+      background: none;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: .9rem;
+      color: var(--ink);
+    }
+
+    .verdict {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .verdict.show {
+      display: block;
+    }
+
+    .verdict.low {
+      background: #FBEAE7;
+      border: 1px solid var(--coral);
+    }
+
+    .verdict.mid {
+      background: #FBF1E0;
+      border: 1px solid var(--gold);
+    }
+
+    .verdict.high {
+      background: #E9F3EE;
+      border: 1px solid var(--teal);
+    }
+
+    .verdict h4 {
+      margin-bottom: 6px;
+    }
+
+    /* ---------- Juego ---------- */
+    .game-wrap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 28px;
+    }
+
+    .game-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: .85rem;
+      color: var(--ink-soft);
+    }
+
+    .game-bar {
+      height: 6px;
+      background: var(--border-cool);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .game-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width .3s ease;
+    }
+
+    .game-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      font-size: 1.05rem;
+      margin-bottom: 20px;
+      min-height: 70px;
+    }
+
+    .game-options {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .game-options button {
+      flex: 1;
+      min-width: 150px;
+      padding: 14px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: .92rem;
+    }
+
+    .game-options button:hover:not(:disabled) {
+      border-color: var(--navy);
+    }
+
+    .game-options button.correct {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark);
+    }
+
+    .game-options button.incorrect {
+      background: #FBEAE7;
+      border-color: var(--coral);
+      color: var(--coral-dark);
+    }
+
+    .game-options button:disabled {
+      cursor: default;
+      opacity: .85;
+    }
+
+    .game-feedback {
+      font-size: .92rem;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #F1F5F3;
+      margin-bottom: 16px;
+      display: none;
+    }
+
+    .game-feedback.show {
+      display: block;
+    }
+
+    .game-end {
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .game-end .score {
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    /* ---------- Actividad presencial ---------- */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+      margin: 18px 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding: 10px 0 10px 42px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .steps li:last-child {
+      border-bottom: none;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 8px;
+      background: var(--navy);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .8rem;
+      font-weight: 700;
+    }
+
+    .print-btn {
+      margin-top: 16px;
+    }
+
+    .zone-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .zone-chip {
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-weight: 700;
+      font-size: .88rem;
+      color: #fff;
+    }
+
+    .zone-chip.z-publica {
+      background: var(--teal);
+    }
+
+    .zone-chip.z-privada {
+      background: var(--gold);
+    }
+
+    .zone-chip.z-confidencial {
+      background: var(--coral);
+    }
+
+    .zone-chip.z-personal {
+      background: var(--blue);
+    }
+
+    .zone-chip small {
+      display: block;
+      font-weight: 500;
+      opacity: .9;
+      margin-top: 2px;
+    }
+
+    /* ---------- Dashboard ---------- */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    .stat-card .stat-label {
+      font-size: .8rem;
+      color: var(--ink-soft);
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width:800px) {
+      .dash-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .chart-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .chart-card h4 {
+      font-size: .95rem;
+      margin-bottom: 10px;
+    }
+
+    .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .empty-note {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-size: .88rem;
+    }
+
+    .pie-wrap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .pie-wrap svg {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 auto;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: .84rem;
+    }
+
+    .legend .sw {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px;
+    }
+
+    .analysis-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .analysis-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .analysis-card p {
+      font-size: .92rem;
+    }
+
+    .reward-box {
+      margin: 26px 0 22px;
+      padding: 26px 28px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #14213D 0%, #1C2D52 70%, #223A63 100%);
+      border: 2px solid var(--gold);
+      color: #F2F0E8;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .22);
+    }
+
+    .reward-box.complete {
+      border-color: #E9B949;
+      box-shadow: 0 0 0 4px rgba(233, 185, 73, .25), 0 8px 24px rgba(20, 33, 61, .28);
+    }
+
+    .reward-box .reward-tag {
+      font-family: ui-monospace, monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #E9B949;
+    }
+
+    .reward-box h4 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin: 6px 0 10px;
+    }
+
+    .reward-box p {
+      color: #DCE3F1;
+      font-size: 1rem;
+      margin-bottom: 14px;
+    }
+
+    .reward-box p strong {
+      color: #E9B949;
+      font-size: 1.15em;
+    }
+
+    .reward-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .reward-amount .big {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #E9B949;
+      line-height: 1;
+    }
+
+    .reward-amount .of {
+      color: #9FB3D6;
+      font-size: .9rem;
+    }
+
+    .reward-track {
+      height: 12px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .reward-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #C68A2E, #E9B949);
+      border-radius: 8px;
+      transition: width .6s ease;
+    }
+
+    .reward-break {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: .86rem;
+    }
+
+    .reward-break div {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .reward-break b {
+      color: #fff;
+    }
+
+    .reward-status {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E9B949;
+    }
+
+    .btn-print-dashboard {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 11px 22px;
+      border: 1px solid var(--teal-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, .28);
+      transition: all .2s ease;
+    }
+
+    .btn-print-dashboard:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0E473F 100%);
+      transform: translateY(-1px);
+    }
+
+    /* ---------- Registro del aprendiz (en pantalla) ---------- */
+    .registro-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      border-left: 5px solid var(--navy);
+    }
+
+    .registro-card h4 {
+      font-size: .98rem;
+      margin-bottom: 4px;
+    }
+
+    .registro-card p.hint {
+      font-size: .84rem;
+      color: var(--ink-soft);
+      margin-bottom: 14px;
+    }
+
+    .registro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .registro-grid label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .registro-grid input {
+      font-weight: 400;
+      padding: 9px 11px;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      font-size: .9rem;
+      color: var(--ink);
+      font-family: inherit;
+    }
+
+    /* ---------- Print (cards + reporte institucional) ---------- */
+    #printCards,
+    #printReport {
+      display: none;
+    }
+
+    @media print {
+
+      body.printing-cards>.hero,
+      body.printing-cards>main>section {
+        display: none !important;
+      }
+
+      body.printing-cards>#printCards {
+        display: block !important;
+      }
+
+      body.printing-report>.hero,
+      body.printing-report>main,
+      body.printing-report>#printCards,
+      body.printing-report>.mapa-modal {
+        display: none !important;
+      }
+
+      body.printing-report {
+        background: #fff !important;
+        color: #111827 !important;
+      }
+
+      body.printing-report #printReport {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #111827 !important;
+        font-family: -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.35 !important;
+      }
+    }
+
+    #printCards {
+      padding: 30px;
+      font-family: -apple-system, Roboto, Arial, sans-serif;
+    }
+
+    .p-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .p-card {
+      border: 1.5px dashed #999;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: .85rem;
+      page-break-inside: avoid;
+    }
+
+    .p-card .num {
+      font-weight: 800;
+      font-size: .72rem;
+      color: #14213D;
+      margin-bottom: 6px;
+    }
+
+    .p-zone-card {
+      border: 2px solid #14213D;
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+      page-break-inside: avoid;
+    }
+
+    #answerTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+      margin-top: 10px;
+    }
+
+    #answerTable th,
+    #answerTable td {
+      border: 1px solid #ccc;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    #answerTable th {
+      background: #14213D;
+      color: #fff;
+    }
+
+    /* ---------- Reporte institucional imprimible ---------- */
+    #printReport {
+      padding: 26px;
+    }
+
+    .report-header {
+      border-bottom: 2px solid #14213D;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .report-header-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+
+    .report-org {
+      font-size: 8pt;
+      font-weight: 800;
+      letter-spacing: .5px;
+      color: #14213D;
+      text-transform: uppercase;
+    }
+
+    .report-center {
+      font-size: 13pt;
+      font-weight: 900;
+      color: #14213D;
+      margin: 2px 0;
+      line-height: 1.15;
+    }
+
+    .report-competencia {
+      font-size: 8pt;
+      color: #333;
+      line-height: 1.25;
+    }
+
+    .report-project-card {
+      background: #F6F1E7 !important;
+      border: 1.5px solid #C68A2E !important;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-project-title {
+      font-size: 10.5pt;
+      font-weight: 900;
+      color: #14213D;
+      margin-bottom: 2px;
+    }
+
+    .report-project-sub {
+      font-size: 8pt;
+      color: #444;
+      margin-bottom: 4px;
+    }
+
+    .report-ra {
+      font-size: 7.5pt;
+      color: #222;
+      border-top: 1px dashed #C68A2E;
+      padding-top: 4px;
+      margin-top: 3px;
+    }
+
+    .report-ra ul {
+      margin: 2px 0 0 16px;
+      padding: 0;
+    }
+
+    .report-student-box {
+      border: 1px solid #D7DCE6;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+      background: #FAFAF7 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-box-title {
+      font-size: 9pt;
+      font-weight: 800;
+      color: #14213D;
+      text-transform: uppercase;
+      letter-spacing: .4px;
+      border-bottom: 1px solid #D7DCE6;
+      padding-bottom: 3px;
+      margin-bottom: 6px;
+    }
+
+    .report-reg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 18px;
+    }
+
+    .report-field-wide {
+      grid-column: 1 / -1;
+    }
+
+    .report-field {
+      font-size: 8.5pt;
+      display: flex;
+      align-items: center;
+      flex: 1;
+      gap: 6px;
+      margin-top: 5px;
+    }
+
+    .report-field span.label {
+      font-weight: 700;
+      color: #14213D;
+      white-space: nowrap;
+    }
+
+    .report-field span.reg-val {
+      flex: 1;
+      min-height: 13px;
+      border-bottom: 1px solid #777;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .report-sec-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #14213D;
+      border-bottom: 1.5px solid #1F7A6C;
+      padding-bottom: 3px;
+      margin: 12px 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .report-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .report-stat-card {
+      border: 1px solid #D7DCE6;
+      border-radius: 6px;
+      padding: 6px 4px;
+      text-align: center;
+      background: #F6F8FA !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-stat-value {
+      font-size: 12pt;
+      font-weight: 900;
+      color: #1F7A6C;
+    }
+
+    .report-stat-label {
+      font-size: 7pt;
+      font-weight: 700;
+      color: #555;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .report-reward-box {
+      background: #14213D !important;
+      color: #fff !important;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-reward-box h4 {
+      color: #E9B949 !important;
+      margin: 0 0 3px 0;
+      font-size: 10pt;
+    }
+
+    .report-reward-box p {
+      font-size: 8pt;
+      margin: 0 0 5px 0;
+      color: #E5E7EB;
+    }
+
+    .report-reward-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      font-size: 7.5pt;
+    }
+
+    .report-reward-pill {
+      background: rgba(255, 255, 255, .12) !important;
+      border: 1px solid rgba(255, 255, 255, .2);
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .report-charts-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .report-chart {
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 6px 8px;
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    .report-chart h4 {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #14213D;
+      margin: 0 0 4px 0;
+    }
+
+    .report-chart svg {
+      width: 100%;
+      height: auto;
+      max-height: 150px;
+      display: block;
+    }
+
+    .report-chart .pie-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .report-chart .pie-wrap svg {
+      width: 90px;
+      height: 90px;
+    }
+
+    .report-chart .legend {
+      font-size: 7pt;
+    }
+
+    .report-analysis-item {
+      font-size: 8pt;
+      margin-bottom: 5px;
+      line-height: 1.35;
+    }
+
+    .report-analysis-item strong {
+      color: #1F7A6C;
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .report-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 7.5pt;
+      margin-top: 3px;
+    }
+
+    .report-table th {
+      background: #14213D !important;
+      color: #fff !important;
+      font-weight: 700;
+      padding: 4px 6px;
+      text-align: left;
+      border: 1px solid #14213D;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-table td {
+      padding: 3px 6px;
+      border: 1px solid #D7DCE6;
+    }
+
+    .report-table tr:nth-child(even) {
+      background: #F9FAFB !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .report-badge {
+      display: inline-block;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 700;
+      font-size: 7pt;
+      text-transform: uppercase;
+    }
+
+    .badge-high {
+      background: #D1FAE5 !important;
+      color: #065F46 !important;
+    }
+
+    .badge-mid {
+      background: #FEF3C7 !important;
+      color: #92400E !important;
+    }
+
+    .badge-low {
+      background: #FEE2E2 !important;
+      color: #991B1B !important;
+    }
+
+    .report-signatures {
+      margin-top: 14px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .report-obs {
+      font-size: 8pt;
+      margin-bottom: 12px;
+    }
+
+    .obs-lines {
+      border-bottom: 1px dashed #999;
+      height: 16px;
+      margin-top: 4px;
+    }
+
+    .sig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 16px;
+    }
+
+    .sig-box {
+      text-align: center;
+    }
+
+    .sig-line {
+      border-bottom: 1px solid #333;
+      margin-bottom: 4px;
+    }
+
+    .sig-label {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #14213D;
+    }
+
+    /* ---------- Mapa mental ---------- */
+    .mapamental-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .mapamental-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-btn-open,
+    .mapa-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .85rem;
+      padding: 9px 16px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .mapa-btn-open:hover,
+    .mapa-btn-dl:hover {
+      background: #FBFAF6;
+    }
+
+    .mapamental-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .08);
+    }
+
+    .mapamental-viewer {
+      cursor: zoom-in;
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .mapamental-viewer svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .mapa-zoom-overlay {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(20, 33, 61, .85);
+      color: #fff;
+      font-size: .78rem;
+      padding: 6px 12px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mapamental-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mapa-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mapa-badge {
+      font-size: .74rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #fff;
+    }
+
+    .b-publica {
+      background: var(--teal);
+    }
+
+    .b-privada {
+      background: var(--gold);
+    }
+
+    .b-confidencial {
+      background: var(--coral);
+    }
+
+    .b-personal {
+      background: var(--blue);
+    }
+
+    .mapa-note {
+      font-size: .78rem;
+      color: var(--ink-soft);
+    }
+
+    .mapa-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(20, 33, 61, .82);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 20px;
+    }
+
+    .mapa-modal.active {
+      display: flex;
+    }
+
+    .mapa-modal-inner {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 96vw;
+      max-height: 92vh;
+      width: 1000px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mapa-modal-topbar {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-cool);
+      gap: 10px;
+    }
+
+    .mapa-modal-close {
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: var(--ink-soft);
+      line-height: 1;
+      padding: 4px 8px;
+    }
+
+    .mapa-modal-close:hover {
+      color: var(--coral);
+    }
+
+    .mapa-modal-body {
+      padding: 20px;
+      overflow: auto;
+      background: #F8F9FA;
+    }
+
+    .mapa-modal-body svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="tag">MISIÓN PRINCIPAL No 2 BYTEON</span>
+        <div class="hero-header-flex">
+          <img src="tratamiento.png" alt="Tratamiento y Clasificaci&oacute;n de la Informaci&oacute;n"
+            class="hero-title-img">
+          <div class="hero-header-titles">
+            <h1>TRATAMIENTO Y CLASIFICACIÓN DE LA INFORMACIÓN</h1>
+            <h2 class="hero-sub">Valida, interpreta y clasifica los datos antes de tomar una decisión</h2>
+          </div>
+        </div>
+        <p class="lead">Guía interactiva sobre las características que debe cumplir un dato (validez, vigencia,
+          importancia, significado) y sobre cómo clasificar la información según su formato, su nivel de
+          confidencialidad y su flujo, incluyendo el marco legal colombiano de protección de datos.</p>
+      </div>
+      <nav class="tabs" id="tabs">
+        <a href="index.html" class="tab-btn">Inicio</a>
+        <button data-section="introduccion" class="active">Introducción</button>
+        <button data-section="lucia">LucIA</button>
+        <button data-section="principal">Material Principal</button>
+        <button data-section="material">Material de apoyo</button>
+        <button data-section="caracteristicas">Características</button>
+        <button data-section="clasificacion">Clasificación</button>
+        <button data-section="evaluador">Evaluador</button>
+        <button data-section="juego">Juego: clasifica</button>
+        <button data-section="dashboard">Dashboard</button>
+        <button data-section="presencial">Actividad presencial</button>
+        <button data-section="mapamental">Mapa Mental</button>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- INTRODUCCIÓN -->
+    <section data-section="introduccion" class="active">
+      <div class="intro-grid">
+        <div class="card-basic">
+          <div style="margin-bottom:14px;border-radius:8px;overflow:hidden;box-shadow:0 3px 12px rgba(20,33,61,.08);">
+            <img src="tratamiento2.png" alt="&iquest;Por qu&eacute; clasificar la informaci&oacute;n?"
+              style="width:100%;max-height:280px;object-fit:cover;display:block;border-radius:8px;">
+          </div>
+          <h2 style="font-size:1.4rem;margin-bottom:10px;">¿Por qué clasificar la información?</h2>
+          <p>En Byteon, el núcleo prohibido abrió sus bases de datos y la matriz de conocimiento entregó una cantidad
+            enorme de información sobre el talento Neógeno. Información sin estructura ni filtro es simple "ruido";
+            la información clasificada es el combustible de las decisiones organizacionales.</p>
+          <p>Esta aplicación organiza tu misión en pasos: <strong>reconocer</strong> las cuatro características que
+            debe cumplir un dato útil, <strong>clasificar</strong> la información según su formato, su nivel de
+            confidencialidad y su origen, <strong>evaluar</strong> tus conocimientos con un cuestionario mixto,
+            <strong>practicar</strong> con un juego de clasificación y revisar tu progreso en un
+            <strong>dashboard</strong>.
+          </p>
+        </div>
+        <div>
+          <h3 style="font-size:1rem;margin-bottom:4px;">Ir directo a:</h3>
+          <div class="quick-links">
+            <button data-goto="lucia">🤖 LucIA — tu guía de Inteligencia Artificial</button>
+            <button data-goto="principal">📖 Material Principal — Información y clasificarla (PDF)</button>
+            <button data-goto="material">📂 Material de apoyo — 3 documentos de referencia en PDF</button>
+            <button data-goto="caracteristicas">🧬 Características — validez, vigencia, importancia,
+              significado</button>
+            <button data-goto="clasificacion">🗂️ Clasificación — formato, confidencialidad, flujo y normativa</button>
+            <button data-goto="evaluador">🧭 Evaluador — cuestionario mixto de conocimientos</button>
+            <button data-goto="juego">🎮 Juego — clasifica 12 ejemplos por nivel de confidencialidad</button>
+            <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
+            <button data-goto="presencial">✋ Actividad presencial — el semáforo de clasificación</button>
+            <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual completo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUCIA -->
+    <section data-section="lucia">
+      <div class="lucia-presentation-card">
+        <div class="lucia-presentation-header" style="display:flex;align-items:center;gap:18px;">
+          <div class="lucia-avatar"
+            style="width:68px;height:68px;min-width:68px;border-radius:50%;overflow:hidden;padding:0;background:#fff;border:2px solid var(--teal);box-shadow:0 3px 10px rgba(0,0,0,.12);">
+            <img src="licIA.png" alt="LucIA"
+              style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">
+          </div>
+          <div>
+            <span class="tag">INTELIGENCIA ARTIFICIAL GU&Iacute;A</span>
+            <h2>LucIA, la Inteligencia Artificial gu&iacute;a</h2>
+          </div>
+        </div>
+        <div class="lucia-presentation-body">
+          <h3 class="lucia-presentation-sub">Presentación:</h3>
+          <p class="lucia-highlight"><strong>LucIA la Inteligencia Artificial guía</strong></p>
+          <p>Hola de nuevo, Aprendiz. El Sistema Inter-Galáctico Humano (SIGH) está satisfecho con tu labor y el
+            núcleo prohibido te ha abierto sus bases de datos sin restricción. Ahora tu reto cambia: ya no se trata
+            solo de reconocer de dónde viene un dato, sino de <strong>tratarlo y clasificarlo</strong> correctamente
+            antes de que DataPrime lo use para tomar decisiones sobre el talento robótico de Byteon.</p>
+          <p>Recuerda cuatro preguntas antes de confiar en cualquier dato: ¿es <strong>válido</strong>? ¿sigue
+            <strong>vigente</strong>? ¿es <strong>importante</strong> para lo que necesitas resolver? y ¿qué
+            <strong>significa</strong> en su contexto? Después, pregúntate quién puede verlo: ¿es información
+            <strong>pública</strong>, <strong>privada</strong>, <strong>confidencial</strong> o
+            <strong>personal</strong>?
+          </p>
+          <div class="lucia-tips">
+            <div class="lucia-tip">🔎 Antes de usar un dato, verifica su fuente y su fecha.</div>
+            <div class="lucia-tip">🔒 Antes de compartirlo, verifica quién puede verlo.</div>
+            <div class="lucia-tip">⚖️ Ante la duda, trátalo como si fuera sensible.</div>
+          </div>
+        </div>
+
+        <div class="document-box" style="margin-top:28px;padding-top:22px;border-top:1px solid var(--border);">
+          <div
+            style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px;">
+            <div>
+              <span class="tag">DOCUMENTO OFICIAL</span>
+              <h3 style="font-size:1.15rem;margin:4px 0 0;color:var(--navy);">Documento: Tratamiento y
+                Clasificaci&oacute;n &ndash; Byteon</h3>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="Tratamiento y Clasificaci&oacute;n &ndash; Byteon.pdf" target="_blank" class="pdf-btn-open">Abrir
+                documento PDF &nearr;</a>
+              <a href="Tratamiento y Clasificaci&oacute;n &ndash; Byteon.pdf" download class="pdf-btn-dl">Descargar PDF
+                &darr;</a>
+            </div>
+          </div>
+          <div class="pdf-container" style="height:650px;min-height:500px;margin-top:12px;">
+            <iframe src="Tratamiento y Clasificaci&oacute;n &ndash; Byteon.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+              title="Tratamiento y Clasificaci&oacute;n &ndash; Byteon PDF" style="width:100%;height:100%;border:none;">
+              <p>Tu navegador no permite previsualizar el PDF embebido. <a
+                  href="Tratamiento y Clasificaci&oacute;n &ndash; Byteon.pdf" target="_blank">Haz clic aqu&iacute; para
+                  abrirlo</a>.</p>
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATERIAL PRINCIPAL -->
+    <section data-section="principal">
+      <div class="pdf-viewer-header">
+        <div>
+          <span class="tag">DOCUMENTO BASE DE LA MISIÓN</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Información y clasificarla — Material Principal</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Lectura central para el desarrollo de la misión: las
+            cuatro características de la información y su clasificación por formato, acceso y confidencialidad.</p>
+        </div>
+        <div class="pdf-actions">
+          <a href="Información y clasificarla.pdf" target="_blank" class="pdf-btn-open">Abrir en ventana nueva ↗</a>
+          <a href="Información y clasificarla.pdf" download class="pdf-btn-dl">Descargar PDF ⬇</a>
+        </div>
+      </div>
+      <div class="pdf-container">
+        <iframe src="Información y clasificarla.pdf#toolbar=1&navpanes=0" class="pdf-frame"
+          title="Información y clasificarla PDF">
+          <p>Tu navegador no permite previsualizar el PDF embebido. <a href="Información y clasificarla.pdf"
+              target="_blank">Haz clic aquí para abrirlo</a>.</p>
+        </iframe>
+      </div>
+    </section>
+
+    <!-- MATERIAL DE APOYO -->
+    <section data-section="material">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Material de apoyo y lecturas complementarias</h2>
+      <div
+        style="max-width:290px;margin:12px 0 14px;border-radius:8px;overflow:hidden;box-shadow:0 3px 12px rgba(20,33,61,.1);">
+        <img src="tratamiento3.png" alt="Material de apoyo y lecturas complementarias"
+          style="width:100%;height:180px;object-fit:cover;display:block;border-radius:8px;">
+      </div>
+      <p style="color:var(--ink-soft);margin-bottom:14px;">Documentos de referencia sobre las cualidades de la buena
+        información y sobre el marco normativo colombiano de clasificación y protección de datos.</p>
+
+      <div class="material-grid">
+        <a href="Reporte de Clasificación de Información.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 01</span>
+            <h3>Misión 2: Tratamiento y Clasificación</h3>
+            <p>Reporte completo de la misión en Byteon: atributos de la información, formatos, niveles de acceso y
+              flujo interno/externo.</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
+
+        <a href="caracteristicas-de-la-informacion_compress.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 02</span>
+            <h3>Características de la Información</h3>
+            <p>Cualidades de la buena información: relevancia, exactitud, completitud, confianza en la fuente,
+              puntualidad, detalle y comprensión.</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
+
+        <a href="gdc-g-03-guia-de-clasificacion-de-la-informacion-1.0.pdf" target="_blank" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO 03</span>
+            <h3>Guía de Clasificación de la Información</h3>
+            <p>Guía oficial (GDC-G-03): datos personales públicos, privados, semiprivados y sensibles; información
+              pública, clasificada y reservada según la Ley 1712 de 2014.</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- CARACTERÍSTICAS -->
+    <section data-section="caracteristicas">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Atributos fundamentales de la información</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Para que un dato sea procesable y útil para la gestión del
+        talento, debe cumplir rigurosamente con cuatro características esenciales.</p>
+
+      <div class="char-card c-validez">
+        <div class="eje-img-box">
+          <img src="tratamiento5.png" alt="Validez" class="eje-card-img">
+        </div>
+        <div class="char-head"><span class="tag">C-01</span>
+          <h3>Validez</h3>
+        </div>
+        <p>Grado de certeza y objetividad de un dato. La información válida proviene de fuentes verificadas, está
+          libre de sesgos y refleja la realidad operacional.</p>
+        <div class="char-example"><strong>Ejemplo:</strong> una prueba técnica de código en un entorno controlado
+          tiene alta validez; un rumor de pasillo sobre el desempeño de alguien carece de ella.</div>
+      </div>
+
+      <div class="char-card c-vigencia">
+        <div class="eje-img-box">
+          <img src="tratamiento6.png" alt="Vigencia" class="eje-card-img">
+        </div>
+        <div class="char-head"><span class="tag">C-02</span>
+          <h3>Vigencia</h3>
+        </div>
+        <p>Tiempo de vida útil del dato. En entornos de alta tecnología la obsolescencia es rápida: un dato cierto
+          ayer puede ser falso hoy.</p>
+        <div class="char-example"><strong>Ejemplo:</strong> un certificado de calibración o una licencia de
+          operación que expiró hace 6 meses ya no tiene vigencia; usarlo genera riesgos operativos y legales.</div>
+      </div>
+
+      <div class="char-card c-importancia">
+        <div class="eje-img-box">
+          <img src="tratamiento7.png" alt="Importancia" class="eje-card-img">
+        </div>
+        <div class="char-head"><span class="tag">C-03</span>
+          <h3>Importancia</h3>
+        </div>
+        <p>Valor o peso que tiene el dato para resolver un problema específico. Varía según el usuario y el
+          contexto: no toda la información tiene el mismo valor para todos.</p>
+        <div class="char-example"><strong>Ejemplo:</strong> para Nómina, las horas extra trabajadas son
+          decisivas; para Selección de Personal, esa misma métrica es irrelevante.</div>
+      </div>
+
+      <div class="char-card c-significado">
+        <div class="eje-img-box">
+          <img src="tratamiento8.png" alt="Significado" class="eje-card-img">
+        </div>
+        <div class="char-head"><span class="tag">C-04</span>
+          <h3>Significado</h3>
+        </div>
+        <p>Sentido que adquiere el dato al ser contextualizado. Un dato aislado no dice nada: requiere de un
+          analista que lo decodifique frente a una referencia.</p>
+        <div class="char-example"><strong>Ejemplo:</strong> "tasa de rotación del 15%" es buena o mala según se
+          compare con el promedio del sector o con el histórico de la empresa.</div>
+      </div>
+
+      <details class="deepen" open>
+        <summary>Profundizar: cualidades de la buena información</summary>
+        <div class="subgrid cols-3">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Relevancia</h4>
+            <p>Aumenta el conocimiento y reduce
+              la incertidumbre. La sobrecarga de datos irrelevantes dificulta, no ayuda, a tomar decisiones.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Exactitud</h4>
+            <p>Debe ser lo suficientemente
+              precisa para el propósito buscado; el nivel exigido varía según el rango jerárquico de quien decide.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Completa</h4>
+            <p>Informa sobre los puntos clave
+              del problema, aunque en la práctica rara vez está disponible el 100% del detalle.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Confianza en la fuente</h4>
+            <p>Aumenta cuando la
+              fuente ha sido digna de crédito en el pasado; las decisiones estratégicas suelen triangular varias
+              fuentes.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Puntualidad</h4>
+            <p>Debe comunicarse en el momento
+              en que va a usarse: información vital puede volverse "papel mojado" si llega tarde.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Detalle</h4>
+            <p>Debe contener el mínimo de
+              detalles necesario; a mayor nivel jerárquico, mayor grado de agregación y síntesis.</p>
+          </div>
+        </div>
+        <div class="subgrid" style="margin-top:16px;">
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Comprensión</h4>
+            <p>Es lo que transforma datos en
+              información: si no se entiende, no puede usarse ni añadir valor. Influyen las preferencias del usuario,
+              sus conocimientos previos, el entorno y el lenguaje.</p>
+          </div>
+          <div class="card-basic">
+            <h4 style="margin-bottom:6px;">Comunicar con la persona correcta</h4>
+            <p>Cada
+              colaborador tiene una esfera de responsabilidad y debe recibir la información que necesita para
+              cumplirla; ni retenerla ni sobrecargar a quien no la requiere.</p>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- CLASIFICACIÓN -->
+    <section data-section="clasificacion">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Clasificación de la información</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;">Una vez validada, el siguiente reto es determinar su
+        estado físico, su nivel de confidencialidad y su flujo dentro y fuera de la organización.</p>
+
+      <h3 style="font-size:1.02rem;margin-bottom:8px;">Por formato</h3>
+      <div class="subgrid">
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">💻 Información Digital</h4>
+          <p>Almacenada y
+            gestionada en medios electrónicos: servidores, bases de datos o la nube. Permite indexación rápida y
+            análisis masivo. <strong>Ejemplo:</strong> el expediente electrónico de un colaborador.</p>
+        </div>
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">📁 Información Física</h4>
+          <p>Documentos impresos o
+            expedientes tangibles. Requiere espacio físico y protocolos estrictos de acceso.
+            <strong>Ejemplo:</strong> el contrato laboral original firmado con tinta húmeda.
+          </p>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:26px 0 8px;">Por nivel de confidencialidad</h3>
+      <div class="class-card publica">
+        <span class="class-badge publica">Nivel 0 · Pública</span>
+        <p style="margin-bottom:0;">Libre acceso para cualquier entidad, dentro y fuera de la organización; su
+          divulgación no representa riesgo. <strong>Ejemplo:</strong> ofertas de empleo publicadas en portales de
+          trabajo, la misión y visión de la empresa.</p>
+      </div>
+      <div class="class-card privada">
+        <span class="class-badge privada">Nivel 1-2 · Privada / Interna</span>
+        <p style="margin-bottom:0;">Propiedad de la empresa, accesible solo para colaboradores autorizados; su fuga
+          puede dar ventaja a competidores. <strong>Ejemplo:</strong> la escala salarial interna, los manuales de
+          procesos.</p>
+      </div>
+      <div class="class-card confidencial">
+        <span class="class-badge confidencial">Nivel 3 · Confidencial</span>
+        <p style="margin-bottom:0;">Altamente sensible, limitada a la alta dirección o a los implicados directos;
+          una fuga puede causar demandas y daños reputacionales. <strong>Ejemplo:</strong> investigaciones en curso
+          sobre acoso laboral, estrategias de despidos no anunciadas.</p>
+      </div>
+      <div class="class-card personal">
+        <span class="class-badge personal">PII · Personal / Robótica</span>
+        <p style="margin-bottom:0;">Identifica directa o indirectamente a un individuo; protegida por leyes de
+          privacidad. <strong>Ejemplo:</strong> número de identificación, dirección, datos bancarios, huellas
+          dactilares.</p>
+      </div>
+
+      <h3 style="font-size:1.02rem;margin:26px 0 4px;">Por flujo: interna vs. externa</h3>
+      <div class="subgrid">
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">Información Interna (Endógena)</h4>
+          <p>Se genera y
+            consume dentro de la organización. <strong>Ejemplo:</strong> encuesta de clima organizacional, reportes
+            de ausentismo, memorandos de gerencia.</p>
+        </div>
+        <div class="card-basic">
+          <h4 style="margin-bottom:6px;">Información Externa (Exógena)</h4>
+          <p>Proviene del
+            entorno o se emite hacia él. <strong>Ejemplo:</strong> estudios de salarios de la competencia, nuevas
+            leyes laborales, índices de inflación.</p>
+        </div>
+      </div>
+
+      <details class="deepen">
+        <summary>Profundizar: marco legal colombiano de protección de datos</summary>
+        <p style="color:var(--ink-soft);">Según la Ley 1581 de 2012 y la Ley 1712 de 2014, los datos personales y la
+          información pública se clasifican con criterios adicionales de privacidad:</p>
+        <table class="quality-table">
+          <thead>
+            <tr>
+              <th>Categoría</th>
+              <th>Definición</th>
+              <th>Ejemplo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Dato personal público</strong></td>
+              <td>No es semiprivado, privado ni sensible.</td>
+              <td>Estado civil, profesión, calidad de servidor público.</td>
+            </tr>
+            <tr>
+              <td><strong>Dato personal privado</strong></td>
+              <td>Naturaleza íntima; requiere autorización expresa del titular.</td>
+              <td>Nivel de escolaridad, fotografías, estilo de vida.</td>
+            </tr>
+            <tr>
+              <td><strong>Dato personal semiprivado</strong></td>
+              <td>Interesa a un grupo o a la sociedad; requiere autorización expresa.</td>
+              <td>Dato financiero y crediticio.</td>
+            </tr>
+            <tr>
+              <td><strong>Datos sensibles</strong></td>
+              <td>Afectan la intimidad o pueden generar discriminación.</td>
+              <td>Origen étnico, orientación política, salud, vida sexual, datos biométricos.</td>
+            </tr>
+            <tr>
+              <td><strong>Datos de menores</strong></td>
+              <td>Protección constitucional reforzada; tratamiento proscrito salvo datos públicos.</td>
+              <td>Registros escolares de un hijo de un colaborador.</td>
+            </tr>
+            <tr>
+              <td><strong>Información Pública Clasificada</strong></td>
+              <td>Acceso negado por proteger intimidad, salud, seguridad o secretos comerciales (Ley 1712, art. 18).
+              </td>
+              <td>Hojas de vida, historia laboral, expedientes pensionales.</td>
+            </tr>
+            <tr>
+              <td><strong>Información Pública Reservada</strong></td>
+              <td>Acceso negado por proteger bienes o intereses públicos (Ley 1712, art. 19).</td>
+              <td>Plan nacional de inteligencia, actuaciones disciplinarias en curso.</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- EVALUADOR -->
+    <section data-section="evaluador">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Evaluador de conocimientos</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Un cuestionario mixto: selección única, verdadero/falso,
+        lista desplegable, espacio para rellenar y tarjetas para relacionar. Cada intento queda registrado en el
+        <strong>Dashboard</strong>.
+      </p>
+
+      <div class="subnav" id="evalSubnav">
+        <button data-eval="caracteristicas" class="active">Características</button>
+        <button data-eval="clasificacion">Clasificación</button>
+      </div>
+
+      <div class="eval-panel active" id="evalPanel-caracteristicas">
+        <div id="quizWrap-caracteristicas"></div>
+        <div class="eval-actions">
+          <button type="button" class="primary" data-check="caracteristicas">Verificar respuestas</button>
+        </div>
+        <div class="verdict" id="verdict-caracteristicas">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+
+      <div class="eval-panel" id="evalPanel-clasificacion">
+        <div id="quizWrap-clasificacion"></div>
+        <div class="eval-actions">
+          <button type="button" class="primary" data-check="clasificacion">Verificar respuestas</button>
+        </div>
+        <div class="verdict" id="verdict-clasificacion">
+          <h4 class="v-title"></h4>
+          <p class="v-text"></p>
+          <p class="v-weak" style="font-size:.88rem;color:var(--ink-soft);"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO -->
+    <section data-section="juego">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Clasifica la información</h2>
+      <p style="color:var(--ink-soft);margin-bottom:22px;">Se te mostrará un dato o documento del planeta Byteon.
+        Decide si es Pública, Privada/Interna, Confidencial o Personal. Cada partida se registra en el
+        <strong>Dashboard</strong>.
+      </p>
+
+      <div class="game-wrap">
+        <div class="game-progress">
+          <span id="gameProgressText">Pregunta 1 de 12</span>
+          <span id="gameScoreText">Aciertos: 0</span>
+        </div>
+        <div class="game-bar">
+          <div class="game-bar-fill" id="gameBar"></div>
+        </div>
+
+        <div id="gamePlay">
+          <div class="game-card" id="gameQuestion"></div>
+          <div class="game-options" id="gameOptions">
+            <button data-choice="publica">Pública</button>
+            <button data-choice="privada">Privada / Interna</button>
+            <button data-choice="confidencial">Confidencial</button>
+            <button data-choice="personal">Personal (PII)</button>
+          </div>
+          <div class="game-feedback" id="gameFeedback"></div>
+          <button class="primary" id="gameNextBtn" style="display:none;">Siguiente →</button>
+        </div>
+
+        <div class="game-end" id="gameEnd" style="display:none;">
+          <p style="color:var(--ink-soft);margin-bottom:6px;">Resultado final</p>
+          <div class="score"><span id="gameFinalScore">0</span>/12</div>
+          <p id="gameFinalMsg" style="margin-top:10px;"></p>
+          <button class="primary" id="gameReplayBtn">Jugar de nuevo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section data-section="dashboard">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Dashboard de resultados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;">Resumen de tus evaluaciones y partidas. Los datos se
+        guardan solo en este navegador; no salen de tu computador.</p>
+
+      <div class="registro-card">
+        <h4>📝 Registro del aprendiz</h4>
+        <p class="hint">Completa estos datos para que aparezcan en el reporte impreso. Se guardan solo en este
+          navegador.</p>
+        <div class="registro-grid">
+          <label>Nombre completo<input type="text" id="regNombre" placeholder="Nombre y apellidos"></label>
+          <label>Número de documento<input type="text" id="regDocumento" placeholder="C.C. / T.I."></label>
+          <label>Ficha<input type="text" id="regFicha" placeholder="Número de ficha"></label>
+          <label>Instructor / Evaluador<input type="text" id="regInstructor"
+              placeholder="Nombre del instructor"></label>
+        </div>
+      </div>
+
+      <div class="stat-row" id="dashStats"></div>
+
+      <div class="dash-grid">
+        <div class="chart-card">
+          <h4>Puntaje del juego por partida</h4>
+          <div id="chartGameBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Veredictos del evaluador (Características vs. Clasificación)</h4>
+          <div id="chartEvalBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Aciertos vs. errores en el juego</h4>
+          <div id="chartGamePie"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Errores por categoría de confidencialidad</h4>
+          <div id="chartTypePie"></div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h4>📊 Análisis — Evaluador</h4>
+        <p id="analysisEval"></p>
+      </div>
+      <div class="analysis-card">
+        <h4>🎮 Análisis — Juego de clasificación</h4>
+        <p id="analysisGame"></p>
+      </div>
+
+      <div class="reward-box" id="rewardBox">
+        <span class="reward-tag">RETO FINAL · RECOMPENSA</span>
+        <h4>🚀 Investigador Galáctico grado 1</h4>
+        <p>Al completar este reto obtendrás el rango de Investigador Galáctico grado 1 y
+          <strong id="nexAmount">0</strong> NEXs.
+        </p>
+        <div class="reward-amount"><span class="big" id="nexBig">0</span><span class="of">NEXs de 80.000 posibles</span>
+        </div>
+        <div class="reward-track">
+          <div class="reward-fill" id="nexFill"></div>
+        </div>
+        <div class="reward-break" id="nexBreak"></div>
+        <div class="reward-status" id="nexStatus"></div>
+      </div>
+
+      <div class="dash-actions"
+        style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:24px;">
+        <button class="ghost" id="resetDashBtn" style="color:var(--coral);border-color:rgba(214,91,74,.35);">🗑️ Borrar
+          historial del dashboard</button>
+        <button class="btn-print-dashboard" id="printReportBtn" type="button">🖨️ Imprimir registro del aprendiz y
+          dashboard</button>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD PRESENCIAL -->
+    <section data-section="presencial">
+      <h2 style="font-size:1.5rem;margin-bottom:6px;">Actividad presencial: el semáforo de clasificación</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">Una dinámica de aula distinta al juego digital: los
+        equipos deben clasificar información física dentro de un tiempo límite y sustentar su decisión con las
+        cuatro características (validez, vigencia, importancia, significado).</p>
+
+      <div class="zone-legend">
+        <div class="zone-chip z-publica">🟢 Zona Pública<small>Libre acceso, sin riesgo</small></div>
+        <div class="zone-chip z-privada">🟡 Zona Privada/Interna<small>Solo colaboradores autorizados</small></div>
+        <div class="zone-chip z-confidencial">🔴 Zona Confidencial<small>Alta dirección o implicados</small></div>
+        <div class="zone-chip z-personal">🔵 Zona Personal (PII)<small>Identifica a una persona</small></div>
+      </div>
+
+      <div class="card-basic">
+        <h3 style="font-size:1.05rem;margin-bottom:10px;">Cómo organizarla</h3>
+        <ol class="steps">
+          <li>Forma equipos de 3 a 4 personas. Ubica en el ambiente de formación cuatro estaciones o carteles:
+            <strong>Verde
+              (Pública)</strong>, <strong>Amarillo (Privada/Interna)</strong>, <strong>Rojo (Confidencial)</strong> y
+            <strong>Azul (Personal)</strong>.
+          </li>
+          <li>Imprime y recorta las 16 tarjetas de información y los 4 carteles de zona con el botón de abajo.</li>
+          <li>Baraja las tarjetas y repártelas por igual entre los equipos.</li>
+          <li><strong>Ronda del semáforo (6 minutos):</strong> a la señal, cada equipo corre a colocar sus tarjetas en
+            la zona de color que considere correcta.</li>
+          <li><strong>Ronda de sustentación:</strong> el docente elige al azar 4 tarjetas ya ubicadas; el equipo
+            responsable debe justificar la decisión mencionando al menos una de las cuatro características
+            (validez, vigencia, importancia o significado).</li>
+          <li>Verifica los resultados con la hoja de respuestas (última página de la impresión) y discute en plenaria
+            los casos de desacuerdo o las tarjetas mal ubicadas.</li>
+          <li><strong>Cierre grupal:</strong> cada equipo propone un ejemplo real de su entorno (académico o
+            laboral) para cada una de las cuatro zonas de color.</li>
+        </ol>
+        <p style="font-size:.85rem;color:var(--ink-soft);"><strong>Puntaje sugerido:</strong> 1 punto por tarjeta bien
+          ubicada, 2 puntos adicionales por cada sustentación correcta. Gana el equipo con mayor puntaje.</p>
+        <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas, carteles de zona y hoja de
+          respuestas</button>
+      </div>
+    </section>
+
+    <!-- MAPA MENTAL -->
+    <section data-section="mapamental">
+      <div class="mapamental-header">
+        <div>
+          <span class="tag">ESQUEMA CONCEPTUAL</span>
+          <h2 style="font-size:1.5rem;margin:4px 0 6px;">Mapa Mental: Tratamiento y Clasificación de la Información</h2>
+          <p style="color:var(--ink-soft);margin-bottom:0;">Estructura visual de las características, formatos,
+            niveles de confidencialidad, flujo y normativa vistos en esta misión.</p>
+        </div>
+        <div class="mapamental-actions">
+          <button type="button" class="mapa-btn-dl" id="downloadSvgBtn">⬇ Descargar mapa mental (SVG)</button>
+        </div>
+      </div>
+
+      <div class="mapamental-card">
+        <div class="mapamental-viewer" id="mapaViewer" title="Haz clic para ampliar">
+          <div id="mindmapSvgWrap"></div>
+          <div class="mapa-zoom-overlay">🔍 <span>Clic para ampliar</span></div>
+        </div>
+        <div class="mapamental-footer">
+          <div class="mapa-badges">
+            <span class="mapa-badge b-publica">Pública</span>
+            <span class="mapa-badge b-privada">Privada</span>
+            <span class="mapa-badge b-confidencial">Confidencial</span>
+            <span class="mapa-badge b-personal">Personal</span>
+          </div>
+          <span class="mapa-note">Diagrama generado a partir del contenido de la misión.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Printable content, only visible via window.print() -->
+  <div id="printCards">
+    <h2>Tarjetas de información — recorta cada una</h2>
+    <div class="p-grid" id="printGrid"></div>
+    <div style="page-break-before: always;">
+      <h2>Carteles de zona — recorta e instala en cada estación</h2>
+      <div class="p-zone-card" style="border-color:#1F7A6C;color:#155A50;">🟢 ZONA PÚBLICA</div>
+      <div class="p-zone-card" style="border-color:#C68A2E;color:#9C6D20;">🟡 ZONA PRIVADA / INTERNA</div>
+      <div class="p-zone-card" style="border-color:#D65B4A;color:#B14536;">🔴 ZONA CONFIDENCIAL</div>
+      <div class="p-zone-card" style="border-color:#2A5C8A;color:#1E4463;">🔵 ZONA PERSONAL (PII)</div>
+    </div>
+    <div style="page-break-before: always;">
+      <h2>Hoja de respuestas (para el docente)</h2>
+      <table id="answerTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Tarjeta</th>
+            <th>Zona correcta</th>
+          </tr>
+        </thead>
+        <tbody id="answerBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Reporte institucional imprimible (Registro del aprendiz + Dashboard) -->
+  <div id="printReport">
+    <div class="report-header">
+      <div class="report-header-top">
+        <div>
+          <div class="report-org">Servicio Nacional de Aprendizaje SENA • Regional Distrito Capital</div>
+          <div class="report-center">Centro de Gestión Administrativa</div>
+          <div class="report-competencia"><strong>COMPETENCIA:</strong> 210601026 - OPERAR HERRAMIENTAS INFORMÁTICAS
+            Y DIGITALES DE ACUERDO CON PROTOCOLOS Y MANUALES TÉCNICOS</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-project-card">
+      <div class="report-project-title">RETOS DEL PLANETA BYTEON — REPORTE DE EVALUACIÓN Y DESEMPEÑO</div>
+      <div class="report-project-sub"><strong>FASES DEL PROYECTO:</strong> TRATAMIENTO Y OFIMÁTICA •
+        <strong>PROGRAMA:</strong> TÉCNICO EN TALENTO HUMANO • <strong>RETO:</strong> 2. TRATAMIENTO Y
+        CLASIFICACIÓN DE LA INFORMACIÓN
+      </div>
+      <div class="report-ra">
+        <strong>RESULTADOS DE APRENDIZAJE:</strong>
+        <ul>
+          <li>Clasificar información de talento robótico a ser procesada.</li>
+          <li>Tratar información de talento robótico de Byteon, utilizando paquete básico de ofimática galáctica
+            de acuerdo con recursos y requerimientos de la organización.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="report-student-box">
+      <div class="report-box-title">Registro del aprendiz</div>
+      <div class="report-reg-grid">
+        <div class="report-field"><span class="label">Nombre completo:</span><span class="reg-val"
+            id="repNombre"></span></div>
+        <div class="report-field"><span class="label">Número de documento:</span><span class="reg-val"
+            id="repDocumento"></span></div>
+        <div class="report-field"><span class="label">Ficha:</span><span class="reg-val" id="repFicha"></span></div>
+        <div class="report-field"><span class="label">Programa:</span><span class="reg-val">Programa Técnico en Talento
+            Humano</span></div>
+        <div class="report-field"><span class="label">Centro de formación:</span><span class="reg-val">Centro de Gestión
+            Administrativa</span></div>
+        <div class="report-field"><span class="label">Regional:</span><span class="reg-val">Regional Distrito
+            Capital</span></div>
+        <div class="report-field"><span class="label">Fecha y hora de emisión:</span><span class="reg-val"
+            id="repFecha"></span></div>
+        <div class="report-field"><span class="label">Instructor / Evaluador:</span><span class="reg-val"
+            id="repInstructor"></span></div>
+      </div>
+    </div>
+
+    <div class="report-sec-title">Resultados consolidados del dashboard</div>
+    <div class="report-stats-grid" id="repStats"></div>
+
+    <div class="report-reward-box" id="repRewardBox">
+      <h4>🚀 Investigador Galáctico grado 1 — Sistema de Recompensas</h4>
+      <p id="repNexSummary"></p>
+      <div class="report-reward-pills" id="repNexPills"></div>
+    </div>
+
+    <div class="report-sec-title">Gráficos del dashboard</div>
+    <div class="report-charts-grid">
+      <div class="report-chart">
+        <h4>Puntaje del juego por partida</h4>
+        <div id="repChartGameBar"></div>
+      </div>
+      <div class="report-chart">
+        <h4>Veredictos del evaluador (Características vs. Clasificación)</h4>
+        <div id="repChartEvalBar"></div>
+      </div>
+      <div class="report-chart">
+        <h4>Aciertos vs. errores en el juego</h4>
+        <div id="repChartGamePie"></div>
+      </div>
+      <div class="report-chart">
+        <h4>Errores por categoría de confidencialidad</h4>
+        <div id="repChartTypePie"></div>
+      </div>
+    </div>
+
+    <div class="report-sec-title">Diagnóstico y análisis cualitativo</div>
+    <div class="report-analysis-item"><strong>Evaluador de conocimientos:</strong><span id="repAnalysisEval"></span>
+    </div>
+    <div class="report-analysis-item"><strong>Juego de clasificación (Pública / Privada / Confidencial /
+        Personal):</strong><span id="repAnalysisGame"></span></div>
+
+    <div class="report-sec-title">Desempeño por categoría de confidencialidad</div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Aciertos</th>
+          <th>Errores</th>
+          <th>Total clasificaciones</th>
+          <th>Efectividad</th>
+        </tr>
+      </thead>
+      <tbody id="repTypeTableBody"></tbody>
+    </table>
+
+    <div class="report-sec-title">Historial detallado de evaluaciones realizadas</div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fecha/Hora</th>
+          <th>Tipo de evaluación</th>
+          <th>Puntaje</th>
+          <th>%</th>
+          <th>Veredicto</th>
+          <th>Aspectos a reforzar</th>
+        </tr>
+      </thead>
+      <tbody id="repEvalTableBody"></tbody>
+    </table>
+
+    <div class="report-sec-title">Historial de partidas en el simulador</div>
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th>Partida</th>
+          <th>Fecha/Hora</th>
+          <th>Aciertos</th>
+          <th>Errores</th>
+          <th>Efectividad</th>
+          <th>NEXs estimados</th>
+        </tr>
+      </thead>
+      <tbody id="repGameTableBody"></tbody>
+    </table>
+
+    <div class="report-signatures">
+      <div class="report-obs">
+        <strong>Observaciones y recomendaciones del instructor / evaluador:</strong>
+        <div class="obs-lines"></div>
+        <div class="obs-lines"></div>
+      </div>
+      <div class="sig-grid">
+        <div class="sig-box">
+          <div class="sig-line">&nbsp;</div>
+          <div class="sig-label">Firma del aprendiz</div>
+        </div>
+        <div class="sig-box">
+          <div class="sig-line">&nbsp;</div>
+          <div class="sig-label">Firma del instructor / evaluador</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Lightbox para el Mapa Mental -->
+  <div class="mapa-modal" id="mapaModal" aria-hidden="true">
+    <div class="mapa-modal-inner">
+      <div class="mapa-modal-topbar">
+        <button type="button" class="mapa-modal-close" id="mapaModalClose" title="Cerrar (Esc)">&times;</button>
+      </div>
+      <div class="mapa-modal-body" id="mapaModalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    // ================= Datos =================
+    const ITEMS = [
+      { text: "Las ofertas de empleo publicadas en los portales de trabajo de Byteon.", type: "publica", explain: "Es de libre acceso y su divulgación mejora la imagen corporativa: información pública (Nivel 0)." },
+      { text: "La escala salarial interna de la corporación.", type: "privada", explain: "Pertenece a la empresa y su fuga daría ventaja a la competencia: información privada/interna." },
+      { text: "Investigaciones en curso sobre acoso laboral entre Neógenos.", type: "confidencial", explain: "Su divulgación puede causar demandas y daños reputacionales: información confidencial (Nivel 3)." },
+      { text: "El número de identificación y la huella dactilar de un Neógeno empleado.", type: "personal", explain: "Identifica directamente a un individuo: dato personal (PII), protegido por ley." },
+      { text: "El reporte anual de sostenibilidad y diversidad de la empresa.", type: "publica", explain: "Se publica intencionalmente para mejorar la imagen corporativa: información pública." },
+      { text: "El presupuesto anual para capacitaciones del departamento de RR.HH.", type: "privada", explain: "Solo lo conocen colaboradores autorizados: información privada/interna." },
+      { text: "Estrategias de despidos masivos aún no anunciadas.", type: "confidencial", explain: "Alta sensibilidad, limitada a la alta dirección: información confidencial." },
+      { text: "La dirección de residencia y la información bancaria de un empleado.", type: "personal", explain: "Identifica y afecta directamente a una persona: dato personal (PII)." },
+      { text: "La declaración de misión y visión publicada en el sitio web corporativo.", type: "publica", explain: "De libre acceso para cualquier entidad: información pública." },
+      { text: "Los manuales internos de procesos de selección de personal.", type: "privada", explain: "Accesibles solo para colaboradores autorizados: información privada/interna." },
+      { text: "El historial de mantenimiento médico y psicológico de un Neógeno.", type: "confidencial", explain: "Historial médico/psicológico: altamente sensible, información confidencial." },
+      { text: "El correo electrónico y número de celular de una persona que solicita información.", type: "personal", explain: "Identifica indirectamente a una persona: dato personal (PII)." }
+    ];
+
+    // Banco extendido para la actividad presencial (16 tarjetas)
+    const PRESENCIAL_ITEMS = ITEMS.concat([
+      { text: "Los resultados financieros trimestrales, aún no publicados a los accionistas.", type: "confidencial" },
+      { text: "El código de vestuario y las políticas generales publicadas en la intranet abierta a visitantes.", type: "publica" },
+      { text: "El número de cuenta bancaria y la dirección de residencia registrados en la base de datos de nómina.", type: "personal" },
+      { text: "Las métricas de productividad de un departamento específico, disponibles solo internamente.", type: "privada" }
+    ]);
+
+    const ZONE_LABEL = { publica: "Pública", privada: "Privada/Interna", confidencial: "Confidencial", personal: "Personal (PII)" };
+
+    const QUIZZES = {
+      caracteristicas: {
+        title: "Características de la Información",
+        items: [
+          { id: "c1", type: "tf", prompt: "La validez de la información depende de que provenga de fuentes verificadas y libres de sesgos.", correct: true, explain: "Correcto: la validez es el grado de exactitud y confiabilidad de un dato." },
+          { id: "c2", type: "single", prompt: "Un certificado de calibración de maquinaria que venció hace 6 meses ha perdido principalmente su...", options: ["Validez", "Vigencia", "Importancia", "Significado"], correct: 1, explain: "Vigencia: es el tiempo de vida útil del dato; uno vencido ya no es aplicable." },
+          { id: "c3", type: "select", prompt: 'El dato "la tasa de rotación es del 15%" solo adquiere ____ cuando se compara con el promedio del sector.', options: ["Vigencia", "Significado", "Importancia", "Validez"], correct: 1, explain: "Significado: un dato aislado no dice nada; requiere interpretación en contexto." },
+          { id: "c4", type: "single", prompt: "Que las horas extra sean cruciales para Nómina pero irrelevantes para Selección de Personal demuestra que la importancia de un dato...", options: ["Es fija y no cambia", "Depende solo de su vigencia", "Varía según el usuario y el propósito", "Depende del formato del archivo"], correct: 2, explain: "La importancia varía según quién use el dato y para qué lo necesite." },
+          { id: "c5", type: "select", prompt: "Complete: la ____ es el grado de certeza y objetividad de un dato; refleja qué tan fiable es su fuente.", options: ["Validez", "Vigencia", "Importancia", "Significado"], correct: 0, explain: "La validez se refiere a la exactitud y confiabilidad de la información." },
+          { id: "c6", type: "tf", prompt: 'Según los criterios de buena información, un informe puede volverse "papel mojado" si llega con retraso, aunque sus datos sean exactos.', correct: true, explain: "Correcto: la puntualidad importa tanto como la exactitud." },
+          { id: "c7", type: "single", prompt: "Cuando un informe incluye demasiados datos innecesarios, la característica más afectada es la...", options: ["Relevancia", "Confianza en la fuente", "Puntualidad", "Comprensión"], correct: 0, explain: "La relevancia exige incluir solo los datos que reducen la incertidumbre, no acumular de más." },
+          {
+            id: "match", type: "match", prompt: "Relaciona cada característica con el ejemplo que mejor la ilustra.", pairs: [
+              { term: "Validez", def: "Prueba técnica de código en un entorno controlado y verificado" },
+              { term: "Vigencia", def: "Licencia de maquinaria pesada que expiró hace 6 meses" },
+              { term: "Importancia", def: "Horas extra: decisivas para Nómina, irrelevantes para Selección" },
+              { term: "Significado", def: "Tasa de rotación del 15% comparada con el promedio del sector" }
+            ]
+          }
+        ]
+      },
+      clasificacion: {
+        title: "Clasificación de la Información",
+        items: [
+          { id: "l1", type: "single", prompt: "El expediente electrónico de un colaborador, guardado en la nube corporativa, corresponde a información...", options: ["Física", "Digital", "Reservada", "Terciaria"], correct: 1, explain: "Es digital: se gestiona en medios electrónicos (servidores, nube, bases de datos)." },
+          { id: "l2", type: "tf", prompt: "Un contrato laboral firmado con tinta y archivado en una carpeta de oficina es un ejemplo de información física.", correct: true, explain: "Correcto: documentos impresos y expedientes tangibles son información física." },
+          { id: "l3", type: "select", prompt: "Según la Ley 1712 de 2014, la información que puede negarse por afectar la intimidad, la salud o los secretos comerciales se denomina información pública ____.", options: ["Reservada", "Clasificada", "Abierta", "General"], correct: 1, explain: "Información Pública Clasificada: protege derechos particulares como intimidad, salud o secretos comerciales." },
+          { id: "l4", type: "single", prompt: "El plan nacional de inteligencia y los documentos de contrainteligencia son ejemplos de información pública...", options: ["Clasificada", "Reservada", "Semiprivada", "Privada"], correct: 1, explain: "Información Pública Reservada: se exceptúa de acceso ciudadano por proteger intereses públicos." },
+          { id: "l5", type: "select", prompt: "Complete: los datos que revelan origen étnico, orientación política, convicciones religiosas, salud o vida sexual se llaman datos ____.", options: ["Sensibles", "Personales", "Semiprivados", "Públicos"], correct: 0, explain: "Los datos sensibles afectan la intimidad y su uso indebido puede generar discriminación." },
+          { id: "l6", type: "tf", prompt: "Los datos personales de niños, niñas y adolescentes pueden tratarse sin ninguna restricción especial, igual que los de un adulto.", correct: false, explain: "Falso: tienen protección constitucional reforzada; su tratamiento queda proscrito salvo datos públicos." },
+          { id: "l7", type: "single", prompt: "La escala salarial interna y los manuales de procesos, accesibles solo para colaboradores autorizados, se clasifican como información...", options: ["Pública", "Privada o interna", "Personal (PII)", "Externa"], correct: 1, explain: "Es privada/interna: pertenece a la empresa y su fuga podría afectarla." },
+          {
+            id: "match", type: "match", prompt: "Relaciona cada categoría con el ejemplo que le corresponde.", pairs: [
+              { term: "Información Pública", def: "Oferta de empleo publicada en un portal de trabajo" },
+              { term: "Información Confidencial", def: "Investigación en curso sobre acoso laboral" },
+              { term: "Dato Personal (PII)", def: "Número de identificación y huella dactilar de un empleado" },
+              { term: "Información Externa", def: "Estudio de salarios de la competencia (benchmarking)" }
+            ]
+          }
+        ]
+      }
+    };
+
+    // ---------- Persisted dashboard data ----------
+    const DASH_KEY = 'ci_dashboard_v1';
+    function loadDash() {
+      try { const raw = localStorage.getItem(DASH_KEY); if (raw) return JSON.parse(raw); } catch (e) { }
+      return null;
+    }
+    let DASH = loadDash() || {
+      evalHistory: [],
+      gameHistory: [],
+      typeStats: { publica: { correct: 0, wrong: 0 }, privada: { correct: 0, wrong: 0 }, confidencial: { correct: 0, wrong: 0 }, personal: { correct: 0, wrong: 0 } }
+    };
+    function saveDash() { try { localStorage.setItem(DASH_KEY, JSON.stringify(DASH)); } catch (e) { } }
+
+    // ---------- Navigation ----------
+    const tabButtons = document.querySelectorAll('#tabs button[data-section]');
+    const sections = document.querySelectorAll('main > section');
+    function goTo(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (name === 'dashboard') renderDashboard();
+    }
+    tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
+    document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // ---------- Evaluador sub-nav ----------
+    const evalSubButtons = document.querySelectorAll('#evalSubnav button');
+    const evalPanels = { caracteristicas: document.getElementById('evalPanel-caracteristicas'), clasificacion: document.getElementById('evalPanel-clasificacion') };
+    evalSubButtons.forEach(b => b.addEventListener('click', () => {
+      evalSubButtons.forEach(x => x.classList.toggle('active', x === b));
+      Object.entries(evalPanels).forEach(([key, panel]) => panel.classList.toggle('active', key === b.dataset.eval));
+    }));
+
+    // ---------- Quiz renderer ----------
+    const quizState = {}; // quizKey -> { matches: {targetIdx: termIdx}, pickedTerm: null }
+
+    function letters(n) { return ["A", "B", "C", "D", "E", "F"].slice(0, n); }
+
+    function renderQuiz(quizKey) {
+      const quiz = QUIZZES[quizKey];
+      const wrap = document.getElementById('quizWrap-' + quizKey);
+      wrap.innerHTML = '';
+      quizState[quizKey] = { matches: {}, pickedTerm: null };
+      let qNum = 0;
+
+      quiz.items.forEach((item) => {
+        const box = document.createElement('div');
+        box.className = 'quiz-item';
+        box.id = 'quizitem-' + quizKey + '-' + item.id;
+
+        if (item.type !== 'match') {
+          qNum++;
+          box.innerHTML = '<div class="q-num">PREGUNTA ' + qNum + ' · ' +
+            (item.type === 'tf' ? 'VERDADERO / FALSO' : item.type === 'select' ? 'LISTA DESPLEGABLE' : item.type === 'fill' ? 'RELLENAR EL ESPACIO' : 'SELECCIÓN ÚNICA') +
+            '</div><div class="q-prompt">' + item.prompt + '</div>';
+        } else {
+          box.innerHTML = '<div class="q-num">RELACIONAR · ARRASTRA O TOCA CADA TARJETA</div><div class="q-prompt">' + item.prompt + '</div>';
+        }
+
+        if (item.type === 'single') {
+          const optsDiv = document.createElement('div');
+          optsDiv.className = 'quiz-opts';
+          item.options.forEach((opt, i) => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.className = 'quiz-opt'; b.textContent = opt; b.dataset.value = i;
+            b.addEventListener('click', () => {
+              optsDiv.querySelectorAll('.quiz-opt').forEach(x => x.classList.remove('selected'));
+              b.classList.add('selected');
+            });
+            optsDiv.appendChild(b);
+          });
+          box.appendChild(optsDiv);
+        } else if (item.type === 'tf') {
+          const optsDiv = document.createElement('div');
+          optsDiv.className = 'quiz-opts';
+          [['Verdadero', true], ['Falso', false]].forEach(([label, val]) => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.className = 'quiz-opt tf'; b.textContent = label; b.dataset.value = val;
+            b.addEventListener('click', () => {
+              optsDiv.querySelectorAll('.quiz-opt').forEach(x => x.classList.remove('selected'));
+              b.classList.add('selected');
+            });
+            optsDiv.appendChild(b);
+          });
+          box.appendChild(optsDiv);
+        } else if (item.type === 'select') {
+          const sel = document.createElement('select');
+          sel.className = 'quiz-select';
+          const opt0 = document.createElement('option'); opt0.value = ''; opt0.textContent = '— Selecciona una opción —';
+          sel.appendChild(opt0);
+          item.options.forEach((opt, i) => {
+            const o = document.createElement('option'); o.value = i; o.textContent = opt; sel.appendChild(o);
+          });
+          box.appendChild(sel);
+        } else if (item.type === 'fill') {
+          const inp = document.createElement('input');
+          inp.type = 'text'; inp.className = 'quiz-fill'; inp.placeholder = 'Escribe tu respuesta...';
+          box.appendChild(inp);
+        } else if (item.type === 'match') {
+          const hint = document.createElement('p');
+          hint.className = 'match-hint';
+          hint.textContent = 'Toca (o arrastra) una tarjeta de la izquierda y luego toca la definición correspondiente a la derecha.';
+          box.appendChild(hint);
+
+          const matchWrap = document.createElement('div');
+          matchWrap.className = 'match-wrap';
+          const termsCol = document.createElement('div'); termsCol.className = 'match-terms';
+          const targetsCol = document.createElement('div'); targetsCol.className = 'match-targets';
+
+          const shuffledTermIdx = item.pairs.map((_, i) => i).sort(() => Math.random() - 0.5);
+
+          shuffledTermIdx.forEach((termIdx) => {
+            const term = document.createElement('div');
+            term.className = 'match-term';
+            term.textContent = item.pairs[termIdx].term;
+            term.draggable = true;
+            term.dataset.termIdx = termIdx;
+            term.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/plain', termIdx); });
+            term.addEventListener('click', () => {
+              if (term.classList.contains('placed')) return;
+              termsCol.querySelectorAll('.match-term').forEach(t => t.classList.remove('picked'));
+              term.classList.add('picked');
+              quizState[quizKey].pickedTerm = termIdx;
+            });
+            termsCol.appendChild(term);
+          });
+
+          item.pairs.forEach((pair, targetIdx) => {
+            const target = document.createElement('div');
+            target.className = 'match-target';
+            target.dataset.targetIdx = targetIdx;
+            target.innerHTML = '<span class="slot">— arrastra aquí —</span><span class="def">' + pair.def + '</span>';
+            target.addEventListener('dragover', (e) => { e.preventDefault(); target.classList.add('dragover'); });
+            target.addEventListener('dragleave', () => target.classList.remove('dragover'));
+            target.addEventListener('drop', (e) => {
+              e.preventDefault(); target.classList.remove('dragover');
+              const termIdx = parseInt(e.dataTransfer.getData('text/plain'), 10);
+              placeMatch(quizKey, item, termsCol, targetsCol, termIdx, targetIdx);
+            });
+            target.addEventListener('click', () => {
+              if (quizState[quizKey].pickedTerm === null || quizState[quizKey].pickedTerm === undefined) return;
+              placeMatch(quizKey, item, termsCol, targetsCol, quizState[quizKey].pickedTerm, targetIdx);
+              quizState[quizKey].pickedTerm = null;
+            });
+            targetsCol.appendChild(target);
+          });
+
+          matchWrap.appendChild(termsCol); matchWrap.appendChild(targetsCol);
+          box.appendChild(matchWrap);
+        }
+
+        const fb = document.createElement('div');
+        fb.className = 'quiz-feedback';
+        fb.id = 'fb-' + quizKey + '-' + item.id;
+        box.appendChild(fb);
+
+        wrap.appendChild(box);
+      });
+    }
+
+    function placeMatch(quizKey, item, termsCol, targetsCol, termIdx, targetIdx) {
+      // Remove this term from any previous target
+      Object.keys(quizState[quizKey].matches).forEach(tIdx => {
+        if (quizState[quizKey].matches[tIdx] === termIdx) delete quizState[quizKey].matches[tIdx];
+      });
+      quizState[quizKey].matches[targetIdx] = termIdx;
+      // Update visuals
+      const termEl = termsCol.querySelector('.match-term[data-term-idx="' + termIdx + '"]');
+      termsCol.querySelectorAll('.match-term').forEach(t => t.classList.remove('picked'));
+      termsCol.querySelectorAll('.match-term').forEach(t => {
+        const idx = parseInt(t.dataset.termIdx, 10);
+        const stillUsed = Object.values(quizState[quizKey].matches).includes(idx);
+        t.classList.toggle('placed', stillUsed);
+      });
+      targetsCol.querySelectorAll('.match-target').forEach(tg => {
+        const tIdx = parseInt(tg.dataset.targetIdx, 10);
+        const slot = tg.querySelector('.slot');
+        if (quizState[quizKey].matches[tIdx] !== undefined) {
+          slot.textContent = item.pairs[quizState[quizKey].matches[tIdx]].term;
+        } else {
+          slot.textContent = '— arrastra aquí —';
+        }
+        tg.classList.remove('correct', 'incorrect');
+      });
+    }
+
+    function checkQuiz(quizKey) {
+      const quiz = QUIZZES[quizKey];
+      let total = 0, max = 0;
+      const weak = [];
+
+      quiz.items.forEach((item) => {
+        const fb = document.getElementById('fb-' + quizKey + '-' + item.id);
+        const box = document.getElementById('quizitem-' + quizKey + '-' + item.id);
+
+        if (item.type === 'single' || item.type === 'tf') {
+          max++;
+          const sel = box.querySelector('.quiz-opt.selected');
+          if (!sel) { fb.className = 'quiz-feedback show bad'; fb.textContent = '⚠️ No respondiste esta pregunta.'; weak.push(item.prompt.slice(0, 40) + '…'); return; }
+          const val = item.type === 'tf' ? (sel.dataset.value === 'true') : parseInt(sel.dataset.value, 10);
+          const ok = item.type === 'tf' ? (val === item.correct) : (val === item.correct);
+          box.querySelectorAll('.quiz-opt').forEach(o => {
+            const optVal = item.type === 'tf' ? (o.dataset.value === 'true') : parseInt(o.dataset.value, 10);
+            if (optVal === item.correct) o.style.borderColor = 'var(--teal)';
+          });
+          if (ok) { total++; fb.className = 'quiz-feedback show ok'; fb.textContent = '✅ Correcto. ' + item.explain; }
+          else { fb.className = 'quiz-feedback show bad'; fb.textContent = '❌ Incorrecto. ' + item.explain; weak.push(item.prompt.slice(0, 40) + '…'); }
+        } else if (item.type === 'select') {
+          max++;
+          const sel = box.querySelector('select');
+          if (sel.value === '') { fb.className = 'quiz-feedback show bad'; fb.textContent = '⚠️ No seleccionaste una opción.'; weak.push(item.prompt.slice(0, 40) + '…'); return; }
+          const ok = parseInt(sel.value, 10) === item.correct;
+          if (ok) { total++; fb.className = 'quiz-feedback show ok'; fb.textContent = '✅ Correcto. ' + item.explain; }
+          else { fb.className = 'quiz-feedback show bad'; fb.textContent = '❌ Era "' + item.options[item.correct] + '". ' + item.explain; weak.push(item.prompt.slice(0, 40) + '…'); }
+        } else if (item.type === 'fill') {
+          max++;
+          const inp = box.querySelector('input.quiz-fill');
+          const val = (inp.value || '').trim().toLowerCase();
+          const ok = item.accepted.some(a => a.toLowerCase() === val);
+          if (ok) { total++; fb.className = 'quiz-feedback show ok'; fb.textContent = '✅ Correcto. ' + item.explain; }
+          else { fb.className = 'quiz-feedback show bad'; fb.textContent = '❌ Respuesta esperada: "' + item.accepted[0] + '". ' + item.explain; weak.push(item.prompt.slice(0, 40) + '…'); }
+        } else if (item.type === 'match') {
+          const state = quizState[quizKey];
+          let matchCorrect = 0;
+          item.pairs.forEach((pair, targetIdx) => {
+            max++;
+            const target = box.querySelector('.match-target[data-target-idx="' + targetIdx + '"]');
+            const placedTermIdx = state.matches[targetIdx];
+            const ok = placedTermIdx === targetIdx;
+            target.classList.remove('correct', 'incorrect');
+            if (ok) { matchCorrect++; total++; target.classList.add('correct'); }
+            else { target.classList.add('incorrect'); }
+          });
+          fb.className = 'quiz-feedback show ' + (matchCorrect === item.pairs.length ? 'ok' : 'bad');
+          fb.textContent = matchCorrect === item.pairs.length ? '✅ Todas las relaciones son correctas.' : '❌ ' + matchCorrect + ' de ' + item.pairs.length + ' relaciones correctas. Revisa los recuadros en rojo.';
+          if (matchCorrect < item.pairs.length) weak.push('Relación de tarjetas');
+        }
+      });
+
+      const verdictBox = document.getElementById('verdict-' + quizKey);
+      verdictBox.classList.remove('low', 'mid', 'high');
+      const title = verdictBox.querySelector('.v-title');
+      const text = verdictBox.querySelector('.v-text');
+      const weakEl = verdictBox.querySelector('.v-weak');
+      const pct = max > 0 ? Math.round((total / max) * 100) : 0;
+      let verdictKey;
+      if (pct <= 42) {
+        verdictKey = 'low'; verdictBox.classList.add('low');
+        title.textContent = '🔴 Dominio bajo (' + total + '/' + max + ' · ' + pct + '%)';
+        text.textContent = 'Conviene repasar la sección correspondiente antes de continuar.';
+      } else if (pct <= 78) {
+        verdictKey = 'mid'; verdictBox.classList.add('mid');
+        title.textContent = '🟡 Dominio aceptable (' + total + '/' + max + ' · ' + pct + '%)';
+        text.textContent = 'Vas bien, pero hay puntos por reforzar.';
+      } else {
+        verdictKey = 'high'; verdictBox.classList.add('high');
+        title.textContent = '🟢 Dominio sólido (' + total + '/' + max + ' · ' + pct + '%)';
+        text.textContent = 'Excelente manejo de los conceptos evaluados.';
+      }
+      weakEl.textContent = weak.length ? ('Puntos a reforzar: ' + weak.join(' · ')) : 'No se detectaron puntos débiles.';
+      verdictBox.classList.add('show');
+
+      DASH.evalHistory.push({ ts: Date.now(), kind: quizKey, total, max, verdict: verdictKey, weak });
+      saveDash();
+    }
+
+    document.querySelectorAll('[data-check]').forEach(btn => btn.addEventListener('click', () => checkQuiz(btn.dataset.check)));
+    document.querySelectorAll('[data-reset-quiz]').forEach(btn => btn.addEventListener('click', () => {
+      const key = btn.dataset.resetQuiz;
+      renderQuiz(key);
+      const verdictBox = document.getElementById('verdict-' + key);
+      verdictBox.classList.remove('show', 'low', 'mid', 'high');
+    }));
+    renderQuiz('caracteristicas');
+    renderQuiz('clasificacion');
+
+    // ---------- Juego ----------
+    let gameOrder = [], gameIndex = 0, gameScore = 0;
+    function shuffledIndices(n) {
+      const arr = Array.from({ length: n }, (_, i) => i);
+      for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[arr[i], arr[j]] = [arr[j], arr[i]]; }
+      return arr;
+    }
+    function startGame() {
+      gameOrder = shuffledIndices(ITEMS.length); gameIndex = 0; gameScore = 0;
+      document.getElementById('gamePlay').style.display = 'block';
+      document.getElementById('gameEnd').style.display = 'none';
+      renderQuestion();
+    }
+    function renderQuestion() {
+      const item = ITEMS[gameOrder[gameIndex]];
+      document.getElementById('gameQuestion').textContent = item.text;
+      document.getElementById('gameProgressText').textContent = 'Pregunta ' + (gameIndex + 1) + ' de ' + ITEMS.length;
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameBar').style.width = Math.round((gameIndex / ITEMS.length) * 100) + '%';
+      const feedback = document.getElementById('gameFeedback');
+      feedback.classList.remove('show'); feedback.textContent = '';
+      document.getElementById('gameNextBtn').style.display = 'none';
+      document.querySelectorAll('#gameOptions button').forEach(btn => { btn.disabled = false; btn.classList.remove('correct', 'incorrect'); });
+    }
+    document.getElementById('gameOptions').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-choice]'); if (!btn) return;
+      const item = ITEMS[gameOrder[gameIndex]]; const choice = btn.dataset.choice;
+      document.querySelectorAll('#gameOptions button').forEach(b => b.disabled = true);
+      const feedback = document.getElementById('gameFeedback'); feedback.classList.add('show');
+      if (choice === item.type) {
+        btn.classList.add('correct'); gameScore++;
+        feedback.textContent = '✅ Correcto. ' + item.explain;
+        DASH.typeStats[item.type].correct++;
+      } else {
+        btn.classList.add('incorrect');
+        document.querySelector('#gameOptions button[data-choice="' + item.type + '"]').classList.add('correct');
+        feedback.textContent = '❌ Era ' + ZONE_LABEL[item.type] + '. ' + item.explain;
+        DASH.typeStats[item.type].wrong++;
+      }
+      saveDash();
+      document.getElementById('gameScoreText').textContent = 'Aciertos: ' + gameScore;
+      document.getElementById('gameNextBtn').style.display = 'inline-block';
+    });
+    document.getElementById('gameNextBtn').addEventListener('click', () => {
+      gameIndex++;
+      if (gameIndex >= ITEMS.length) {
+        document.getElementById('gamePlay').style.display = 'none';
+        document.getElementById('gameEnd').style.display = 'block';
+        document.getElementById('gameBar').style.width = '100%';
+        document.getElementById('gameFinalScore').textContent = gameScore;
+        const msgEl = document.getElementById('gameFinalMsg');
+        if (gameScore === ITEMS.length) msgEl.textContent = 'Puntaje perfecto. Dominas la clasificación por confidencialidad.';
+        else if (gameScore >= ITEMS.length * 0.7) msgEl.textContent = 'Muy buen resultado. Repasa los casos donde fallaste en "Clasificación".';
+        else msgEl.textContent = 'Vale la pena repasar las definiciones antes de intentarlo de nuevo.';
+        DASH.gameHistory.push({ ts: Date.now(), score: gameScore, total: ITEMS.length });
+        saveDash();
+      } else { renderQuestion(); }
+    });
+    document.getElementById('gameReplayBtn').addEventListener('click', startGame);
+    startGame();
+
+    // ---------- Printable cards (actividad presencial) ----------
+    const printGrid = document.getElementById('printGrid');
+    const answerBody = document.getElementById('answerBody');
+    PRESENCIAL_ITEMS.forEach((item, i) => {
+      const div = document.createElement('div'); div.className = 'p-card';
+      div.innerHTML = '<div class="num">Tarjeta ' + (i + 1) + '</div>' + item.text;
+      printGrid.appendChild(div);
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + (i + 1) + '</td><td>' + item.text + '</td><td><strong>' + ZONE_LABEL[item.type] + '</strong></td>';
+      answerBody.appendChild(tr);
+    });
+    document.getElementById('printBtn').addEventListener('click', () => { document.body.classList.add('printing-cards'); window.print(); });
+    // ---------- Registro del aprendiz (persistido en localStorage) ----------
+    const REG_KEY = 'ci_registro_aprendiz_v1';
+    function loadRegistro() {
+      try { const raw = localStorage.getItem(REG_KEY); if (raw) return JSON.parse(raw); } catch (e) { }
+      return { nombre: '', documento: '', ficha: '', instructor: '' };
+    }
+    function saveRegistro() {
+      const reg = {
+        nombre: document.getElementById('regNombre').value.trim(),
+        documento: document.getElementById('regDocumento').value.trim(),
+        ficha: document.getElementById('regFicha').value.trim(),
+        instructor: document.getElementById('regInstructor').value.trim()
+      };
+      try { localStorage.setItem(REG_KEY, JSON.stringify(reg)); } catch (e) { }
+      return reg;
+    }
+    (function initRegistro() {
+      const reg = loadRegistro();
+      document.getElementById('regNombre').value = reg.nombre || '';
+      document.getElementById('regDocumento').value = reg.documento || '';
+      document.getElementById('regFicha').value = reg.ficha || '';
+      document.getElementById('regInstructor').value = reg.instructor || '';
+      ['regNombre', 'regDocumento', 'regFicha', 'regInstructor'].forEach(id => document.getElementById(id).addEventListener('input', saveRegistro));
+    })();
+
+    document.getElementById('printReportBtn').addEventListener('click', () => {
+      populatePrintReport();
+      document.body.classList.add('printing-report');
+      window.print();
+    });
+    window.addEventListener('afterprint', () => { document.body.classList.remove('printing-cards'); document.body.classList.remove('printing-report'); });
+
+    // ================= DASHBOARD =================
+    function renderPieChart(containerId, slices) {
+      const container = document.getElementById(containerId); container.innerHTML = '';
+      const total = slices.reduce((s, x) => s + x.value, 0);
+      if (total <= 0) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const size = 150, r = 55, cx = size / 2, cy = size / 2, thickness = 26, circumference = 2 * Math.PI * r;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+      const bg = document.createElementNS(svgNS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
+      bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#EDE7D8'); bg.setAttribute('stroke-width', thickness);
+      svg.appendChild(bg);
+      let offset = 0;
+      slices.forEach(sl => {
+        if (sl.value <= 0) return;
+        const frac = sl.value / total, len = frac * circumference;
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none'); circle.setAttribute('stroke', sl.color); circle.setAttribute('stroke-width', thickness);
+        circle.setAttribute('stroke-dasharray', len + ' ' + (circumference - len));
+        circle.setAttribute('stroke-dashoffset', -offset);
+        circle.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+        svg.appendChild(circle); offset += len;
+      });
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy + 5); label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('font-size', '15'); label.setAttribute('font-weight', '800'); label.setAttribute('fill', '#14213D');
+      label.textContent = total; svg.appendChild(label);
+      const wrap = document.createElement('div'); wrap.className = 'pie-wrap'; wrap.appendChild(svg);
+      const legend = document.createElement('div'); legend.className = 'legend';
+      slices.forEach(sl => {
+        const pct = total > 0 ? Math.round((sl.value / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.innerHTML = '<span class="sw" style="background:' + sl.color + '"></span>' + sl.label + ': <strong>' + sl.value + '</strong> (' + pct + '%)';
+        legend.appendChild(row);
+      });
+      wrap.appendChild(legend); container.appendChild(wrap);
+    }
+
+    function renderBarChart(containerId, categories, series, maxOverride) {
+      const container = document.getElementById(containerId); container.innerHTML = '';
+      const allValues = series.flatMap(s => s.data);
+      const hasData = allValues.some(v => v > 0);
+      if (!hasData) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const maxVal = maxOverride || Math.max(1, ...allValues);
+      const width = 380, height = 210, padLeft = 28, padBottom = 34, padTop = series.length > 1 ? 26 : 12;
+      const chartW = width - padLeft - 10, chartH = height - padBottom - padTop;
+      const groupW = chartW / categories.length;
+      const barW = Math.min(30, (groupW - 14) / series.length);
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg'); svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+      [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+        const y = padTop + chartH - f * chartH;
+        const line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', padLeft); line.setAttribute('x2', width - 6); line.setAttribute('y1', y); line.setAttribute('y2', y);
+        line.setAttribute('stroke', '#EDE7D8'); line.setAttribute('stroke-width', 1); svg.appendChild(line);
+        const txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', 2); txt.setAttribute('y', y + 3); txt.setAttribute('font-size', '9'); txt.setAttribute('fill', '#5B6472');
+        txt.textContent = Math.round(f * maxVal); svg.appendChild(txt);
+      });
+      if (series.length > 1) {
+        series.forEach((s, si) => {
+          const lx = padLeft + si * 110;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', lx); rect.setAttribute('y', 4); rect.setAttribute('width', 10); rect.setAttribute('height', 10);
+          rect.setAttribute('fill', s.color); svg.appendChild(rect);
+          const txt = document.createElementNS(svgNS, 'text');
+          txt.setAttribute('x', lx + 14); txt.setAttribute('y', 13); txt.setAttribute('font-size', '10'); txt.setAttribute('fill', '#1D2430');
+          txt.textContent = s.name; svg.appendChild(txt);
+        });
+      }
+      categories.forEach((cat, ci) => {
+        const groupX = padLeft + ci * groupW;
+        series.forEach((s, si) => {
+          const val = s.data[ci] || 0, barH = (val / maxVal) * chartH;
+          const x = groupX + (groupW - series.length * barW) / 2 + si * barW, y = padTop + chartH - barH;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', x); rect.setAttribute('y', y);
+          rect.setAttribute('width', Math.max(2, barW - 3)); rect.setAttribute('height', Math.max(0, barH));
+          rect.setAttribute('fill', s.color); rect.setAttribute('rx', 2); svg.appendChild(rect);
+          if (val > 0) {
+            const vt = document.createElementNS(svgNS, 'text');
+            vt.setAttribute('x', x + (barW - 3) / 2); vt.setAttribute('y', y - 4);
+            vt.setAttribute('font-size', '9'); vt.setAttribute('fill', '#1D2430'); vt.setAttribute('text-anchor', 'middle');
+            vt.textContent = val; svg.appendChild(vt);
+          }
+        });
+        const lt = document.createElementNS(svgNS, 'text');
+        lt.setAttribute('x', groupX + groupW / 2); lt.setAttribute('y', height - 10);
+        lt.setAttribute('font-size', '10'); lt.setAttribute('fill', '#5B6472'); lt.setAttribute('text-anchor', 'middle');
+        lt.textContent = cat; svg.appendChild(lt);
+      });
+      container.appendChild(svg);
+    }
+
+    function renderDashboard() {
+      const evalHistory = DASH.evalHistory, gameHistory = DASH.gameHistory, typeStats = DASH.typeStats;
+
+      const avgConfiabilidad = evalHistory.length ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max) * 100, 0) / evalHistory.length) : null;
+      const avgGameScore = gameHistory.length ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length) : null;
+
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
+      const totalAnswers = totalCorrect + totalWrong;
+      const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : null;
+
+      const statsGrid = document.getElementById('dashStats');
+      statsGrid.innerHTML =
+        '<div class="stat-card"><div class="stat-value">' + evalHistory.length + '</div><div class="stat-label">Evaluaciones</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + (avgConfiabilidad !== null ? avgConfiabilidad + '%' : '-') + '</div><div class="stat-label">Dominio promedio</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + gameHistory.length + '</div><div class="stat-label">Partidas jugadas</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + (avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '-') + '</div><div class="stat-label">Aciertos promedio</div></div>' +
+        '<div class="stat-card"><div class="stat-value">' + (accuracyPct !== null ? accuracyPct + '%' : '-') + '</div><div class="stat-label">Precisión global</div></div>';
+
+      renderBarChart('chartGameBar', gameHistory.map((_, i) => 'P' + (i + 1)), [{ name: 'Aciertos', color: '#1F7A6C', data: gameHistory.map(g => g.score) }], ITEMS.length);
+
+      const caract = evalHistory.filter(e => e.kind === 'caracteristicas');
+      const clasif = evalHistory.filter(e => e.kind === 'clasificacion');
+      renderBarChart('chartEvalBar', ['Características', 'Clasificación'],
+        [{ name: 'Último %', color: '#C68A2E', data: [caract.length ? Math.round((caract[caract.length - 1].total / caract[caract.length - 1].max) * 100) : 0, clasif.length ? Math.round((clasif[clasif.length - 1].total / clasif[clasif.length - 1].max) * 100) : 0] }], 100);
+
+      renderPieChart('chartGamePie', [{ label: 'Aciertos', value: totalCorrect, color: '#1F7A6C' }, { label: 'Errores', value: totalWrong, color: '#D65B4A' }]);
+
+      renderPieChart('chartTypePie', [
+        { label: 'Pública', value: typeStats.publica.wrong, color: '#1F7A6C' },
+        { label: 'Privada/Interna', value: typeStats.privada.wrong, color: '#C68A2E' },
+        { label: 'Confidencial', value: typeStats.confidencial.wrong, color: '#D65B4A' },
+        { label: 'Personal', value: typeStats.personal.wrong, color: '#2A5C8A' }
+      ]);
+
+      const analysisEval = document.getElementById('analysisEval');
+      if (evalHistory.length === 0) analysisEval.textContent = 'Aún no has respondido ningún cuestionario del Evaluador.';
+      else {
+        const last = evalHistory[evalHistory.length - 1];
+        analysisEval.textContent = 'Tu último intento (' + (last.kind === 'caracteristicas' ? 'Características' : 'Clasificación') + ') obtuvo ' + last.total + '/' + last.max + ' puntos (' + Math.round((last.total / last.max) * 100) + '%). ' +
+          (last.weak.length ? 'Puntos a reforzar: ' + last.weak.join(' · ') + '.' : 'No se detectaron puntos débiles: excelente dominio.');
+      }
+      const analysisGame = document.getElementById('analysisGame');
+      if (gameHistory.length === 0) analysisGame.textContent = 'Aún no has jugado ninguna partida de "Clasifica la información".';
+      else {
+        const worstType = Object.entries(typeStats).sort((a, b) => (b[1].wrong || 0) - (a[1].wrong || 0))[0];
+        analysisGame.textContent = 'Has jugado ' + gameHistory.length + ' partida(s), con un promedio de ' + avgGameScore.toFixed(1) + '/12 aciertos. ' +
+          (worstType[1].wrong > 0 ? 'La categoría con más errores es "' + ZONE_LABEL[worstType[0]] + '" (' + worstType[1].wrong + ' error(es)); repásala en la pestaña Clasificación.' : 'No se registran errores por categoría: muy buen desempeño.');
+      }
+
+      const NEX_MAX = 80000, NEX_EVAL = 40000, NEX_GAME = 40000;
+      const doneCaract = evalHistory.some(e => e.kind === 'caracteristicas');
+      const doneClasif = evalHistory.some(e => e.kind === 'clasificacion');
+      const nexEval = (doneCaract ? NEX_EVAL / 2 : 0) + (doneClasif ? NEX_EVAL / 2 : 0);
+      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : 0;
+      const nexGame = Math.round((bestGameScore / ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const isComplete = nexTotal >= NEX_MAX;
+      const fmt = n => n.toLocaleString('es-CO');
+
+      document.getElementById('nexAmount').textContent = fmt(nexTotal);
+      document.getElementById('nexBig').textContent = fmt(nexTotal);
+      document.getElementById('nexFill').style.width = Math.min(100, Math.round((nexTotal / NEX_MAX) * 100)) + '%';
+      document.getElementById('nexBreak').innerHTML =
+        '<div><b>Evaluador Características:</b> ' + (doneCaract ? '✓ Completado' : 'Pendiente') + ' (' + fmt(doneCaract ? NEX_EVAL / 2 : 0) + ' NEXs)</div>' +
+        '<div><b>Evaluador Clasificación:</b> ' + (doneClasif ? '✓ Completado' : 'Pendiente') + ' (' + fmt(doneClasif ? NEX_EVAL / 2 : 0) + ' NEXs)</div>' +
+        '<div><b>Juego (mejor partida):</b> ' + bestGameScore + '/' + ITEMS.length + ' (' + fmt(nexGame) + ' NEXs)</div>';
+      document.getElementById('nexStatus').textContent = isComplete ? '¡Reto completado con éxito!' : 'Reto en progreso — ' + Math.round((nexTotal / NEX_MAX) * 100) + '% avanzado.';
+      document.getElementById('rewardBox').classList.toggle('complete', isComplete);
+    }
+
+    // ---------- Reporte imprimible (Registro del aprendiz + Dashboard) ----------
+    function fmtDateTime(ts) {
+      const d = new Date(ts);
+      return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit' });
+    }
+    function badgeFor(verdictKey) {
+      const map = { high: ['ALTO / RECOMENDADO', 'badge-high'], mid: ['MEDIO / USAR CON CAUTELA', 'badge-mid'], low: ['BAJO / NO RECOMENDADO', 'badge-low'] };
+      return map[verdictKey] || ['-', 'badge-mid'];
+    }
+
+    function populatePrintReport() {
+      const reg = saveRegistro();
+      document.getElementById('repNombre').textContent = reg.nombre || '________________________';
+      document.getElementById('repDocumento').textContent = reg.documento || '____________';
+      document.getElementById('repFicha').textContent = reg.ficha || '____________';
+      document.getElementById('repInstructor').textContent = reg.instructor || '____________';
+      document.getElementById('repFecha').textContent = new Date().toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' }) + ' a las ' + new Date().toLocaleTimeString('es-CO', { hour: 'numeric', minute: '2-digit' });
+
+      const evalHistory = DASH.evalHistory, gameHistory = DASH.gameHistory, typeStats = DASH.typeStats;
+      const avgConfiabilidad = evalHistory.length ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max) * 100, 0) / evalHistory.length) : 0;
+      const avgGameScore = gameHistory.length ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length) : 0;
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
+      const totalAnswers = totalCorrect + totalWrong;
+      const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : 0;
+
+      document.getElementById('repStats').innerHTML =
+        '<div class="report-stat-card"><div class="report-stat-value">' + evalHistory.length + '</div><div class="report-stat-label">Evaluaciones</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + avgConfiabilidad + '%</div><div class="report-stat-label">Dominio promedio</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + gameHistory.length + '</div><div class="report-stat-label">Partidas jugadas</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + avgGameScore.toFixed(1) + '/12</div><div class="report-stat-label">Aciertos promedio</div></div>' +
+        '<div class="report-stat-card"><div class="report-stat-value">' + accuracyPct + '%</div><div class="report-stat-label">Precisión global</div></div>';
+
+      const NEX_MAX = 80000, NEX_EVAL = 40000, NEX_GAME = 40000;
+      const doneCaract = evalHistory.some(e => e.kind === 'caracteristicas');
+      const doneClasif = evalHistory.some(e => e.kind === 'clasificacion');
+      const nexEval = (doneCaract ? NEX_EVAL / 2 : 0) + (doneClasif ? NEX_EVAL / 2 : 0);
+      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : 0;
+      const nexGame = Math.round((bestGameScore / ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const fmt = n => n.toLocaleString('es-CO');
+      document.getElementById('repNexSummary').textContent = 'NEXs acumulados: ' + fmt(nexTotal) + ' / ' + fmt(NEX_MAX) + ' NEXs (' + Math.round((nexTotal / NEX_MAX) * 100) + '%) • ' + (nexTotal >= NEX_MAX ? 'Reto completado' : 'Reto en progreso');
+      document.getElementById('repNexPills').innerHTML =
+        '<div class="report-reward-pill"><b>Evaluador Características:</b> ' + (doneCaract ? '✓ Completado' : 'Pendiente') + ' (' + fmt(doneCaract ? NEX_EVAL / 2 : 0) + ' NEXs)</div>' +
+        '<div class="report-reward-pill"><b>Evaluador Clasificación:</b> ' + (doneClasif ? '✓ Completado' : 'Pendiente') + ' (' + fmt(doneClasif ? NEX_EVAL / 2 : 0) + ' NEXs)</div>' +
+        '<div class="report-reward-pill"><b>Juego (mejor partida):</b> ' + bestGameScore + '/' + ITEMS.length + ' (' + fmt(nexGame) + ' NEXs)</div>';
+
+      renderBarChart('repChartGameBar', gameHistory.map((_, i) => 'P' + (i + 1)), [{ name: 'Aciertos', color: '#1F7A6C', data: gameHistory.map(g => g.score) }], ITEMS.length);
+      const caract = evalHistory.filter(e => e.kind === 'caracteristicas');
+      const clasif = evalHistory.filter(e => e.kind === 'clasificacion');
+      renderBarChart('repChartEvalBar', ['Características', 'Clasificación'],
+        [{ name: 'Último %', color: '#C68A2E', data: [caract.length ? Math.round((caract[caract.length - 1].total / caract[caract.length - 1].max) * 100) : 0, clasif.length ? Math.round((clasif[clasif.length - 1].total / clasif[clasif.length - 1].max) * 100) : 0] }], 100);
+      renderPieChart('repChartGamePie', [{ label: 'Aciertos', value: totalCorrect, color: '#1F7A6C' }, { label: 'Errores', value: totalWrong, color: '#D65B4A' }]);
+      renderPieChart('repChartTypePie', [
+        { label: 'Pública', value: typeStats.publica.wrong, color: '#1F7A6C' },
+        { label: 'Privada/Interna', value: typeStats.privada.wrong, color: '#C68A2E' },
+        { label: 'Confidencial', value: typeStats.confidencial.wrong, color: '#D65B4A' },
+        { label: 'Personal', value: typeStats.personal.wrong, color: '#2A5C8A' }
+      ]);
+
+      const repAnalysisEval = document.getElementById('repAnalysisEval');
+      if (evalHistory.length === 0) repAnalysisEval.textContent = ' Aún no se ha respondido ningún cuestionario del Evaluador.';
+      else {
+        const last = evalHistory[evalHistory.length - 1];
+        repAnalysisEval.textContent = ' Se completaron ' + evalHistory.length + ' evaluación(es) (' + caract.length + ' de Características y ' + clasif.length + ' de Clasificación), con un dominio promedio de ' + avgConfiabilidad + '%. ' +
+          (last.weak.length ? 'El aspecto más repetido como débil es: ' + last.weak.join(' · ') + '.' : 'No se detectaron puntos débiles recurrentes.');
+      }
+      const repAnalysisGame = document.getElementById('repAnalysisGame');
+      if (gameHistory.length === 0) repAnalysisGame.textContent = ' Aún no se ha jugado ninguna partida.';
+      else {
+        const worstType = Object.entries(typeStats).sort((a, b) => (b[1].wrong || 0) - (a[1].wrong || 0))[0];
+        repAnalysisGame.textContent = ' Se jugaron ' + gameHistory.length + ' partida(s), con un promedio de ' + avgGameScore.toFixed(1) + '/12 aciertos (' + Math.round((avgGameScore / ITEMS.length) * 100) + '%). ' +
+          (worstType[1].wrong > 0 ? 'La categoría que más se confunde es "' + ZONE_LABEL[worstType[0]] + '", con ' + worstType[1].wrong + ' error(es) registrado(s).' : 'No se registran errores por categoría.');
+      }
+
+      const typeRows = ['publica', 'privada', 'confidencial', 'personal'].map(k => {
+        const t = typeStats[k], tot = (t.correct || 0) + (t.wrong || 0), eff = tot > 0 ? Math.round((t.correct / tot) * 100) : 0;
+        return '<tr><td>' + ZONE_LABEL[k] + '</td><td>' + t.correct + '</td><td>' + t.wrong + '</td><td>' + tot + '</td><td>' + eff + '%</td></tr>';
+      }).join('');
+      document.getElementById('repTypeTableBody').innerHTML = typeRows;
+
+      document.getElementById('repEvalTableBody').innerHTML = evalHistory.map((e, i) => {
+        const pct = Math.round((e.total / e.max) * 100);
+        const [label, cls] = badgeFor(e.verdict);
+        return '<tr><td>' + (i + 1) + '</td><td>' + fmtDateTime(e.ts) + '</td><td>Evaluador ' + (e.kind === 'caracteristicas' ? 'Características' : 'Clasificación') + '</td><td>' + e.total + ' / ' + e.max + ' pts</td><td>' + pct + '%</td><td><span class="report-badge ' + cls + '">' + label + '</span></td><td>' + (e.weak.length ? e.weak.join(', ') : '—') + '</td></tr>';
+      }).join('') || '<tr><td colspan="7" style="text-align:center;color:#888;">Sin registros aún</td></tr>';
+
+      document.getElementById('repGameTableBody').innerHTML = gameHistory.map((g, i) => {
+        const eff = Math.round((g.score / g.total) * 100);
+        const nex = Math.round((g.score / g.total) * (NEX_GAME));
+        return '<tr><td>Partida ' + (i + 1) + '</td><td>' + fmtDateTime(g.ts) + '</td><td>' + g.score + ' / ' + g.total + '</td><td>' + (g.total - g.score) + '</td><td>' + eff + '%</td><td>+' + fmt(nex) + ' NEXs</td></tr>';
+      }).join('') || '<tr><td colspan="6" style="text-align:center;color:#888;">Sin registros aún</td></tr>';
+    }
+
+    document.getElementById('resetDashBtn').addEventListener('click', () => {
+      if (!confirm('¿Borrar todo el historial del dashboard en este navegador? Esta acción no se puede deshacer.')) return;
+      DASH = { evalHistory: [], gameHistory: [], typeStats: { publica: { correct: 0, wrong: 0 }, privada: { correct: 0, wrong: 0 }, confidencial: { correct: 0, wrong: 0 }, personal: { correct: 0, wrong: 0 } } };
+      saveDash(); renderDashboard();
+    });
+
+    // ---------- Mapa Mental (SVG generado, sin imágenes) ----------
+    const MINDMAP_SVG = `
+<svg viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Arial,sans-serif">
+  <rect x="0" y="0" width="1000" height="640" fill="#FFFFFF"/>
+  <g stroke="#B9C2D0" stroke-width="2" fill="none">
+    <path d="M500 320 C420 260 340 210 250 150"/>
+    <path d="M500 320 C420 360 340 400 250 460"/>
+    <path d="M500 320 C580 260 660 210 750 150"/>
+    <path d="M500 320 C580 360 660 400 750 460"/>
+    <path d="M500 320 C500 260 500 180 500 90"/>
+  </g>
+  <!-- Nodo central -->
+  <g>
+    <rect x="390" y="285" width="220" height="70" rx="14" fill="#14213D"/>
+    <text x="500" y="313" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="800">TRATAMIENTO Y</text>
+    <text x="500" y="333" text-anchor="middle" fill="#FFFFFF" font-size="15" font-weight="800">CLASIFICACIÓN</text>
+    <text x="500" y="349" text-anchor="middle" fill="#9FB3D6" font-size="10">de la información</text>
+  </g>
+  <!-- Características -->
+  <g>
+    <rect x="130" y="110" width="180" height="42" rx="10" fill="#1F7A6C"/>
+    <text x="220" y="136" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">CARACTERÍSTICAS</text>
+    <rect x="60" y="160" width="150" height="26" rx="6" fill="#E9F3EE" stroke="#1F7A6C"/><text x="135" y="177" text-anchor="middle" font-size="10.5" fill="#155A50">Validez</text>
+    <rect x="60" y="190" width="150" height="26" rx="6" fill="#E9F3EE" stroke="#1F7A6C"/><text x="135" y="207" text-anchor="middle" font-size="10.5" fill="#155A50">Vigencia</text>
+    <rect x="220" y="160" width="150" height="26" rx="6" fill="#E9F3EE" stroke="#1F7A6C"/><text x="295" y="177" text-anchor="middle" font-size="10.5" fill="#155A50">Importancia</text>
+    <rect x="220" y="190" width="150" height="26" rx="6" fill="#E9F3EE" stroke="#1F7A6C"/><text x="295" y="207" text-anchor="middle" font-size="10.5" fill="#155A50">Significado</text>
+  </g>
+  <!-- Formato -->
+  <g>
+    <rect x="130" y="440" width="180" height="42" rx="10" fill="#C68A2E"/>
+    <text x="220" y="466" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">FORMATO</text>
+    <rect x="90" y="490" width="130" height="26" rx="6" fill="#FBF1E0" stroke="#C68A2E"/><text x="155" y="507" text-anchor="middle" font-size="10.5" fill="#9C6D20">Digital</text>
+    <rect x="230" y="490" width="130" height="26" rx="6" fill="#FBF1E0" stroke="#C68A2E"/><text x="295" y="507" text-anchor="middle" font-size="10.5" fill="#9C6D20">Física</text>
+  </g>
+  <!-- Confidencialidad -->
+  <g>
+    <rect x="690" y="110" width="200" height="42" rx="10" fill="#D65B4A"/>
+    <text x="790" y="136" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">CONFIDENCIALIDAD</text>
+    <rect x="640" y="160" width="140" height="24" rx="6" fill="#FBEAE7" stroke="#D65B4A"/><text x="710" y="176" text-anchor="middle" font-size="10" fill="#B14536">Pública</text>
+    <rect x="640" y="188" width="140" height="24" rx="6" fill="#FBEAE7" stroke="#D65B4A"/><text x="710" y="204" text-anchor="middle" font-size="10" fill="#B14536">Privada/Interna</text>
+    <rect x="800" y="160" width="140" height="24" rx="6" fill="#FBEAE7" stroke="#D65B4A"/><text x="870" y="176" text-anchor="middle" font-size="10" fill="#B14536">Confidencial</text>
+    <rect x="800" y="188" width="140" height="24" rx="6" fill="#FBEAE7" stroke="#D65B4A"/><text x="870" y="204" text-anchor="middle" font-size="10" fill="#B14536">Personal (PII)</text>
+  </g>
+  <!-- Flujo -->
+  <g>
+    <rect x="690" y="440" width="200" height="42" rx="10" fill="#2A5C8A"/>
+    <text x="790" y="466" text-anchor="middle" fill="#fff" font-size="13" font-weight="800">FLUJO</text>
+    <rect x="700" y="490" width="90" height="26" rx="6" fill="#E7EEF5" stroke="#2A5C8A"/><text x="745" y="507" text-anchor="middle" font-size="10" fill="#1E4463">Interna</text>
+    <rect x="800" y="490" width="90" height="26" rx="6" fill="#E7EEF5" stroke="#2A5C8A"/><text x="845" y="507" text-anchor="middle" font-size="10" fill="#1E4463">Externa</text>
+  </g>
+  <!-- Normativa -->
+  <g>
+    <rect x="410" y="30" width="180" height="42" rx="10" fill="#14213D"/>
+    <text x="500" y="47" text-anchor="middle" fill="#fff" font-size="12" font-weight="800">NORMATIVA</text>
+    <text x="500" y="61" text-anchor="middle" fill="#9FB3D6" font-size="9">colombiana</text>
+    <rect x="380" y="82" width="110" height="24" rx="6" fill="#EEF1F7" stroke="#14213D"/><text x="435" y="98" text-anchor="middle" font-size="9.5" fill="#14213D">Ley 1581/2012</text>
+    <rect x="510" y="82" width="110" height="24" rx="6" fill="#EEF1F7" stroke="#14213D"/><text x="565" y="98" text-anchor="middle" font-size="9.5" fill="#14213D">Ley 1712/2014</text>
+  </g>
+</svg>`;
+    document.getElementById('mindmapSvgWrap').innerHTML = MINDMAP_SVG;
+
+    const mapaViewer = document.getElementById('mapaViewer');
+    const mapaModal = document.getElementById('mapaModal');
+    const mapaModalClose = document.getElementById('mapaModalClose');
+    const mapaModalBody = document.getElementById('mapaModalBody');
+    function openMapaModal() {
+      mapaModalBody.innerHTML = MINDMAP_SVG;
+      mapaModal.classList.add('active'); mapaModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMapaModal() {
+      mapaModal.classList.remove('active'); mapaModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    mapaViewer.addEventListener('click', openMapaModal);
+    mapaModalClose.addEventListener('click', closeMapaModal);
+    mapaModal.addEventListener('click', (e) => { if (e.target === mapaModal) closeMapaModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mapaModal.classList.contains('active')) closeMapaModal(); });
+
+    document.getElementById('downloadSvgBtn').addEventListener('click', () => {
+      const blob = new Blob([MINDMAP_SVG], { type: 'image/svg+xml' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'mapa-mental-clasificacion-informacion.svg';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,3440 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infraestructura de Byteon — hardware, software, redes, nube y reprografía</title>
+  <style>
+    :root {
+      --navy: #14213D;
+      --navy-2: #1C2D52;
+      --parchment: #F6F1E7;
+      --paper: #FFFFFF;
+      --ink: #1D2430;
+      --ink-soft: #5B6472;
+      --teal: #1F7A6C;
+      --teal-dark: #155A50;
+      --coral: #D65B4A;
+      --coral-dark: #B14536;
+      --gold: #C68A2E;
+      --gold-dark: #9C6D20;
+      --violet: #6B4FA0;
+      --border: #E2D9C4;
+      --border-cool: #D7DCE6;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.55
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin: 0;
+      color: var(--navy)
+    }
+
+    .tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .03em;
+      color: var(--ink-soft)
+    }
+
+    p {
+      margin: 0 0 12px
+    }
+
+    button {
+      font-family: inherit
+    }
+
+    .hero {
+      background: linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 65%, #223A63 100%);
+      color: #F2F0E8;
+      padding: 40px 24px 0
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    .hero .tag {
+      color: #9FB3D6
+    }
+
+    .hero h1 {
+      color: #fff;
+      font-size: clamp(1.5rem, 3.6vw, 2.35rem);
+      line-height: 1.15;
+      margin: 8px 0 4px
+    }
+
+    .hero-sub {
+      color: #fff;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 700;
+      margin: 0 0 12px
+    }
+
+    .hero p.lead {
+      color: #C9D3E6;
+      max-width: 820px;
+      font-size: clamp(.92rem, 1.3vw, 1.02rem);
+      margin-bottom: 22px
+    }
+
+    nav.tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    nav.tabs button,
+    nav.tabs a.tab-btn {
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, .06);
+      color: #D7DEEC;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-bottom: none;
+      padding: 11px 16px;
+      font-size: .83rem;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
+      font-family: inherit
+    }
+
+    nav.tabs button.active,
+    nav.tabs a.tab-btn.active {
+      background: var(--parchment);
+      color: var(--navy);
+      border-color: var(--parchment)
+    }
+
+    .hero-title-with-img {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap
+    }
+
+    .hero-title-img {
+      height: 58px;
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .35))
+    }
+
+    .eje-img-box {
+      margin-bottom: 14px;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 200px;
+      box-shadow: 0 2px 8px rgba(20, 33, 61, .08);
+      background: #f8fafc;
+    }
+
+    .eje-card-img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px;
+      transition: transform .2s ease;
+    }
+
+    .eje-img-box:hover .eje-card-img {
+      transform: scale(1.03);
+    }
+
+    nav.tabs button:hover:not(.active),
+    nav.tabs a.tab-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, .13);
+      color: #fff
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 34px 24px 90px
+    }
+
+    section {
+      display: none
+    }
+
+    section.active {
+      display: block;
+      animation: fadeIn .3s ease
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .card-basic {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 26px
+    }
+
+    .quick-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .quick-links button {
+      text-align: left;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 4px solid var(--teal);
+      border-radius: 6px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: .9rem;
+      color: var(--ink)
+    }
+
+    .quick-links button:hover {
+      background: #FBFAF6
+    }
+
+    @media (max-width:760px) {
+      .intro-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    /* LucIA */
+    .lucia-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 14px;
+      padding: 30px 34px;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .08);
+      border-left: 6px solid var(--teal)
+    }
+
+    .lucia-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .lucia-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--violet));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex: 0 0 auto;
+      color: #fff
+    }
+
+    .lucia-sub {
+      font-size: 1.1rem;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 12px
+    }
+
+    .lucia-highlight {
+      color: var(--teal-dark);
+      font-weight: 600;
+      margin-bottom: 14px
+    }
+
+    .mission-box {
+      background: var(--parchment);
+      border: 1px dashed var(--gold);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: .92rem
+    }
+
+    /* Material principal */
+    .pdf-subnav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px
+    }
+
+    .pdf-subnav button {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-size: .82rem;
+      cursor: pointer;
+      color: var(--ink)
+    }
+
+    .pdf-subnav button.active {
+      background: var(--navy);
+      color: #fff;
+      border-color: var(--navy)
+    }
+
+    .pdf-viewer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 16px;
+      margin-bottom: 14px;
+      flex-wrap: wrap
+    }
+
+    .pdf-actions {
+      display: flex;
+      gap: 10px
+    }
+
+    .pdf-btn-open,
+    .pdf-btn-dl {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .85rem;
+      padding: 9px 16px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .pdf-btn-open {
+      background: var(--navy);
+      color: #fff
+    }
+
+    .pdf-btn-dl {
+      background: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border-cool);
+      font-weight: 600
+    }
+
+    .pdf-container {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .08);
+      height: 75vh;
+      min-height: 520px
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block
+    }
+
+    /* Material de apoyo */
+    .material-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 18px;
+      margin-top: 14px
+    }
+
+    .material-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      text-decoration: none;
+      color: inherit;
+      border-left: 6px solid var(--teal);
+      transition: all .2s ease
+    }
+
+    .material-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .12);
+      background: #FBFAF7
+    }
+
+    .material-icon {
+      font-size: 2rem;
+      flex: 0 0 auto
+    }
+
+    .material-body h3 {
+      font-size: 1.05rem;
+      margin: 2px 0 6px;
+      color: var(--navy)
+    }
+
+    .material-body p {
+      font-size: .86rem;
+      color: var(--ink-soft);
+      margin-bottom: 10px
+    }
+
+    .material-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--teal);
+      background: rgba(31, 122, 108, .1);
+      padding: 6px 12px;
+      border-radius: 6px
+    }
+
+    /* Ejes tematicos */
+    .eje-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      border-left-width: 6px;
+      border-left-style: solid
+    }
+
+    .eje-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px
+    }
+
+    .eje-head span.emoji {
+      font-size: 1.5rem
+    }
+
+    .eje-head h3 {
+      font-size: 1.15rem
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 8px;
+      margin-top: 12px
+    }
+
+    .ex-chip {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: .83rem
+    }
+
+    details.deepen {
+      margin-top: 14px
+    }
+
+    details.deepen summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--navy);
+      padding: 8px 0
+    }
+
+    table.quality-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: .86rem
+    }
+
+    table.quality-table th,
+    table.quality-table td {
+      border: 1px solid var(--border-cool);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top
+    }
+
+    table.quality-table th {
+      background: var(--parchment);
+      color: var(--navy)
+    }
+
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 14px 0 8px
+    }
+
+    .flow-step {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      padding: 9px 13px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--navy)
+    }
+
+    .flow-arrow {
+      color: var(--ink-soft);
+      font-size: 1.1rem
+    }
+
+    .it-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px
+    }
+
+    .it-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px
+    }
+
+    .it-card h4 {
+      font-size: .94rem;
+      margin-bottom: 5px
+    }
+
+    .it-card p {
+      font-size: .86rem;
+      color: var(--ink-soft);
+      margin-bottom: 0
+    }
+
+    /* Evaluador (quiz) */
+    .quiz-wrap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 26px
+    }
+
+    .quiz-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      font-size: .84rem;
+      color: var(--ink-soft)
+    }
+
+    .quiz-bar {
+      height: 6px;
+      background: var(--border-cool);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 18px
+    }
+
+    .quiz-bar-fill {
+      height: 100%;
+      background: var(--teal);
+      width: 0%;
+      transition: width .3s ease
+    }
+
+    .quiz-type-badge {
+      display: inline-block;
+      background: var(--parchment);
+      border: 1px solid var(--gold);
+      color: var(--gold-dark);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      margin-bottom: 10px
+    }
+
+    .quiz-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+      font-size: 1.02rem;
+      margin-bottom: 18px;
+      min-height: 60px
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .quiz-options button {
+      text-align: left;
+      padding: 13px 16px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      background: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: .94rem;
+      transition: all .15s ease
+    }
+
+    .quiz-options button:hover:not(:disabled) {
+      border-color: var(--navy)
+    }
+
+    .quiz-options button.sel {
+      border-color: var(--navy);
+      background: #EAF0FB;
+      box-shadow: inset 0 0 0 2px rgba(20, 33, 61, .12)
+    }
+
+    .quiz-options button.correct {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark)
+    }
+
+    .quiz-options button.incorrect {
+      background: #FBEAE7;
+      border-color: var(--coral);
+      color: var(--coral-dark)
+    }
+
+    .quiz-options button:disabled {
+      cursor: default;
+      opacity: .9
+    }
+
+    .quiz-fill {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .quiz-fill input[type=text] {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      font-size: .95rem
+    }
+
+    .quiz-select select {
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      font-size: .92rem;
+      margin-bottom: 6px;
+      width: 100%;
+      background: #fff
+    }
+
+    .quiz-select-row {
+      margin-bottom: 12px
+    }
+
+    .quiz-select-row label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-size: .9rem;
+      color: var(--navy)
+    }
+
+    .quiz-feedback {
+      font-size: .9rem;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #F1F5F3;
+      margin-bottom: 14px;
+      display: none
+    }
+
+    .quiz-feedback.show {
+      display: block
+    }
+
+    .quiz-feedback.wrong {
+      background: #FBEAE7
+    }
+
+    .drag-board {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .drag-pool {
+      flex: 1;
+      min-width: 220px;
+      background: #fff;
+      border: 1px dashed var(--border-cool);
+      border-radius: 8px;
+      padding: 12px;
+      min-height: 120px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-content: flex-start
+    }
+
+    .drag-zone {
+      flex: 1;
+      min-width: 150px;
+      background: #fff;
+      border: 2px dashed var(--teal);
+      border-radius: 8px;
+      padding: 10px;
+      min-height: 120px
+    }
+
+    .drag-zone h5 {
+      margin: 0 0 8px;
+      font-size: .85rem;
+      color: var(--teal-dark)
+    }
+
+    .drag-chip {
+      background: var(--parchment);
+      border: 1px solid var(--gold);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: .82rem;
+      cursor: grab;
+      user-select: none
+    }
+
+    .drag-chip.placed-ok {
+      border-color: var(--teal);
+      background: #E9F3EE
+    }
+
+    .drag-chip.placed-bad {
+      border-color: var(--coral);
+      background: #FBEAE7
+    }
+
+    .eval-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin: 18px 0
+    }
+
+    button.primary {
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 22px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: .93rem
+    }
+
+    button.primary:hover {
+      background: var(--teal-dark)
+    }
+
+    button.ghost {
+      background: none;
+      border: 1px solid var(--border-cool);
+      border-radius: 6px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: .88rem;
+      color: var(--ink)
+    }
+
+    .verdict {
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 6px;
+      display: none
+    }
+
+    .verdict.show {
+      display: block
+    }
+
+    .verdict.low {
+      background: #FBEAE7;
+      border: 1px solid var(--coral)
+    }
+
+    .verdict.mid {
+      background: #FBF1E0;
+      border: 1px solid var(--gold)
+    }
+
+    .verdict.high {
+      background: #E9F3EE;
+      border: 1px solid var(--teal)
+    }
+
+    /* Juego */
+    .game-wrap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 26px
+    }
+
+    .game-progress {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: .84rem;
+      color: var(--ink-soft)
+    }
+
+    .game-bar {
+      height: 6px;
+      background: var(--border-cool);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 18px
+    }
+
+    .game-bar-fill {
+      height: 100%;
+      background: var(--coral);
+      width: 0%;
+      transition: width .3s ease
+    }
+
+    .game-card {
+      background: var(--parchment);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 22px;
+      font-size: 1.04rem;
+      margin-bottom: 18px;
+      min-height: 60px
+    }
+
+    .game-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px
+    }
+
+    .game-options button {
+      flex: 1;
+      min-width: 140px;
+      padding: 13px;
+      border-radius: 8px;
+      border: 2px solid var(--border-cool);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: .92rem
+    }
+
+    .game-options button:hover:not(:disabled) {
+      border-color: var(--navy)
+    }
+
+    .game-options button.correct {
+      background: #E9F3EE;
+      border-color: var(--teal);
+      color: var(--teal-dark)
+    }
+
+    .game-options button.incorrect {
+      background: #FBEAE7;
+      border-color: var(--coral);
+      color: var(--coral-dark)
+    }
+
+    .game-options button:disabled {
+      cursor: default;
+      opacity: .85
+    }
+
+    .game-feedback {
+      font-size: .9rem;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: #F1F5F3;
+      margin-bottom: 14px;
+      display: none
+    }
+
+    .game-feedback.show {
+      display: block
+    }
+
+    .game-end {
+      text-align: center;
+      padding: 26px 10px
+    }
+
+    .game-end .score {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--navy)
+    }
+
+    /* Dashboard (misma estructura que fuentes-de-informacion.html) */
+    .reg-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px;
+      margin-bottom: 20px
+    }
+
+    .reg-card h4 {
+      font-size: .92rem;
+      margin-bottom: 10px
+    }
+
+    .reg-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px
+    }
+
+    .reg-grid label {
+      display: block;
+      font-size: .76rem;
+      color: var(--ink-soft);
+      margin-bottom: 4px;
+      font-weight: 700
+    }
+
+    .reg-grid input {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-cool);
+      font-size: .86rem
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px
+    }
+
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 16px 18px
+    }
+
+    .stat-card .stat-value {
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--navy)
+    }
+
+    .stat-card .stat-label {
+      font-size: .8rem;
+      color: var(--ink-soft)
+    }
+
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px
+    }
+
+    @media (max-width:800px) {
+      .dash-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .chart-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 10px;
+      padding: 18px 20px
+    }
+
+    .chart-card h4 {
+      font-size: .95rem;
+      margin-bottom: 10px
+    }
+
+    .chart-card svg {
+      width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .empty-note {
+      color: var(--ink-soft);
+      font-style: italic;
+      font-size: .88rem
+    }
+
+    .pie-wrap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .pie-wrap svg {
+      width: 150px;
+      height: 150px;
+      flex: 0 0 auto
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: .84rem
+    }
+
+    .legend .sw {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      margin-right: 6px
+    }
+
+    .analysis-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 5px solid var(--navy);
+      border-radius: 10px;
+      padding: 20px 22px;
+      margin-bottom: 18px
+    }
+
+    .analysis-card h4 {
+      font-size: 1rem;
+      margin-bottom: 8px
+    }
+
+    .analysis-card p {
+      font-size: .92rem
+    }
+
+    .reward-box {
+      margin: 26px 0 22px;
+      padding: 26px 28px;
+      border-radius: 14px;
+      background: linear-gradient(145deg, #14213D 0%, #1C2D52 70%, #223A63 100%);
+      border: 2px solid var(--gold);
+      color: #F2F0E8;
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .22)
+    }
+
+    .reward-box.complete {
+      border-color: #E9B949;
+      box-shadow: 0 0 0 4px rgba(233, 185, 73, .25), 0 8px 24px rgba(20, 33, 61, .28)
+    }
+
+    .reward-box .reward-tag {
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      color: #E9B949
+    }
+
+    .reward-box h4 {
+      color: #fff;
+      font-size: 1.25rem;
+      margin: 6px 0 10px
+    }
+
+    .reward-box p {
+      color: #DCE3F1;
+      font-size: 1rem;
+      margin-bottom: 14px
+    }
+
+    .reward-box p strong {
+      color: #E9B949;
+      font-size: 1.15em
+    }
+
+    .reward-amount {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px
+    }
+
+    .reward-amount .big {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 800;
+      color: #E9B949;
+      line-height: 1
+    }
+
+    .reward-amount .of {
+      color: #9FB3D6;
+      font-size: .9rem
+    }
+
+    .reward-track {
+      height: 12px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 16px
+    }
+
+    .reward-fill {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, #C68A2E, #E9B949);
+      border-radius: 8px;
+      transition: width .6s ease
+    }
+
+    .reward-break {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      font-size: .86rem
+    }
+
+    .reward-break div {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 8px;
+      padding: 10px 12px
+    }
+
+    .reward-break b {
+      color: #fff
+    }
+
+    .reward-status {
+      margin-top: 14px;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E9B949
+    }
+
+    .btn-print-dashboard {
+      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 11px 22px;
+      border: 1px solid var(--teal-dark);
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(31, 122, 108, .28);
+      transition: all .2s ease
+    }
+
+    .btn-print-dashboard:hover {
+      background: linear-gradient(135deg, var(--teal-dark) 0%, #0E473F 100%);
+      transform: translateY(-1px)
+    }
+
+    #printReport {
+      display: none
+    }
+
+    @media print {
+
+      body.printing-report>.hero,
+      body.printing-report>main,
+      body.printing-report>footer {
+        display: none !important
+      }
+
+      body.printing-report {
+        background: #fff !important;
+        color: #111827 !important
+      }
+
+      body.printing-report #printReport {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #111827 !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+        font-size: 10pt !important;
+        line-height: 1.35 !important
+      }
+
+      .report-header {
+        border-bottom: 2px solid #14213D;
+        padding-bottom: 10px;
+        margin-bottom: 12px
+      }
+
+      .report-header-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px
+      }
+
+      .report-logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+        background: #14213D;
+        color: #E9B949;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 16pt
+      }
+
+      .report-org {
+        font-size: 8pt;
+        font-weight: 800;
+        letter-spacing: .5px;
+        color: #14213D;
+        text-transform: uppercase
+      }
+
+      .report-center {
+        font-size: 13pt;
+        font-weight: 900;
+        color: #14213D;
+        margin: 2px 0;
+        line-height: 1.15
+      }
+
+      .report-competencia {
+        font-size: 8pt;
+        color: #333;
+        line-height: 1.25
+      }
+
+      .report-project-card {
+        background: #F6F1E7 !important;
+        border: 1.5px solid #C68A2E !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 10px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-project-title {
+        font-size: 10.5pt;
+        font-weight: 900;
+        color: #14213D;
+        margin-bottom: 2px
+      }
+
+      .report-project-sub {
+        font-size: 8pt;
+        color: #444;
+        margin-bottom: 4px
+      }
+
+      .report-ra {
+        font-size: 7.5pt;
+        color: #222;
+        border-top: 1px dashed #C68A2E;
+        padding-top: 4px;
+        margin-top: 3px
+      }
+
+      .report-ra ul {
+        margin: 2px 0 0 16px;
+        padding: 0
+      }
+
+      .report-student-box {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+        background: #FAFAF7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-box-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+        border-bottom: 1px solid #D7DCE6;
+        padding-bottom: 3px;
+        margin-bottom: 6px
+      }
+
+      .report-reg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 18px
+      }
+
+      .report-field {
+        font-size: 8.5pt;
+        display: flex;
+        align-items: center;
+        flex: 1;
+        gap: 6px
+      }
+
+      .report-field-wide {
+        grid-column: 1/-1
+      }
+
+      .report-field span.label {
+        font-weight: 700;
+        color: #14213D;
+        white-space: nowrap
+      }
+
+      .report-field span.reg-val {
+        flex: 1;
+        min-height: 13px;
+        border-bottom: 1px solid #777;
+        font-weight: 700;
+        color: #111827
+      }
+
+      .report-sec-title {
+        font-size: 11pt;
+        font-weight: 800;
+        color: #14213D;
+        border-bottom: 1.5px solid #1F7A6C;
+        padding-bottom: 3px;
+        margin: 12px 0 8px;
+        text-transform: uppercase;
+        letter-spacing: .5px
+      }
+
+      .report-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        margin-bottom: 10px
+      }
+
+      .report-stat-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 6px 4px;
+        text-align: center;
+        background: #F6F8FA !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-stat-value {
+        font-size: 12pt;
+        font-weight: 900;
+        color: #1F7A6C
+      }
+
+      .report-stat-label {
+        font-size: 7pt;
+        font-weight: 700;
+        color: #555;
+        text-transform: uppercase;
+        margin-top: 2px
+      }
+
+      .report-card {
+        border: 1px solid #D7DCE6;
+        border-radius: 6px;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid
+      }
+
+      .report-card-title {
+        font-size: 9pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 5px;
+        text-transform: uppercase
+      }
+
+      .report-reward-box {
+        background: #14213D !important;
+        color: #fff !important;
+        border-radius: 6px;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-reward-box h4 {
+        color: #E9B949 !important;
+        margin: 0 0 3px;
+        font-size: 10pt
+      }
+
+      .report-reward-box p {
+        font-size: 8pt;
+        margin: 0 0 5px;
+        color: #E5E7EB
+      }
+
+      .report-reward-pills {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+        font-size: 7.5pt
+      }
+
+      .report-reward-pill {
+        background: rgba(255, 255, 255, .12) !important;
+        border: 1px solid rgba(255, 255, 255, .2);
+        padding: 4px 6px;
+        border-radius: 4px
+      }
+
+      .report-analysis-item {
+        font-size: 8pt;
+        margin-bottom: 5px;
+        line-height: 1.35
+      }
+
+      .report-analysis-item strong {
+        color: #1F7A6C;
+        display: block;
+        margin-bottom: 1px
+      }
+
+      .report-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 7.5pt;
+        margin-top: 3px
+      }
+
+      .report-table th {
+        background: #14213D !important;
+        color: #fff !important;
+        font-weight: 700;
+        padding: 4px 6px;
+        text-align: left;
+        border: 1px solid #14213D;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-table td {
+        padding: 3px 6px;
+        border: 1px solid #D7DCE6
+      }
+
+      .report-table tr:nth-child(even) {
+        background: #F9FAFB !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-badge {
+        display: inline-block;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-weight: 700;
+        font-size: 7pt;
+        text-transform: uppercase
+      }
+
+      .badge-high {
+        background: #D1FAE5 !important;
+        color: #065F46 !important
+      }
+
+      .badge-mid {
+        background: #FEF3C7 !important;
+        color: #92400E !important
+      }
+
+      .badge-low {
+        background: #FEE2E2 !important;
+        color: #991B1B !important
+      }
+
+      .report-signatures {
+        margin-top: 14px;
+        page-break-inside: avoid;
+        break-inside: avoid
+      }
+
+      .report-obs {
+        font-size: 8pt;
+        margin-bottom: 12px
+      }
+
+      .obs-lines {
+        border-bottom: 1px dashed #999;
+        height: 16px;
+        margin-top: 4px
+      }
+
+      .sig-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 16px
+      }
+
+      .sig-box {
+        text-align: center
+      }
+
+      .sig-line {
+        border-bottom: 1px solid #333;
+        margin-bottom: 4px
+      }
+
+      .sig-label {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #14213D
+      }
+
+      .report-charts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px
+      }
+
+      .report-chart {
+        border: 1px solid #E5E7EB;
+        border-radius: 6px;
+        padding: 6px 8px;
+        break-inside: avoid;
+        page-break-inside: avoid
+      }
+
+      .report-chart h4 {
+        font-size: 8pt;
+        font-weight: 800;
+        color: #14213D;
+        margin: 0 0 4px
+      }
+
+      .report-chart svg {
+        width: 100%;
+        height: auto;
+        max-height: 150px;
+        display: block
+      }
+
+      .report-chart .pie-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px
+      }
+
+      .report-chart .pie-wrap svg {
+        width: 90px;
+        flex: none
+      }
+
+      .report-chart .legend {
+        font-size: 7.5pt;
+        line-height: 1.5
+      }
+
+      .report-chart .legend .sw {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        margin-right: 4px;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact
+      }
+
+      .report-chart .empty-note {
+        font-size: 8pt;
+        color: #666;
+        font-style: italic;
+        margin: 4px 0
+      }
+    }
+
+    /* Actividad presencial */
+    .steps {
+      padding-left: 20px
+    }
+
+    .steps li {
+      margin-bottom: 10px;
+      font-size: .94rem
+    }
+
+    .station-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 16px
+    }
+
+    .station-card {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 6px solid var(--gold);
+      border-radius: 10px;
+      padding: 16px 18px
+    }
+
+    .station-card h4 {
+      font-size: .98rem;
+      margin-bottom: 6px
+    }
+
+    .station-card p {
+      font-size: .85rem;
+      color: var(--ink-soft);
+      margin-bottom: 0
+    }
+
+    /* Mapa mental (sin imagenes, css/svg) */
+    .mindmap {
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 12px;
+      padding: 30px;
+      overflow-x: auto
+    }
+
+    .mm-center {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 10px;
+      padding: 14px 20px;
+      text-align: center;
+      font-weight: 800;
+      max-width: 280px;
+      margin: 0 auto 26px;
+      font-size: 1.05rem
+    }
+
+    .mm-branches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px
+    }
+
+    .mm-branch {
+      border-top: 4px solid var(--teal);
+      background: var(--parchment);
+      border-radius: 10px;
+      padding: 14px 16px
+    }
+
+    .mm-branch h4 {
+      font-size: .98rem;
+      margin-bottom: 8px;
+      color: var(--navy)
+    }
+
+    .mm-branch ul {
+      margin: 0;
+      padding-left: 18px;
+      font-size: .82rem;
+      color: var(--ink-soft)
+    }
+
+    .mm-branch li {
+      margin-bottom: 4px
+    }
+
+    .mm-branch.b1 {
+      border-color: var(--teal)
+    }
+
+    .mm-branch.b2 {
+      border-color: var(--gold)
+    }
+
+    .mm-branch.b3 {
+      border-color: var(--coral)
+    }
+
+    .mm-branch.b4 {
+      border-color: var(--violet)
+    }
+
+    .mm-branch.b5 {
+      border-color: #3E7CB1
+    }
+
+    footer.credit {
+      text-align: center;
+      color: var(--ink-soft);
+      font-size: .78rem;
+      padding: 20px 0 50px
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero">
+    <div class="hero-inner">
+      <span class="tag">MISIÓN 5 · BYTEON</span>
+      <h1 class="hero-title-with-img">
+        <img src="infraestructura.png" alt="Infraestructura Byteon" class="hero-title-img">
+        <span>INFRAESTRUCTURA DE BYTEON</span>
+      </h1>
+      <h2 class="hero-sub">Hardware, software, redes, nube y reprografía al servicio de Talento Humano</h2>
+      <p class="lead">Guía interactiva para conceptualizar la parametrización y los componentes físicos y lógicos que
+        sostienen la información en Byteon: desde el disco duro hasta el contrato impreso, pasando por las redes que
+        conectan a humanos y neógenos.</p>
+      <nav class="tabs" id="tabs">
+        <a href="index.html" class="tab-btn">Inicio</a>
+        <button data-section="introduccion" class="active">Introducción</button>
+        <button data-section="lucia">LucIA</button>
+        <button data-section="principal">Material Principal</button>
+        <button data-section="material">Material de apoyo</button>
+        <button data-section="ejes">Ejes temáticos</button>
+        <button data-section="datos">Datos y códigos</button>
+        <button data-section="evaluador">Evaluador</button>
+        <button data-section="juego">Juego: clasifica</button>
+        <button data-section="dashboard">Dashboard</button>
+        <button data-section="fisica">Actividad presencial</button>
+        <button data-section="mapamental">Mapa Mental</button>
+      </nav>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- INTRODUCCIÓN -->
+    <section data-section="introduccion" class="active">
+      <div class="intro-grid">
+        <div class="card-basic">
+          <div style="margin-bottom:14px;border-radius:8px;overflow:hidden;box-shadow:0 3px 12px rgba(20,33,61,.08);">
+            <img src="infraestructura2.png" alt="¿Por qué importa la infraestructura?"
+              style="width:100%;max-height:280px;object-fit:cover;display:block;border-radius:8px;">
+          </div>
+          <h3 style="font-size:1.15rem;margin-bottom:10px;">¿Por qué importa la infraestructura?</h3>
+          <p>La información digital y física no son universos aislados. La integración entre humanos y neógenos
+            requiere infraestructuras robustas: desde la forma en que nombramos un archivo en un disco duro, hasta el
+            mecanismo láser que plasma un contrato en papel.</p>
+          <p>En esta misión recorremos cinco ejes: <strong>sistemas de organización de archivos</strong>,
+            <strong>hardware</strong>, <strong>software</strong>, <strong>redes de computadoras</strong> y
+            <strong>reprografía</strong>, entendiendo cómo cada uno protege, transforma y traslada la información entre
+            el mundo digital y el físico.
+          </p>
+          <p>Al final podrás poner a prueba lo aprendido en el <strong>Evaluador</strong>, jugar a <strong>clasificar
+              periféricos</strong>, participar en una <strong>actividad presencial</strong> y repasar todo con el
+            <strong>Mapa Mental</strong>.
+          </p>
+        </div>
+        <div class="card-basic">
+          <h3 style="font-size:1.05rem;margin-bottom:6px;">Ir directo a…</h3>
+          <div class="quick-links">
+            <button data-goto="lucia">🤖 Escuchar a LucIA sobre la misión</button>
+            <button data-goto="principal">📄 Ver los documentos fuente completos</button>
+            <button data-goto="ejes">🧩 Explorar los ejes temáticos</button>
+            <button data-goto="evaluador">📝 Resolver el evaluador de conocimientos</button>
+            <button data-goto="juego">🎮 Jugar a clasificar periféricos</button>
+            <button data-goto="fisica">🧑‍🤝‍🧑 Ver la actividad presencial</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LUCIA -->
+    <section data-section="lucia">
+      <div class="lucia-card">
+        <div class="lucia-head">
+          <div class="lucia-avatar" style="overflow:hidden;padding:0;background:#fff;border:2px solid var(--teal);">
+            <img src="licIA.png" alt="LucIA"
+              style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;">
+          </div>
+          <div>
+            <span class="tag">GUÍA DE MISIÓN</span>
+            <h2>LucIA, la Inteligencia Artificial guía</h2>
+          </div>
+        </div>
+        <p class="lucia-sub">Misión Básica No. 5 — Conceptualizar funciones de parametrización y componentes de
+          hardware, software, redes, seguridad y reprografía.</p>
+        <p class="lucia-highlight">"En nuestro devenir por el planeta Byteon recolectando información para la
+          integración de los sistemas humano y robótico, debemos ahora centrarnos en analizar la parte física que este
+          planeta maneja, así como la interacción de esta parte física con la digital."</p>
+        <div class="lucia-body">
+          <p>Para ello LucIA ha determinado que debemos trabajar en lo siguiente: los <strong>sistemas de organización
+              de archivos</strong> (parametrización, ficheros, carpetas, discos duros, copias de seguridad, copias en la
+            nube), los <strong>tipos de datos</strong> que se almacenan en el núcleo (numéricos, alfabéticos,
+            alfanuméricos, códigos de barras y QR), y los equipos de <strong>reprografía</strong>: fotocopiadoras,
+            escáneres, duplicadoras e impresoras.</p>
+          <div class="mission-box">
+            📡 <strong>Nota de sistema (LucIA):</strong> "Los parámetros expuestos en este informe deben integrarse a
+            los manuales de procedimiento de cada área. Ningún hardware debe operar sin su correspondiente política de
+            seguridad y ningún archivo debe ser creado sin respetar la parametrización de nombres institucional."
+          </div>
+          <p>Como profesionales en Talento Humano, comprender la jerarquía de los archivos nos permite proteger la
+            privacidad de los datos; entender el almacenamiento en la nube garantiza la supervivencia de la
+            información; y dominar las herramientas de reprografía nos asegura que la transición entre el ecosistema
+            digital y el mundo físico se realice con la máxima fidelidad, seguridad y economía de recursos.</p>
+        </div>
+
+        <div class="document-box" style="margin-top:28px;padding-top:22px;border-top:1px solid var(--border);">
+          <div
+            style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px;">
+            <div>
+              <span class="tag">DOCUMENTO OFICIAL</span>
+              <h3 style="font-size:1.15rem;margin:4px 0 0;color:var(--navy);">Documento: Infraestructura Tecnológica -
+                Byteon</h3>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+              <a href="Infraestructura Tecnológica - Byteon.pdf" target="_blank" class="pdf-btn-open">↗ Abrir documento
+                PDF</a>
+              <a href="Infraestructura Tecnológica - Byteon.png" target="_blank" class="pdf-btn-dl">👁 Ver imagen
+                original</a>
+            </div>
+          </div>
+          <div
+            style="background:var(--parchment);border:1px solid var(--border-cool);border-radius:10px;padding:16px;text-align:center;box-shadow:0 4px 14px rgba(20,33,61,.06);margin-top:12px;">
+            <img src="Infraestructura Tecnológica - Byteon.png" alt="Infraestructura Tecnológica - Byteon"
+              style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 3px 12px rgba(0,0,0,.12);display:inline-block;">
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:14px;">
+              <img src="Infraestructura Tecnológica - Byteon_2.png"
+                alt="Infraestructura Tecnológica - Byteon (Página 2)"
+                style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 3px 12px rgba(0,0,0,.12);display:inline-block;">
+              <img src="Infraestructura Tecnológica - Byteon_3.png"
+                alt="Infraestructura Tecnológica - Byteon (Página 3)"
+                style="max-width:100%;height:auto;border-radius:8px;box-shadow:0 3px 12px rgba(0,0,0,.12);display:inline-block;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATERIAL PRINCIPAL -->
+    <section data-section="principal">
+      <div class="pdf-viewer-header">
+        <div>
+          <span class="tag">DOCUMENTOS FUENTE</span>
+          <h2 style="font-size:1.4rem;margin-top:4px;">Material Principal</h2>
+        </div>
+        <div class="pdf-actions">
+          <a href="hardware, software.pdf" id="pdfOpenBtn" target="_blank" class="pdf-btn-open">⤴ Abrir en pestaña
+            nueva</a>
+          <a href="hardware, software.pdf" id="pdfDlBtn" download="hardware, software.pdf" class="pdf-btn-dl">⬇
+            Descargar PDF</a>
+        </div>
+      </div>
+      <div class="pdf-container">
+        <iframe class="pdf-frame" id="pdfFrame" src="hardware, software.pdf"></iframe>
+      </div>
+    </section>
+
+    <!-- MATERIAL DE APOYO -->
+    <section data-section="material">
+      <div class="eje-img-box" style="max-width:220px;margin-bottom:16px;">
+        <img src="infraestructura3.png" alt="Material de apoyo" class="eje-card-img" style="height:130px;">
+      </div>
+      <h2 style="font-size:1.4rem;margin-bottom:14px;">Material de apoyo</h2>
+      <p style="color:var(--ink-soft);margin-bottom:6px;">Los documentos que sustentan esta misión, disponibles
+        para descarga y consulta.</p>
+      <div class="material-grid" id="materialGrid"></div>
+    </section>
+
+    <!-- EJES TEMÁTICOS -->
+    <section data-section="ejes">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">Ejes temáticos de la infraestructura</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">Seis frentes que Byteon integra para que la información
+        fluya entre lo físico y lo digital.</p>
+
+      <div class="eje-card" style="border-left-color:var(--teal);">
+        <div class="eje-img-box">
+          <img src="infraestructura4.png" alt="Sistemas de organización de archivos" class="eje-card-img">
+        </div>
+        <div class="eje-head"><span class="emoji">🗂️</span>
+          <h3>Sistemas de organización de archivos</h3>
+        </div>
+        <p>La <strong>parametrización</strong> establece reglas para nombrar, clasificar y almacenar información — por
+          ejemplo, cambiar "contrato_juan.pdf" por <em>2026_09_25_CONTRATO_NEOGENO_ID8493.pdf</em> para búsquedas
+          indexadas ultrarrápidas. Los <strong>ficheros</strong> son unidades básicas de datos; las
+          <strong>carpetas</strong> los agrupan jerárquicamente; los <strong>discos duros</strong> los almacenan
+          físicamente; las <strong>copias de seguridad</strong> los duplican para evitar pérdidas.
+        </p>
+        <div class="examples">
+          <div class="ex-chip">📁 /Talento_Humano/Reclutamiento/2026/</div>
+          <div class="ex-chip">💾 Regla 3-2-1 de respaldo</div>
+          <div class="ex-chip">☁️ Copia en la nube fuera de sitio</div>
+        </div>
+      </div>
+
+      <div class="eje-card" style="border-left-color:var(--gold);">
+        <div class="eje-img-box">
+          <img src="infraestructura5.png" alt="Almacenamiento y copias en la nube" class="eje-card-img">
+        </div>
+        <div class="eje-head"><span class="emoji">☁️</span>
+          <h3>Almacenamiento y copias en la nube</h3>
+        </div>
+        <p>El almacenamiento en nube (ideado en los años 60 por Joseph Carl Robnett Licklider) aloja datos en espacios
+          virtualizados aportados por terceros: Dropbox, Google Drive (15 GB gratis por usuario), iCloud, Amazon Web
+          Services y OneDrive son ejemplos. Amazon ofrece almacenamiento por bloques (RDS), por archivos (EFS) y por
+          objetos (S3), cifrado y auditoría con CloudTrail/CloudWatch.</p>
+        <div class="examples">
+          <div class="ex-chip">🏢 salesforce.com, pionera en 1999</div>
+          <div class="ex-chip">🔐 Cifrado con claves del usuario</div>
+          <div class="ex-chip">📊 3 copias / 2 medios / 1 fuera de sitio</div>
+        </div>
+      </div>
+
+      <div class="eje-card" style="border-left-color:var(--coral);">
+        <div class="eje-img-box">
+          <img src="hardware1.png" alt="Hardware" class="eje-card-img">
+        </div>
+        <div class="eje-head"><span class="emoji">🖥️</span>
+          <h3>Hardware</h3>
+        </div>
+        <p>Conjunto de componentes físicos: la <strong>placa base</strong> conecta el chipset, la <strong>CPU</strong>
+          (el "cerebro"), la memoria RAM y las ranuras de expansión. Los <strong>periféricos de entrada</strong>
+          (teclado, ratón, escáner, micrófono, cámara) proporcionan datos; los <strong>de salida</strong> (monitor,
+          impresora, altavoces) muestran resultados; los <strong>de almacenamiento</strong> (HDD, SSD, USB, tarjetas
+          flash) los conservan.</p>
+        <div class="examples">
+          <div class="ex-chip">🧠 Arquitectura de Von Neumann (1945)</div>
+          <div class="ex-chip">⚡ SSD vs. HDD (velocidad vs. costo)</div>
+          <div class="ex-chip">🔌 USB, HDMI, RJ-45</div>
+        </div>
+      </div>
+
+      <div class="eje-card" style="border-left-color:var(--violet);">
+        <div class="eje-img-box">
+          <img src="software1.png" alt="Software" class="eje-card-img">
+        </div>
+        <div class="eje-head"><span class="emoji">💽</span>
+          <h3>Software</h3>
+        </div>
+        <p>El equipamiento lógico de un sistema informático: <strong>software de sistema</strong> (sistemas operativos
+          como Windows, Linux, Mac), <strong>software de programación</strong> (editores, compiladores, IDE) y
+          <strong>software de aplicación</strong> (ofimática, antivirus, navegadores, editores gráficos y multimedia).
+          Los antivirus deben examinar el equipo periódicamente y actualizarse cada 15 días como máximo.
+        </p>
+        <div class="examples">
+          <div class="ex-chip">🐧 Windows, Mac OS, GNU/Linux</div>
+          <div class="ex-chip">🛡️ Antivirus + antiespía</div>
+          <div class="ex-chip">📊 Word/Writer, Excel/Calc, Power Point/Impress</div>
+        </div>
+      </div>
+
+      <div class="eje-card" style="border-left-color:#3E7CB1;">
+        <div class="eje-img-box">
+          <img src="redes1.png" alt="Redes de computadoras" class="eje-card-img">
+        </div>
+        <div class="eje-head"><span class="emoji">🌐</span>
+          <h3>Redes de computadoras</h3>
+        </div>
+        <p>Conectan equipos para compartir información. Las <strong>topologías</strong> (bus, anillo, estrella,
+          híbrida) definen su estructura física; las <strong>arquitecturas</strong> (Ethernet, Token Ring) definen cómo
+          viaja la señal. El modelo <strong>OSI</strong> organiza la comunicación en 7 capas; <strong>TCP/IP</strong>
+          es el conjunto de protocolos que hace posible Internet.</p>
+        <div class="examples">
+          <div class="ex-chip">⭐ Topología en estrella (con hub)</div>
+          <div class="ex-chip">📡 Router, switch, módem, repetidor</div>
+          <div class="ex-chip">🧵 Fibra óptica y cable UTP</div>
+        </div>
+      </div>
+
+      <div class="eje-card" style="border-left-color:#9C6D20;">
+        <div class="eje-img-box">
+          <img src="reprografia1.png" alt="Reprografía" class="eje-card-img">
+        </div>
+        <div class="eje-head"><span class="emoji">🖨️</span>
+          <h3>Reprografía</h3>
+        </div>
+        <p>Proceso de reproducción de documentos por medios eléctricos o mecánicos. Se agrupa en tres grandes equipos:
+          <strong>impresoras</strong> (láser, inyección de tinta, matriciales, plotters), <strong>escáneres</strong>
+          (sobremesa, alimentador de hojas, de mano, microfilm) y <strong>fotocopiadoras</strong> (analógicas o
+          digitales; personales, de oficina o profesionales). Los equipos multifunción combinan varias de estas
+          capacidades en una sola máquina.
+        </p>
+        <div class="examples">
+          <div class="ex-chip">🔥 Tóner fijado por calor (láser)</div>
+          <div class="ex-chip">💧 Chorro de tinta (inyección)</div>
+          <div class="ex-chip">🔍 OCR: imagen → texto editable</div>
+        </div>
+      </div>
+
+      <details class="deepen">
+        <summary>➕ Profundizar: comparación rápida de tecnologías de impresión</summary>
+        <table class="quality-table">
+          <thead>
+            <tr>
+              <th>Tecnología</th>
+              <th>Mecanismo</th>
+              <th>Ventaja principal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Inyección de tinta</td>
+              <td>Gotas de tinta por boquillas térmicas/piezoeléctricas</td>
+              <td>Alta calidad fotográfica y color</td>
+            </tr>
+            <tr>
+              <td>Láser (tóner)</td>
+              <td>Tambor fotosensible + tóner fundido con calor</td>
+              <td>Velocidad y bajo costo por página</td>
+            </tr>
+            <tr>
+              <td>Térmica / etiquetas</td>
+              <td>Calor sobre papel termosensible</td>
+              <td>Rapidez, sin cartuchos</td>
+            </tr>
+            <tr>
+              <td>Matricial</td>
+              <td>Agujas sobre cinta entintada</td>
+              <td>Bajo costo de operación (en desuso)</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+    </section>
+
+    <!-- DATOS Y CÓDIGOS -->
+    <section data-section="datos">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">Datos, códigos y protocolos</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Cómo Byteon clasifica la información en su núcleo y cómo
+        viaja entre computadoras.</p>
+
+      <div class="it-grid">
+        <div class="it-card">
+          <h4>🔢 Numéricos</h4>
+          <p>Cifras usadas en cálculos: salario base, horas extra, edad,
+            porcentaje de KPI.</p>
+        </div>
+        <div class="it-card">
+          <h4>🔤 Alfabéticos</h4>
+          <p>Solo letras: nombres, apellidos, ciudad de nacimiento, estado
+            civil.</p>
+        </div>
+        <div class="it-card">
+          <h4>🔡 Alfanuméricos</h4>
+          <p>Letras + números: identificadores, correos, contraseñas
+            encriptadas.</p>
+        </div>
+        <div class="it-card">
+          <h4>📊 Códigos legibles por máquina</h4>
+          <p>Códigos de barras (1D, inventario) y códigos QR
+            (2D, URLs o credenciales).</p>
+        </div>
+      </div>
+
+      <div class="flow" style="margin-top:22px;">
+        <div class="flow-step">Bit (0/1)</div><span class="flow-arrow">→</span>
+        <div class="flow-step">Byte (8 bits)</div><span class="flow-arrow">→</span>
+        <div class="flow-step">Código ASCII</div><span class="flow-arrow">→</span>
+        <div class="flow-step">KB / MB / GB / TB</div>
+      </div>
+      <p style="font-size:.9rem;color:var(--ink-soft);">1 KB = 1024 B · 1 MB = 1024 KB · 1 GB = 1024 MB · 1 TB = 1024
+        GB.
+        El código ASCII extendido usa 8 bits y representa 256 caracteres.</p>
+
+      <details class="deepen">
+        <summary>➕ Profundizar: el modelo OSI y TCP/IP</summary>
+        <p>El modelo OSI organiza la comunicación de datos en 7 capas "aparejadas" (de aplicación a física), permitiendo
+          que fabricantes distintos sean compatibles entre sí. En Internet, el conjunto de protocolos que realmente se
+          usa es <strong>TCP/IP</strong>, que asigna a cada equipo una dirección IP única para enrutar la información.
+        </p>
+      </details>
+    </section>
+
+    <!-- EVALUADOR -->
+    <section data-section="evaluador">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">Evaluador de conocimientos</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Preguntas de distintos formatos, tomadas directamente de los
+        documentos de la misión. Tu resultado queda registrado en el <strong>Dashboard</strong>.</p>
+
+      <div class="quiz-wrap">
+        <div class="quiz-progress">
+          <span id="quizProgressText">Pregunta 1 de 20</span>
+          <span id="quizScoreText">Aciertos: 0</span>
+        </div>
+        <div class="quiz-bar">
+          <div class="quiz-bar-fill" id="quizBar"></div>
+        </div>
+
+        <div id="quizPlay">
+          <div class="quiz-type-badge" id="quizTypeBadge"></div>
+          <div class="quiz-card" id="quizQuestion"></div>
+          <div id="quizAnswerArea"></div>
+          <div class="quiz-feedback" id="quizFeedback"></div>
+          <div class="eval-actions">
+            <button class="primary" id="quizNextBtn">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="quizEnd" class="game-end" style="display:none;">
+          <p class="score"><span id="quizFinalScore"></span>/<span id="quizFinalTotal"></span></p>
+          <div class="verdict show" id="quizVerdict"></div>
+          <button class="primary" id="quizReplayBtn" style="margin-top:16px;">Intentar de nuevo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- JUEGO -->
+    <section data-section="juego">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">Clasifica el periférico</h2>
+      <p style="color:var(--ink-soft);margin-bottom:20px;">Se te mostrará un dispositivo de hardware. Decide si es un
+        periférico de <strong>entrada</strong>, de <strong>salida</strong> o un dispositivo de
+        <strong>almacenamiento</strong>. Cada partida se registra en el <strong>Dashboard</strong>.
+      </p>
+
+      <div class="game-wrap">
+        <div class="game-progress">
+          <span id="gameProgressText">Pregunta 1 de 12</span>
+          <span id="gameScoreText">Aciertos: 0</span>
+        </div>
+        <div class="game-bar">
+          <div class="game-bar-fill" id="gameBar"></div>
+        </div>
+
+        <div id="gamePlay">
+          <div class="game-card" id="gameQuestion"></div>
+          <div class="game-options" id="gameOptions">
+            <button data-choice="entrada">Entrada</button>
+            <button data-choice="salida">Salida</button>
+            <button data-choice="almacenamiento">Almacenamiento</button>
+          </div>
+          <div class="game-feedback" id="gameFeedback"></div>
+          <div class="eval-actions" style="margin-top:16px;">
+            <button class="primary" id="gameNextBtn">Siguiente</button>
+          </div>
+        </div>
+
+        <div id="gameEnd" class="game-end" style="display:none;">
+          <p class="score"><span id="gameFinalScore"></span>/12</p>
+          <p id="gameFinalMsg" style="margin:10px 0 20px;"></p>
+          <button class="primary" id="gameReplayBtn">Jugar de nuevo</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section data-section="dashboard">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">Dashboard de resultados</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">Resumen de tus evaluaciones y partidas. Los datos se guardan
+        solo en este navegador.</p>
+
+      <div class="reg-card">
+        <h4>Registro del aprendiz (para el reporte imprimible)</h4>
+        <div class="reg-grid">
+          <div><label>Nombre completo</label><input type="text" id="regNombreInput" placeholder="Nombre y apellidos">
+          </div>
+          <div><label>Número de documento</label><input type="text" id="regDocumentoInput" placeholder="C.C./T.I.">
+          </div>
+          <div><label>Ficha</label><input type="text" id="regFichaInput" placeholder="Número de ficha"></div>
+          <div><label>Instructor / Evaluador</label><input type="text" id="regInstructorInput"
+              placeholder="Nombre del instructor"></div>
+        </div>
+      </div>
+
+      <div class="stat-row" id="dashStats"></div>
+
+      <div class="dash-grid">
+        <div class="chart-card">
+          <h4>Puntaje del evaluador por intento</h4>
+          <div id="chartQuizBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Resultados del evaluador (Bajo / Medio / Alto)</h4>
+          <div id="chartVerdictBar"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Aciertos vs. errores en el juego</h4>
+          <div id="chartGamePie"></div>
+        </div>
+        <div class="chart-card">
+          <h4>Errores por categoría de periférico</h4>
+          <div id="chartTypePie"></div>
+        </div>
+      </div>
+
+      <div class="analysis-card">
+        <h4>📝 Análisis — Evaluador</h4>
+        <p id="analysisEval"></p>
+      </div>
+      <div class="analysis-card">
+        <h4>🎮 Análisis — Juego de clasificación</h4>
+        <p id="analysisGame"></p>
+      </div>
+
+      <div class="reward-box" id="rewardBox">
+        <span class="reward-tag">RETO FINAL · RECOMPENSA</span>
+        <h4>🚀 Detective supremo</h4>
+        <p>Al alcanzar el desarrollo de este reto serás considerado Detective supremo y te
+          recompensará con <strong id="nexAmount">0</strong> NEXs.</p>
+        <div class="reward-amount"><span class="big" id="nexBig">0</span><span class="of">NEXs de 200.000
+            posibles</span></div>
+        <div class="reward-track">
+          <div class="reward-fill" id="nexFill"></div>
+        </div>
+        <div class="reward-break" id="nexBreak"></div>
+        <div class="reward-status" id="nexStatus"></div>
+      </div>
+
+      <div
+        style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:24px;">
+        <button class="ghost" id="resetDashBtn" style="color:var(--coral);border-color:rgba(214,91,74,.35);">🗑️ Borrar
+          historial del dashboard</button>
+        <button class="btn-print-dashboard" id="printReportBtn" type="button">🖨️ Imprimir Registro Institucional y
+          Dashboard</button>
+      </div>
+    </section>
+
+    <!-- ACTIVIDAD PRESENCIAL -->
+    <section data-section="fisica">
+      <h2 style="font-size:1.4rem;margin-bottom:6px;">Actividad presencial: Rally de estaciones de Byteon</h2>
+      <p style="color:var(--ink-soft);margin-bottom:18px;">Una dinámica distinta al juego digital: los aprendices se
+        mueven físicamente por el ambiente de formación, examinando componentes reales o representaciones de ellos, y
+        resolviendo retos en cada parada.</p>
+
+      <div class="card-basic">
+        <h3 style="font-size:1.05rem;margin-bottom:10px;">Cómo organizarla</h3>
+        <ol class="steps">
+          <li>Organiza el ambiente de formación en <strong>5 estaciones</strong> (ver tarjetas abajo), cada una con un
+            componente real o una tarjeta ilustrativa y una pregunta reto.</li>
+          <li>Forma equipos de 3 a 4 personas. Cada equipo recibe un <strong>"pasaporte de misión"</strong> (una hoja
+            con 5 casillas, una por estación).</li>
+          <li>Los equipos rotan por las estaciones cada <strong>5 minutos</strong> (usa un cronómetro visible), en el
+            orden que tú definas para evitar choques.</li>
+          <li>En cada estación, el equipo debe resolver el reto y anotar la respuesta en su pasaporte; un encargado de
+            estación (un aprendiz o el instructor) valida la respuesta con un sello o una firma.</li>
+          <li>Al finalizar la rotación, cada equipo suma sus aciertos y los comparte en voz alta ante el grupo.</li>
+          <li>Cierre grupal: cada equipo explica con sus palabras una situación de su vida laboral donde aplicaría lo
+            visto en su estación más difícil.</li>
+          <li>El instructor entrega un reconocimiento simbólico (insignia o puntos NEX) al equipo con más aciertos.</li>
+        </ol>
+      </div>
+
+      <div class="station-grid">
+        <div class="station-card">
+          <h4>🗂️ Estación 1 — Archivos</h4>
+          <p><strong>Reto:</strong> Ordena estas 4 tarjetas ("fichero", "carpeta", "copia de seguridad", "copia en la
+            nube") de la más pequeña a la más protegida ante desastres, y explica por qué la regla 3-2-1 exige una
+            copia fuera del sitio.</p>
+        </div>
+        <div class="station-card">
+          <h4>🖥️ Estación 2 — Hardware</h4>
+          <p><strong>Reto:</strong> Frente a un computador de escritorio (o sus piezas desarmadas), identifica y nombra
+            3 periféricos de entrada y 3 de salida, y explica la diferencia práctica entre un SSD y un HDD.</p>
+        </div>
+        <div class="station-card">
+          <h4>💽 Estación 3 — Software</h4>
+          <p><strong>Reto:</strong> Con capturas de pantalla de un equipo, clasifica cada programa visible en
+            "sistema", "programación" o "aplicación", y explica por qué nunca deben instalarse dos antivirus a la vez.
+          </p>
+        </div>
+        <div class="station-card">
+          <h4>🌐 Estación 4 — Redes</h4>
+          <p><strong>Reto:</strong> Con cables y conectores de muestra (RJ-45, HDMI, USB), arma un pequeño diagrama de
+            topología en estrella con cordones de lana y explica una ventaja y una desventaja de esa topología.</p>
+        </div>
+        <div class="station-card">
+          <h4>🖨️ Estación 5 — Reprografía</h4>
+          <p><strong>Reto:</strong> Ante una impresora o fotocopiadora real, identifica su tecnología (láser o
+            inyección de tinta) y explica el paso a paso de cómo un documento digital termina siendo papel.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPA MENTAL -->
+    <section data-section="mapamental">
+      <span class="tag">ESQUEMA CONCEPTUAL</span>
+      <h2 style="font-size:1.4rem;margin:4px 0 6px;">Mapa Mental: Infraestructura de Byteon</h2>
+      <p style="color:var(--ink-soft);margin-bottom:16px;">Estructura visual de los cinco ejes de la misión y sus
+        componentes principales.</p>
+
+      <div class="mindmap">
+        <div class="mm-center">🪐 INFRAESTRUCTURA DE BYTEON</div>
+        <div class="mm-branches">
+          <div class="mm-branch b1">
+            <h4>🗂️ Sistemas de archivos</h4>
+            <ul>
+              <li>Parametrización</li>
+              <li>Ficheros y carpetas</li>
+              <li>Discos duros</li>
+              <li>Copias de seguridad</li>
+              <li>Copias en la nube</li>
+            </ul>
+          </div>
+          <div class="mm-branch b2">
+            <h4>🖥️ Hardware</h4>
+            <ul>
+              <li>Placa base, chipset, CPU</li>
+              <li>Memoria RAM / caché / ROM</li>
+              <li>Periféricos de entrada</li>
+              <li>Periféricos de salida</li>
+              <li>Almacenamiento (HDD/SSD/USB)</li>
+            </ul>
+          </div>
+          <div class="mm-branch b3">
+            <h4>💽 Software</h4>
+            <ul>
+              <li>Software de sistema (SO)</li>
+              <li>Software de programación</li>
+              <li>Software de aplicación</li>
+              <li>Antivirus / antiespías</li>
+              <li>Ofimática y multimedia</li>
+            </ul>
+          </div>
+          <div class="mm-branch b4">
+            <h4>🌐 Redes</h4>
+            <ul>
+              <li>Topologías (bus, anillo, estrella)</li>
+              <li>Arquitecturas (Ethernet, Token Ring)</li>
+              <li>Modelo OSI / TCP-IP</li>
+              <li>Router, switch, módem</li>
+              <li>Cableado y fibra óptica</li>
+            </ul>
+          </div>
+          <div class="mm-branch b5">
+            <h4>🖨️ Reprografía</h4>
+            <ul>
+              <li>Impresoras (láser / inyección)</li>
+              <li>Escáneres y OCR</li>
+              <li>Fotocopiadoras (analógicas/digitales)</li>
+              <li>Equipos multifunción</li>
+              <li>Códigos QR y de barras</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="credit">Misión 5 · Byteon — Operación de herramientas informáticas y digitales para talento humano
+  </footer>
+
+  <!-- Reporte imprimible: Registro del aprendiz + Resultados del Dashboard -->
+  <div id="printReport">
+    <header class="report-header">
+      <div class="report-header-top">
+        <div class="report-logo">B</div>
+        <div class="report-header-text">
+          <div class="report-org">SERVICIO NACIONAL DE APRENDIZAJE SENA &bull; REGIONAL DISTRITO CAPITAL</div>
+          <h1 class="report-center">CENTRO DE GESTI&Oacute;N ADMINISTRATIVA</h1>
+          <div class="report-competencia">
+            <strong>COMPETENCIA:</strong> 210601026 - OPERAR HERRAMIENTAS INFORM&Aacute;TICAS Y DIGITALES DE ACUERDO CON
+            PROTOCOLOS Y MANUALES T&Eacute;CNICOS
+          </div>
+        </div>
+      </div>
+
+      <div class="report-project-card">
+        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+          DESEMPE&Ntilde;O</div>
+        <div class="report-project-sub">
+          <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
+          <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
+          <strong>RETO:</strong> 5. INFRAESTRUCTURA DE BYTEON (HARDWARE, SOFTWARE, REDES, NUBE Y REPROGRAF&Iacute;A)
+        </div>
+        <div class="report-ra">
+          <strong>RESULTADOS DE APRENDIZAJE:</strong>
+          <ul>
+            <li>Conceptualizar funciones de parametrizaci&oacute;n y componentes de hardware, software, redes,
+              seguridad y reprograf&iacute;a.</li>
+            <li>Tratar informaci&oacute;n de talento humano utilizando paquete b&aacute;sico de ofim&aacute;tica de
+              acuerdo con recursos y requerimientos de la organizaci&oacute;n.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="report-student-box">
+        <div class="report-box-title">Registro del aprendiz</div>
+        <div class="report-reg-grid">
+          <div class="report-field report-field-wide"><span class="label">Nombre completo:</span> <span class="reg-val"
+              id="regNombre"></span></div>
+          <div class="report-field"><span class="label">N&uacute;mero de documento:</span> <span class="reg-val"
+              id="regDocumento"></span></div>
+          <div class="report-field"><span class="label">Ficha:</span> <span class="reg-val" id="regFicha"></span></div>
+          <div class="report-field report-field-wide"><span class="label">Programa:</span> <span class="reg-val"
+              id="regPrograma"></span></div>
+          <div class="report-field"><span class="label">Centro de formaci&oacute;n:</span> <span class="reg-val"
+              id="regCentro"></span></div>
+          <div class="report-field"><span class="label">Regional:</span> <span class="reg-val" id="regRegional"></span>
+          </div>
+          <div class="report-field"><span class="label">Fecha y hora de emisi&oacute;n:</span> <span class="reg-val"
+              id="reportDate"></span></div>
+          <div class="report-field"><span class="label">Instructor / Evaluador:</span> <span class="reg-val"
+              id="regInstructor"></span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="report-body">
+      <h2 class="report-sec-title">Resultados Consolidados del Dashboard</h2>
+      <div class="report-stats-grid" id="reportStatsGrid"></div>
+      <div id="reportRewardCard"></div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Gr&aacute;ficos del Dashboard</h3>
+        <div class="report-charts-grid" id="reportCharts"></div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Diagn&oacute;stico y An&aacute;lisis Cualitativo</h3>
+        <div class="report-analysis-item">
+          <strong>Evaluador de Conocimientos:</strong>
+          <p id="reportAnalysisEval"></p>
+        </div>
+        <div class="report-analysis-item">
+          <strong>Juego de Clasificaci&oacute;n (Entrada / Salida / Almacenamiento):</strong>
+          <p id="reportAnalysisGame"></p>
+        </div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Desempe&ntilde;o por Categor&iacute;a de Perif&eacute;rico</h3>
+        <div id="reportCategoryTable"></div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Historial Detallado de Evaluaciones Realizadas</h3>
+        <div id="reportEvalTable"></div>
+      </div>
+
+      <div class="report-card">
+        <h3 class="report-card-title">Historial de Partidas en el Simulador</h3>
+        <div id="reportGameTable"></div>
+      </div>
+
+      <div class="report-signatures">
+        <div class="report-obs">
+          <strong>Observaciones y Recomendaciones del Instructor / Evaluador:</strong>
+          <div class="obs-lines"></div>
+          <div class="obs-lines" style="margin-top:6px;"></div>
+        </div>
+        <div class="sig-grid">
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Aprendiz</div>
+          </div>
+          <div class="sig-box">
+            <div class="sig-line"></div>
+            <div class="sig-label">Firma del Instructor / Evaluador</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Navegación de pestañas ---------- */
+    const tabButtons = document.querySelectorAll('#tabs button[data-section]');
+    const sections = document.querySelectorAll('main > section');
+    function goTo(name) {
+      tabButtons.forEach(b => b.classList.toggle('active', b.dataset.section === name));
+      sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
+    document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    /* ---------- Documentos fuente ---------- */
+    const DOCS = [
+      { id: 'byteon', label: 'Hardware y Software', file: 'hardware, software.pdf', icon: 'ðŸ’»', desc: 'Hardware, software, arquitectura y perifÃ©ricos.' },
+      { id: 'infra', label: 'Infraestructura y Reprografía', file: 'Reporte_Completo__Infraestructura_y_Reprografía_en_Byteon.pdf', icon: '🏗️', desc: 'Parametrización, RAID, regla 3-2-1, clasificación de datos y tecnologías de impresión.' },
+      { id: 'hardware', label: 'Hardware', file: 'Hardware.pdf', icon: '🖥️', desc: 'Codificación de la información, arquitectura de Von Neumann, placa base y periféricos.' },
+      { id: 'software', label: 'Software', file: 'software.pdf', icon: '💽', desc: 'Definición, clasificación, sistemas operativos, antivirus y aplicaciones ofimáticas.' },
+      { id: 'redes', label: 'Fundamentos de Redes', file: 'Fundamentos-de-Redes-de-Computadoras.pdf', icon: '🌐', desc: 'Topologías, arquitecturas, protocolos OSI/TCP-IP y tipos de redes.' },
+      { id: 'nube', label: 'Almacenamiento en nube', file: 'Almacenamiento_en_nube.pdf', icon: '☁️', desc: 'Historia, arquitectura y ejemplos de almacenamiento en la nube.' },
+      { id: 'reprografia', label: 'Equipos de reprografía', file: 'reprografia.pdf', icon: '🖨️', desc: 'Impresoras, escáneres, fotocopiadoras y equipos multifunción en detalle.' }
+    ];
+
+    const pdfSubnav = document.getElementById('pdfSubnav');
+    const pdfFrame = document.getElementById('pdfFrame');
+    const pdfOpenBtn = document.getElementById('pdfOpenBtn');
+    const pdfDlBtn = document.getElementById('pdfDlBtn');
+
+    function loadDoc(id) {
+      const d = DOCS.find(x => x.id === id || x.file === id);
+      const file = d ? d.file : id;
+      pdfFrame.src = file;
+      pdfOpenBtn.href = file;
+      pdfDlBtn.href = file;
+      pdfDlBtn.setAttribute('download', file);
+      const subnavBtns = document.querySelectorAll('#pdfSubnav button');
+      if (subnavBtns.length) {
+        subnavBtns.forEach(b => b.classList.toggle('active', (b.dataset.doc === id || b.dataset.doc === (d ? d.id : ''))));
+      }
+    }
+    if (pdfSubnav) {
+      pdfSubnav.innerHTML = '';
+      pdfSubnav.style.display = 'none';
+    }
+    loadDoc('hardware, software.pdf');
+
+    /* Material de apoyo cards */
+    const materialGrid = document.getElementById('materialGrid');
+    DOCS.forEach(d => {
+      if (d.id === 'byteon' || d.label.includes('Retos Byteon')) return;
+      const a = document.createElement('a');
+      a.href = d.file;
+      a.target = '_blank';
+      a.className = 'material-card';
+      a.innerHTML = `<div class="material-icon">${d.icon}</div>
+    <div class="material-body">
+      <h3>${d.label}</h3>
+      <p>${d.desc}</p>
+      <span class="material-btn">⬇ Descargar PDF</span>
+    </div>`;
+      materialGrid.appendChild(a);
+    });
+
+    /* ---------- Registro del aprendiz (compartido entre apps de Byteon) ---------- */
+    const REG_KEY = 'sena_registro_aprendiz';
+    const REG_DEFAULTS = {
+      programa: 'Programa Técnico en Talento Humano',
+      centro: 'Centro de Gestión Administrativa',
+      regional: 'Regional Distrito Capital'
+    };
+    function loadRegistro() {
+      try { const raw = localStorage.getItem(REG_KEY); if (raw) return JSON.parse(raw); } catch (e) { }
+      return null;
+    }
+    function saveRegistro(reg) {
+      try { localStorage.setItem(REG_KEY, JSON.stringify(reg)); } catch (e) { }
+    }
+    let REGISTRO = loadRegistro() || {};
+
+    const regNombreInput = document.getElementById('regNombreInput');
+    const regDocumentoInput = document.getElementById('regDocumentoInput');
+    const regFichaInput = document.getElementById('regFichaInput');
+    const regInstructorInput = document.getElementById('regInstructorInput');
+    regNombreInput.value = REGISTRO.nombre || '';
+    regDocumentoInput.value = REGISTRO.documento || '';
+    regFichaInput.value = REGISTRO.ficha || '';
+    regInstructorInput.value = REGISTRO.instructor || '';
+    [regNombreInput, regDocumentoInput, regFichaInput, regInstructorInput].forEach(inp => {
+      inp.addEventListener('input', () => {
+        REGISTRO = {
+          ...REGISTRO,
+          nombre: regNombreInput.value,
+          documento: regDocumentoInput.value,
+          ficha: regFichaInput.value,
+          instructor: regInstructorInput.value
+        };
+        saveRegistro(REGISTRO);
+      });
+    });
+
+    /* ---------- Dashboard storage ---------- */
+    const DASH_KEY = 'infraestructura_byteon_v1';
+    function loadDash() {
+      try { const raw = localStorage.getItem(DASH_KEY); if (raw) return JSON.parse(raw); } catch (e) { }
+      return null;
+    }
+    let DASH = loadDash() || {
+      quizHistory: [],
+      gameHistory: [],
+      typeStats: { entrada: { correct: 0, wrong: 0 }, salida: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } }
+    };
+    function saveDash() { try { localStorage.setItem(DASH_KEY, JSON.stringify(DASH)); } catch (e) { } }
+
+    /* ================= EVALUADOR (quiz de tipos mixtos) ================= */
+    const QUIZ = [
+      {
+        type: 'mc', topic: 'Hardware', badge: 'Selección única', q: '¿Qué componente de la CPU se considera "el cerebro del ordenador" porque ejecuta el sistema operativo y las aplicaciones?',
+        options: ['La memoria RAM', 'El microprocesador (CPU)', 'La tarjeta gráfica', 'El disco duro'], correct: 1,
+        explain: 'El microprocesador (CPU) es el circuito integrado central que ejecuta instrucciones aritméticas y lógicas.'
+      },
+
+      {
+        type: 'tf', topic: 'Hardware', badge: 'Verdadero o falso', q: 'La memoria RAM es volátil: si se apaga el equipo, se pierde la información que contiene.',
+        correct: true, explain: 'La memoria RAM es volátil y solo conserva datos mientras el equipo tiene energía.'
+      },
+
+      {
+        type: 'mc', topic: 'Almacenamiento y nube', badge: 'Selección única', q: 'Según la Regla 3-2-1 de respaldo aplicada en Byteon, ¿cuántas copias de los datos se deben mantener en total?',
+        options: ['1 copia', '2 copias', '3 copias', '5 copias'], correct: 2,
+        explain: 'La regla 3-2-1 exige 3 copias de los datos, en 2 medios distintos, y 1 de ellas fuera de las instalaciones.'
+      },
+
+      {
+        type: 'select', topic: 'Sistemas de archivos', badge: 'Lista desplegable', q: 'Selecciona la respuesta correcta:',
+        rows: [
+          {
+            label: 'El proceso mediante el cual se establecen reglas para nombrar, clasificar y almacenar archivos se llama ________.',
+            options: ['Virtualización', 'Parametrización', 'Indexación', 'Encriptación'], correct: 1
+          }
+        ],
+        explain: 'La parametrización define nomenclaturas y criterios de organización de archivos.'
+      },
+
+      {
+        type: 'tf', topic: 'Almacenamiento y nube', badge: 'Verdadero o falso', q: 'Google Drive ofrece 15 gigabytes de espacio de almacenamiento gratuito por usuario.',
+        correct: true, explain: 'Cada usuario cuenta con 15 GB gratuitos en Google Drive, ampliables con planes de pago.'
+      },
+
+      {
+        type: 'mc', topic: 'Redes', badge: 'Selección única', q: '¿Qué topología de red tiene un dispositivo central (hub) desde el cual se irradian todos los enlaces hacia los demás nodos?',
+        options: ['Topología de bus', 'Topología en anillo', 'Topología en estrella', 'Topología híbrida'], correct: 2,
+        explain: 'En la topología en estrella todas las señales pasan por un concentrador (hub) central.'
+      },
+
+      {
+        type: 'select', topic: 'Redes', badge: 'Lista desplegable', q: 'Selecciona la descripción correcta para cada dispositivo de red:',
+        rows: [
+          { label: 'Router (encaminador)', options: ['Amplifica la señal sin decidir rutas', 'Establece qué ruta se destina a cada paquete de datos', 'Convierte señales digitales en analógicas'], correct: 1 },
+          { label: 'Módem', options: ['Convierte señales digitales en analógicas y viceversa', 'Centraliza el cableado de la red', 'Filtra el tráfico por dirección MAC'], correct: 0 },
+          { label: 'Bridge (puente)', options: ['Determina rutas en Internet', 'Restringe el envío de información entre segmentos de red', 'Digitaliza documentos físicos'], correct: 1 }
+        ],
+        explain: 'El router enruta paquetes, el módem convierte señales digitales/analógicas, y el bridge interconecta segmentos de red.'
+      },
+
+      {
+        type: 'tf', topic: 'Reprografía', badge: 'Verdadero o falso', q: 'Las impresoras láser fijan el tóner al papel mediante calor, en un proceso electro-fotográfico similar al de las fotocopiadoras.',
+        correct: true, explain: 'Las impresoras láser usan un tambor fotosensible y tóner que se funde con calor sobre el papel.'
+      },
+
+      {
+        type: 'mc', topic: 'Datos y códigos', badge: 'Selección única', q: '¿Cuál de los siguientes es un ejemplo de dato ALFANUMÉRICO según la clasificación usada en Byteon?',
+        options: ['Edad del trabajador (35)', 'Ciudad de nacimiento (Bogotá)', 'Contraseña encriptada (a8B3-x91)', 'Porcentaje de cumplimiento de KPI (92%)'], correct: 2,
+        explain: 'Los datos alfanuméricos combinan letras y números, como identificadores, correos o contraseñas.'
+      },
+
+      {
+        type: 'select', topic: 'Datos y códigos', badge: 'Lista desplegable', q: 'Selecciona la respuesta correcta:',
+        rows: [
+          {
+            label: 'Los códigos ________ son matrices de puntos que permiten almacenar mayor cantidad de datos y pueden ser leídos con dispositivos móviles.',
+            options: ['de barras', 'QR', 'ASCII', 'binarios'], correct: 1
+          }
+        ],
+        explain: 'Los códigos de barras son secuencias de líneas legibles por escáneres; los códigos QR son matrices de puntos con mayor capacidad, leíbles desde el móvil.'
+      },
+
+      {
+        type: 'drag', topic: 'Software', badge: 'Arrastra las tarjetas', q: 'Arrastra cada elemento de software a la categoría correcta:',
+        zones: [{ key: 'sistema', label: 'Software de sistema' }, { key: 'programacion', label: 'Software de programación' }, { key: 'aplicacion', label: 'Software de aplicación' }],
+        items: [
+          { text: 'Sistema operativo Windows', cat: 'sistema' },
+          { text: 'Controlador de dispositivos', cat: 'sistema' },
+          { text: 'Compilador', cat: 'programacion' },
+          { text: 'Entorno de Desarrollo Integrado (IDE)', cat: 'programacion' },
+          { text: 'Procesador de texto (Word)', cat: 'aplicacion' },
+          { text: 'Antivirus', cat: 'aplicacion' }
+        ],
+        explain: 'El software de sistema administra el equipo; el de programación crea otros programas; el de aplicación resuelve tareas del usuario.'
+      },
+
+      {
+        type: 'mc', topic: 'Almacenamiento y nube', badge: 'Selección única', q: '¿Qué empresa fue pionera en 1999 en entregar aplicaciones corporativas mediante una interfaz web, marcando un hito temprano de la computación en nube?',
+        options: ['Amazon', 'Google', 'salesforce.com', 'Microsoft'], correct: 2,
+        explain: 'salesforce.com demostró la ventaja de entregar productos mediante portales web en 1999.'
+      },
+
+      {
+        type: 'tf', topic: 'Reprografía', badge: 'Verdadero o falso', q: 'Un escáner de mano necesita ser conectado a un ordenador desde el inicio del escaneo para poder digitalizar el documento.',
+        correct: false, explain: 'El escáner de mano digitaliza mientras se arrastra sobre el documento; solo se conecta al final para descargar las imágenes.'
+      },
+
+      {
+        type: 'drag', topic: 'Hardware', badge: 'Arrastra las tarjetas', q: 'Arrastra cada periférico a su categoría de hardware:',
+        zones: [{ key: 'entrada', label: 'Entrada' }, { key: 'salida', label: 'Salida' }, { key: 'almacenamiento', label: 'Almacenamiento' }],
+        items: [
+          { text: 'Micrófono', cat: 'entrada' },
+          { text: 'Escáner de documentos', cat: 'entrada' },
+          { text: 'Monitor', cat: 'salida' },
+          { text: 'Altavoces', cat: 'salida' },
+          { text: 'Unidad de estado sólido (SSD)', cat: 'almacenamiento' },
+          { text: 'Memoria USB', cat: 'almacenamiento' }
+        ],
+        explain: 'Entrada = llevan datos al equipo; salida = muestran resultados; almacenamiento = conservan la información.'
+      },
+
+      {
+        type: 'mc', topic: 'Redes', badge: 'Selección única', q: 'En la topología de red en ANILLO, ¿qué ocurre si falla la conexión de un solo dispositivo?',
+        options: ['No pasa nada, el resto sigue funcionando con normalidad', 'Toda la red deja de funcionar, porque el anillo se rompe', 'Solo se desconecta ese dispositivo, igual que en la topología en estrella', 'La red cambia automáticamente a topología de bus'], correct: 1,
+        explain: 'En la topología en anillo cada nodo transfiere la señal al siguiente; si un nodo o su conexión falla, se rompe el anillo y toda la red cae.'
+      },
+
+      {
+        type: 'tf', topic: 'Redes', badge: 'Verdadero o falso', q: 'El conjunto de protocolos TCP/IP asigna a cada equipo conectado a Internet una dirección numérica única (dirección IP) para poder enrutar la información.',
+        correct: true, explain: 'La dirección IP identifica tanto a la red como al equipo dentro de ella, permitiendo el enrutamiento de los datos.'
+      },
+
+      {
+        type: 'select', topic: 'Software', badge: 'Lista desplegable', q: 'Selecciona la respuesta correcta:',
+        rows: [
+          {
+            label: 'Un compilador, un intérprete y un entorno de desarrollo integrado (IDE) pertenecen a la categoría de software de ________.',
+            options: ['sistema', 'programación', 'aplicación', 'reprografía'], correct: 1
+          }
+        ],
+        explain: 'El software de programación agrupa las herramientas que permiten a un programador crear otros programas: editores, compiladores, intérpretes e IDE.'
+      },
+
+      {
+        type: 'mc', topic: 'Almacenamiento y nube', badge: 'Selección única', q: 'Según la plataforma de Amazon Web Services (AWS), ¿qué tipo de almacenamiento en la nube se utiliza para bases de datos relacionales como RDS o Aurora?',
+        options: ['Almacenamiento por objetos (S3)', 'Almacenamiento por archivos (EFS)', 'Almacenamiento por bloques', 'Almacenamiento en microfilm'], correct: 2,
+        explain: 'El almacenamiento por bloques está enfocado en bases de datos como servicio, con soluciones como RDS y Aurora.'
+      },
+
+      {
+        type: 'tf', topic: 'Reprografía', badge: 'Verdadero o falso', q: 'Una fotocopiadora digital debe volver a captar la imagen del documento original por cada copia adicional que se quiera realizar.',
+        correct: false, explain: 'Falso: la fotocopiadora digital capta la imagen una sola vez, la guarda digitalmente y luego imprime todas las copias indicadas sin volver a escanear.'
+      },
+
+      {
+        type: 'mc', topic: 'Reprografía', badge: 'Selección única', q: '¿Qué tipo de escáner permite colocar un taco de documentos en una bandeja para que se digitalicen uno tras otro de forma automática?',
+        options: ['Escáner de sobremesa', 'Escáner de mano', 'Escáner con alimentador de hojas', 'Escáner para microfilm'], correct: 2,
+        explain: 'El escáner con alimentador de hojas mantiene fijos el sensor y la fuente de luz, mientras el papel se desplaza automáticamente, hoja por hoja.'
+      }
+    ];
+
+    let qIdx = 0, qScore = 0, qAnswered = false, qWeakTopics = [];
+    const quizProgressText = document.getElementById('quizProgressText');
+    const quizScoreText = document.getElementById('quizScoreText');
+    const quizBar = document.getElementById('quizBar');
+    const quizTypeBadge = document.getElementById('quizTypeBadge');
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizAnswerArea = document.getElementById('quizAnswerArea');
+    const quizFeedback = document.getElementById('quizFeedback');
+    const quizNextBtn = document.getElementById('quizNextBtn');
+    const quizPlay = document.getElementById('quizPlay');
+    const quizEnd = document.getElementById('quizEnd');
+
+    function renderQuiz() {
+      qAnswered = false;
+      quizFeedback.classList.remove('show', 'wrong');
+      quizFeedback.textContent = '';
+      quizNextBtn.textContent = 'Siguiente';
+      quizNextBtn.disabled = false;
+      quizProgressText.textContent = `Pregunta ${qIdx + 1} de ${QUIZ.length}`;
+      quizScoreText.textContent = `Aciertos: ${qScore}`;
+      quizBar.style.width = Math.round((qIdx / QUIZ.length) * 100) + '%';
+      const item = QUIZ[qIdx];
+      quizTypeBadge.textContent = item.badge;
+      quizQuestion.textContent = (item.type === 'select' && item.rows.length === 1) ? item.rows[0].label : item.q;
+      quizAnswerArea.innerHTML = '';
+
+      if (item.type === 'mc') {
+        const wrap = document.createElement('div'); wrap.className = 'quiz-options';
+        item.options.forEach((opt, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = opt; b.dataset.i = i;
+          b.addEventListener('click', () => { wrap.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); });
+          wrap.appendChild(b);
+        });
+        quizAnswerArea.appendChild(wrap);
+      } else if (item.type === 'tf') {
+        const wrap = document.createElement('div'); wrap.className = 'quiz-options';
+        ['Verdadero', 'Falso'].forEach((opt, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.textContent = opt; b.dataset.i = i === 0 ? 'true' : 'false';
+          b.addEventListener('click', () => { wrap.querySelectorAll('button').forEach(x => x.classList.remove('sel')); b.classList.add('sel'); });
+          wrap.appendChild(b);
+        });
+        quizAnswerArea.appendChild(wrap);
+      } else if (item.type === 'select') {
+        const multi = item.rows.length > 1;
+        item.rows.forEach((row, ri) => {
+          const div = document.createElement('div'); div.className = 'quiz-select-row';
+          if (multi) {
+            const lab = document.createElement('label'); lab.textContent = row.label; div.appendChild(lab);
+          }
+          const sel = document.createElement('select'); sel.dataset.row = ri;
+          const optDefault = document.createElement('option'); optDefault.textContent = '— elige una opción —'; optDefault.value = '';
+          sel.appendChild(optDefault);
+          row.options.forEach((o, oi) => { const op = document.createElement('option'); op.value = oi; op.textContent = o; sel.appendChild(op); });
+          div.appendChild(sel);
+          quizAnswerArea.appendChild(div);
+        });
+      } else if (item.type === 'drag') {
+        const board = document.createElement('div'); board.className = 'drag-board';
+        const pool = document.createElement('div'); pool.className = 'drag-pool'; pool.id = 'dragPool';
+        const shuffled = [...item.items].sort(() => Math.random() - 0.5);
+        shuffled.forEach((it, ii) => {
+          const chip = document.createElement('div');
+          chip.className = 'drag-chip'; chip.draggable = true; chip.textContent = it.text;
+          chip.dataset.cat = it.cat; chip.dataset.id = ii;
+          chip.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', ii));
+          pool.appendChild(chip);
+        });
+        board.appendChild(pool);
+        item.zones.forEach(z => {
+          const zone = document.createElement('div'); zone.className = 'drag-zone'; zone.dataset.zone = z.key;
+          const h5 = document.createElement('h5'); h5.textContent = z.label; zone.appendChild(h5);
+          zone.addEventListener('dragover', e => e.preventDefault());
+          zone.addEventListener('drop', e => {
+            e.preventDefault();
+            const id = e.dataTransfer.getData('text/plain');
+            const chip = document.querySelector(`[data-id="${id}"]`);
+            if (chip) zone.appendChild(chip);
+          });
+          board.appendChild(zone);
+        });
+        pool.addEventListener('dragover', e => e.preventDefault());
+        pool.addEventListener('drop', e => {
+          e.preventDefault();
+          const id = e.dataTransfer.getData('text/plain');
+          const chip = document.querySelector(`[data-id="${id}"]`);
+          if (chip) pool.appendChild(chip);
+        });
+        quizAnswerArea.appendChild(board);
+      }
+    }
+
+    function checkQuiz() {
+      if (qAnswered) return;
+      const item = QUIZ[qIdx];
+      let correct = false;
+
+      if (item.type === 'mc') {
+        const sel = quizAnswerArea.querySelector('button.sel');
+        if (!sel) { alert('Selecciona una opción.'); return; }
+        correct = Number(sel.dataset.i) === item.correct;
+        quizAnswerArea.querySelectorAll('button').forEach((b, i) => {
+          b.disabled = true;
+          if (i === item.correct) b.classList.add('correct');
+          else if (b === sel) b.classList.add('incorrect');
+        });
+      } else if (item.type === 'tf') {
+        const sel = quizAnswerArea.querySelector('button.sel');
+        if (!sel) { alert('Selecciona Verdadero o Falso.'); return; }
+        const chosen = sel.dataset.i === 'true';
+        correct = chosen === item.correct;
+        quizAnswerArea.querySelectorAll('button').forEach(b => {
+          b.disabled = true;
+          const isTrueBtn = b.dataset.i === 'true';
+          if (isTrueBtn === item.correct) b.classList.add('correct');
+          else if (b === sel) b.classList.add('incorrect');
+        });
+      } else if (item.type === 'select') {
+        const selects = quizAnswerArea.querySelectorAll('select');
+        let allCorrect = true, allFilled = true;
+        selects.forEach((s, i) => {
+          if (s.value === '') allFilled = false;
+          if (Number(s.value) !== item.rows[i].correct) allCorrect = false;
+        });
+        if (!allFilled) { alert('Elige una opción en cada lista desplegable.'); return; }
+        selects.forEach((s, i) => {
+          s.disabled = true;
+          s.style.borderColor = Number(s.value) === item.rows[i].correct ? 'var(--teal)' : 'var(--coral)';
+        });
+        correct = allCorrect;
+      } else if (item.type === 'drag') {
+        const zones = quizAnswerArea.querySelectorAll('.drag-zone');
+        let total = item.items.length, ok = 0;
+        let placed = 0;
+        zones.forEach(z => { placed += z.querySelectorAll('.drag-chip').length; });
+        if (placed < total) { alert('Coloca todas las tarjetas antes de comprobar.'); return; }
+        zones.forEach(z => {
+          z.querySelectorAll('.drag-chip').forEach(chip => {
+            const good = chip.dataset.cat === z.dataset.zone;
+            chip.classList.add(good ? 'placed-ok' : 'placed-bad');
+            chip.setAttribute('draggable', 'false');
+            if (good) ok++;
+          });
+        });
+        correct = ok === total;
+        if (!correct) qWeakTopics.push(item.topic);
+        quizFeedback.textContent = `Colocaste correctamente ${ok} de ${total} elementos. ${item.explain}`;
+        quizFeedback.classList.add('show');
+        if (!correct) quizFeedback.classList.add('wrong');
+        if (correct) qScore++;
+        qAnswered = true;
+        quizScoreText.textContent = `Aciertos: ${qScore}`;
+        return;
+      }
+
+      if (correct) qScore++; else qWeakTopics.push(item.topic);
+      quizFeedback.textContent = (correct ? '✅ ¡Correcto! ' : '❌ No es correcto. ') + item.explain;
+      quizFeedback.classList.add('show');
+      if (!correct) quizFeedback.classList.add('wrong');
+      qAnswered = true;
+      quizScoreText.textContent = `Aciertos: ${qScore}`;
+    }
+
+    function endQuiz() {
+      quizPlay.style.display = 'none';
+      quizEnd.style.display = 'block';
+      quizBar.style.width = '100%';
+      document.getElementById('quizFinalScore').textContent = qScore;
+      document.getElementById('quizFinalTotal').textContent = QUIZ.length;
+      const pct = Math.round((qScore / QUIZ.length) * 100);
+      const verdictKey = pct >= 75 ? 'high' : pct >= 50 ? 'mid' : 'low';
+      const verdict = document.getElementById('quizVerdict');
+      verdict.className = 'verdict show ' + verdictKey;
+      const title = pct >= 75 ? '🌟 Dominio alto de la infraestructura de Byteon' : pct >= 50 ? '🔧 Nivel medio, revisa los ejes temáticos' : '📚 Nivel bajo, vuelve al Material Principal';
+      verdict.innerHTML = `<h4>${title}</h4><p>Obtuviste ${qScore} de ${QUIZ.length} (${pct}%).</p>`;
+      DASH.quizHistory.push({ ts: Date.now(), score: qScore, total: QUIZ.length, verdict: verdictKey, weak: [...new Set(qWeakTopics)] });
+      saveDash();
+      renderDashboard();
+    }
+
+    let advancing = false;
+    quizNextBtn.addEventListener('click', () => {
+      if (advancing) return;
+      if (!qAnswered) {
+        checkQuiz();
+        if (qAnswered) {
+          advancing = true;
+          quizNextBtn.disabled = true;
+          setTimeout(() => {
+            advancing = false;
+            quizNextBtn.disabled = false;
+            qIdx++;
+            if (qIdx >= QUIZ.length) endQuiz();
+            else renderQuiz();
+          }, 1500);
+        }
+        return;
+      }
+      qIdx++;
+      if (qIdx >= QUIZ.length) endQuiz();
+      else renderQuiz();
+    });
+    document.getElementById('quizReplayBtn').addEventListener('click', () => {
+      qIdx = 0; qScore = 0; qWeakTopics = [];
+      quizPlay.style.display = 'block';
+      quizEnd.style.display = 'none';
+      renderQuiz();
+    });
+    renderQuiz();
+
+    /* ================= JUEGO: clasifica el periférico ================= */
+    const ITEMS = [
+      { text: 'Teclado: permite introducir caracteres y comandos mediante teclas.', type: 'entrada' },
+      { text: 'Escáner de documentos: explora un documento y lo convierte en formato digital.', type: 'entrada' },
+      { text: 'Ratón: dispositivo apuntador que desplaza un puntero por la pantalla.', type: 'entrada' },
+      { text: 'Micrófono: transforma la energía acústica en eléctrica para digitalizar el sonido.', type: 'entrada' },
+      { text: 'Cámara digital: permite introducir imágenes y vídeos en el ordenador.', type: 'entrada' },
+      { text: 'Monitor: dispositivo de salida más importante, muestra el resultado en píxeles.', type: 'salida' },
+      { text: 'Impresora láser: convierte documentos digitales en copias físicas usando tóner.', type: 'salida' },
+      { text: 'Altavoces: reproducen los sonidos y mensajes que emite el equipo.', type: 'salida' },
+      { text: 'Disco duro (HDD): dispositivo magnético que almacena grandes volúmenes de datos.', type: 'almacenamiento' },
+      { text: 'Unidad de estado sólido (SSD): usa memoria no volátil, más rápida y resistente a golpes.', type: 'almacenamiento' },
+      { text: 'Memoria USB: dispositivo de memoria flash portátil para guardar archivos.', type: 'almacenamiento' },
+      { text: 'Tarjeta de memoria flash: sustituto del carrete en la fotografía digital.', type: 'almacenamiento' }
+    ];
+
+    let gIdx = 0, gScore = 0;
+    const gameProgressText = document.getElementById('gameProgressText');
+    const gameScoreText = document.getElementById('gameScoreText');
+    const gameBar = document.getElementById('gameBar');
+    const gameQuestion = document.getElementById('gameQuestion');
+    const gameOptions = document.getElementById('gameOptions');
+    const gameFeedback = document.getElementById('gameFeedback');
+    const gameNextBtn = document.getElementById('gameNextBtn');
+    const gamePlay = document.getElementById('gamePlay');
+    const gameEnd = document.getElementById('gameEnd');
+
+    let gAnswered = false;
+
+    function renderGame() {
+      gAnswered = false;
+      gameFeedback.classList.remove('show');
+      gameFeedback.textContent = '';
+      gameNextBtn.style.display = 'inline-block';
+      gameNextBtn.textContent = (gIdx === ITEMS.length - 1) ? 'Finalizar' : 'Siguiente';
+      gameProgressText.textContent = `Pregunta ${gIdx + 1} de ${ITEMS.length}`;
+      gameScoreText.textContent = `Aciertos: ${gScore}`;
+      gameBar.style.width = Math.round((gIdx / ITEMS.length) * 100) + '%';
+      gameQuestion.textContent = ITEMS[gIdx].text;
+      gameOptions.querySelectorAll('button').forEach(b => { b.disabled = false; b.classList.remove('correct', 'incorrect'); });
+    }
+    function handleGameChoice(choice) {
+      gAnswered = true;
+      const item = ITEMS[gIdx];
+      const correct = choice === item.type;
+      gameOptions.querySelectorAll('button').forEach(b => {
+        b.disabled = true;
+        if (b.dataset.choice === item.type) b.classList.add('correct');
+        else if (b.dataset.choice === choice) b.classList.add('incorrect');
+      });
+      if (correct) { gScore++; DASH.typeStats[item.type].correct++; }
+      else { DASH.typeStats[item.type].wrong++; }
+      saveDash();
+      gameScoreText.textContent = `Aciertos: ${gScore}`;
+      gameFeedback.textContent = (correct ? '✅ ¡Correcto! ' : '❌ No es correcto. ') + `Es un dispositivo de ${item.type}.`;
+      gameFeedback.classList.add('show');
+      gameNextBtn.style.display = 'inline-block';
+    }
+    gameOptions.querySelectorAll('button').forEach(b => b.addEventListener('click', () => handleGameChoice(b.dataset.choice)));
+    gameNextBtn.addEventListener('click', () => {
+      if (!gAnswered) {
+        gameFeedback.textContent = 'Selecciona una opciÃ³n antes de continuar a la siguiente pregunta.';
+        gameFeedback.classList.add('show');
+        return;
+      }
+      gIdx++;
+      if (gIdx >= ITEMS.length) endGame();
+      else renderGame();
+    });
+    function endGame() {
+      gamePlay.style.display = 'none';
+      gameEnd.style.display = 'block';
+      gameBar.style.width = '100%';
+      document.getElementById('gameFinalScore').textContent = gScore;
+      const pct = Math.round((gScore / ITEMS.length) * 100);
+      document.getElementById('gameFinalMsg').textContent = pct >= 75 ? '¡Excelente clasificación de hardware!' : pct >= 50 ? 'Buen intento, repasa los ejes temáticos.' : 'Vuelve a revisar el material principal y sigue practicando.';
+      DASH.gameHistory.push({ ts: Date.now(), score: gScore, total: ITEMS.length });
+      saveDash();
+      renderDashboard();
+    }
+    document.getElementById('gameReplayBtn').addEventListener('click', () => {
+      gIdx = 0; gScore = 0;
+      gamePlay.style.display = 'block';
+      gameEnd.style.display = 'none';
+      renderGame();
+    });
+    renderGame();
+
+    /* ================= Gráficos SVG (barra y dona) ================= */
+    function renderPieChart(containerId, slices) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      const total = slices.reduce((s, x) => s + x.value, 0);
+      if (total <= 0) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const size = 150, r = 55, cx = size / 2, cy = size / 2, thickness = 26;
+      const circumference = 2 * Math.PI * r;
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + size + ' ' + size);
+      const bg = document.createElementNS(svgNS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', r);
+      bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#EDE7D8'); bg.setAttribute('stroke-width', thickness);
+      svg.appendChild(bg);
+      let offset = 0;
+      slices.forEach(sl => {
+        if (sl.value <= 0) return;
+        const frac = sl.value / total;
+        const len = frac * circumference;
+        const circle = document.createElementNS(svgNS, 'circle');
+        circle.setAttribute('cx', cx); circle.setAttribute('cy', cy); circle.setAttribute('r', r);
+        circle.setAttribute('fill', 'none'); circle.setAttribute('stroke', sl.color); circle.setAttribute('stroke-width', thickness);
+        circle.setAttribute('stroke-dasharray', len + ' ' + (circumference - len));
+        circle.setAttribute('stroke-dashoffset', -offset);
+        circle.setAttribute('transform', 'rotate(-90 ' + cx + ' ' + cy + ')');
+        svg.appendChild(circle);
+        offset += len;
+      });
+      const label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx); label.setAttribute('y', cy + 5); label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('font-size', '15'); label.setAttribute('font-weight', '800'); label.setAttribute('fill', '#14213D');
+      label.textContent = total;
+      svg.appendChild(label);
+      const wrap = document.createElement('div'); wrap.className = 'pie-wrap'; wrap.appendChild(svg);
+      const legend = document.createElement('div'); legend.className = 'legend';
+      slices.forEach(sl => {
+        const pct = total > 0 ? Math.round((sl.value / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.innerHTML = '<span class="sw" style="background:' + sl.color + '"></span>' + sl.label + ': <strong>' + sl.value + '</strong> (' + pct + '%)';
+        legend.appendChild(row);
+      });
+      wrap.appendChild(legend);
+      container.appendChild(wrap);
+    }
+
+    function renderBarChart(containerId, categories, series, maxOverride) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.innerHTML = '';
+      const allValues = series.flatMap(s => s.data);
+      const hasData = allValues.some(v => v > 0);
+      if (!hasData) { container.innerHTML = '<p class="empty-note">Aún no hay datos suficientes.</p>'; return; }
+      const maxVal = maxOverride || Math.max(1, ...allValues);
+      const width = 380, height = 210, padLeft = 28, padBottom = 34, padTop = series.length > 1 ? 26 : 12;
+      const chartW = width - padLeft - 10, chartH = height - padBottom - padTop;
+      const groupW = chartW / categories.length;
+      const barW = Math.min(30, (groupW - 14) / series.length);
+      const svgNS = 'http://www.w3.org/2000/svg';
+      const svg = document.createElementNS(svgNS, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+      [0, 0.25, 0.5, 0.75, 1].forEach(f => {
+        const y = padTop + chartH - f * chartH;
+        const line = document.createElementNS(svgNS, 'line');
+        line.setAttribute('x1', padLeft); line.setAttribute('x2', width - 6);
+        line.setAttribute('y1', y); line.setAttribute('y2', y);
+        line.setAttribute('stroke', '#EDE7D8'); line.setAttribute('stroke-width', 1);
+        svg.appendChild(line);
+        const txt = document.createElementNS(svgNS, 'text');
+        txt.setAttribute('x', 2); txt.setAttribute('y', y + 3);
+        txt.setAttribute('font-size', '9'); txt.setAttribute('fill', '#5B6472');
+        txt.textContent = Math.round(f * maxVal);
+        svg.appendChild(txt);
+      });
+      if (series.length > 1) {
+        series.forEach((s, si) => {
+          const lx = padLeft + si * 110;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', lx); rect.setAttribute('y', 4); rect.setAttribute('width', 10); rect.setAttribute('height', 10);
+          rect.setAttribute('fill', s.color);
+          svg.appendChild(rect);
+          const txt = document.createElementNS(svgNS, 'text');
+          txt.setAttribute('x', lx + 14); txt.setAttribute('y', 13);
+          txt.setAttribute('font-size', '10'); txt.setAttribute('fill', '#1D2430');
+          txt.textContent = s.name;
+          svg.appendChild(txt);
+        });
+      }
+      categories.forEach((cat, ci) => {
+        const groupX = padLeft + ci * groupW;
+        series.forEach((s, si) => {
+          const val = s.data[ci] || 0;
+          const barH = (val / maxVal) * chartH;
+          const x = groupX + (groupW - series.length * barW) / 2 + si * barW;
+          const y = padTop + chartH - barH;
+          const rect = document.createElementNS(svgNS, 'rect');
+          rect.setAttribute('x', x); rect.setAttribute('y', y);
+          rect.setAttribute('width', Math.max(2, barW - 3)); rect.setAttribute('height', Math.max(0, barH));
+          rect.setAttribute('fill', s.color); rect.setAttribute('rx', 2);
+          svg.appendChild(rect);
+          if (val > 0) {
+            const vt = document.createElementNS(svgNS, 'text');
+            vt.setAttribute('x', x + (barW - 3) / 2); vt.setAttribute('y', y - 4);
+            vt.setAttribute('font-size', '9'); vt.setAttribute('fill', '#1D2430'); vt.setAttribute('text-anchor', 'middle');
+            vt.textContent = val;
+            svg.appendChild(vt);
+          }
+        });
+        const lt = document.createElementNS(svgNS, 'text');
+        lt.setAttribute('x', groupX + groupW / 2); lt.setAttribute('y', height - 10);
+        lt.setAttribute('font-size', '10'); lt.setAttribute('fill', '#5B6472'); lt.setAttribute('text-anchor', 'middle');
+        lt.textContent = cat;
+        svg.appendChild(lt);
+      });
+      container.appendChild(svg);
+    }
+
+    /* ================= DASHBOARD ================= */
+    function renderDashboard() {
+      const qh = DASH.quizHistory || [];
+      const gh = DASH.gameHistory || [];
+      const typeStats = DASH.typeStats || { entrada: { correct: 0, wrong: 0 }, salida: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } };
+      const avgQuiz = qh.length ? Math.round(qh.reduce((s, x) => s + (x.score / x.total) * 100, 0) / qh.length) : null;
+      const avgGame = gh.length ? (gh.reduce((s, x) => s + x.score, 0) / gh.length) : null;
+      const bestGame = gh.length ? Math.max(...gh.map(x => x.score)) : 0;
+      const bestQuiz = qh.length ? Math.max(...qh.map(x => x.score)) : 0;
+
+      document.getElementById('dashStats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${qh.length}</div><div class="stat-label">Evaluaciones realizadas</div></div>
+    <div class="stat-card"><div class="stat-value">${avgQuiz !== null ? avgQuiz + '%' : '—'}</div><div class="stat-label">Confiabilidad promedio</div></div>
+    <div class="stat-card"><div class="stat-value">${gh.length}</div><div class="stat-label">Partidas jugadas</div></div>
+    <div class="stat-card"><div class="stat-value">${avgGame !== null ? avgGame.toFixed(1) + '/12' : '—'}</div><div class="stat-label">Aciertos promedio</div></div>
+    <div class="stat-card"><div class="stat-value">${gh.length ? bestGame + '/12' : '—'}</div><div class="stat-label">Mejor partida</div></div>
+  `;
+
+      const quizCategories = qh.map((x, i) => 'E' + (i + 1));
+      renderBarChart('chartQuizBar', quizCategories, [
+        { name: 'Aciertos', color: '#1F7A6C', data: qh.map(x => x.score) }
+      ], QUIZ.length);
+
+      const verdictCounts = ['low', 'mid', 'high'].map(v => qh.filter(x => x.verdict === v).length);
+      renderBarChart('chartVerdictBar', ['Bajo', 'Medio', 'Alto'], [
+        { name: 'Evaluador', color: '#1F7A6C', data: verdictCounts }
+      ]);
+
+      const totalCorrect = Object.values(typeStats || {}).reduce((s, t) => s + (t.correct || 0), 0);
+      const totalWrong = Object.values(typeStats || {}).reduce((s, t) => s + (t.wrong || 0), 0);
+      renderPieChart('chartGamePie', [
+        { label: 'Aciertos', value: totalCorrect, color: '#1F7A6C' },
+        { label: 'Errores', value: totalWrong, color: '#D65B4A' }
+      ]);
+      renderPieChart('chartTypePie', [
+        { label: 'Entrada', value: (typeStats.entrada && typeStats.entrada.wrong) || 0, color: '#1F7A6C' },
+        { label: 'Salida', value: (typeStats.salida && typeStats.salida.wrong) || 0, color: '#C68A2E' },
+        { label: 'Almacenamiento', value: (typeStats.almacenamiento && typeStats.almacenamiento.wrong) || 0, color: '#D65B4A' }
+      ]);
+
+      const NEX_MAX = 200000, NEX_EVAL = 100000, NEX_GAME = 100000;
+      const nexEval = Math.round((bestQuiz / QUIZ.length) * NEX_EVAL);
+      const nexGame = Math.round((bestGame / ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const fmt = n => n.toLocaleString('es-CO');
+      document.getElementById('nexAmount').textContent = fmt(nexTotal);
+      document.getElementById('nexBig').textContent = fmt(nexTotal);
+      document.getElementById('nexFill').style.width = Math.min(100, Math.round(nexTotal / NEX_MAX * 100)) + '%';
+      document.getElementById('nexBreak').innerHTML =
+        '<div><b>Evaluador (mejor intento):</b> ' + bestQuiz + '/' + QUIZ.length + ' · ' + fmt(nexEval) + ' / ' + fmt(NEX_EVAL) + ' NEXs</div>' +
+        '<div><b>Juego (mejor partida):</b> ' + bestGame + '/' + ITEMS.length + ' · ' + fmt(nexGame) + ' / ' + fmt(NEX_GAME) + ' NEXs</div>';
+      const box = document.getElementById('rewardBox');
+      const complete = nexTotal >= NEX_MAX;
+      box.classList.toggle('complete', complete);
+      document.getElementById('nexStatus').textContent = complete
+        ? '🏆 ¡Reto completado! Eres Detective supremo.'
+        : (nexTotal === 0 ? 'Aún no has iniciado el reto: completa el evaluador y juega para ganar NEXs.' : 'Reto en progreso: te faltan ' + fmt(NEX_MAX - nexTotal) + ' NEXs.');
+
+      const analysisEval = document.getElementById('analysisEval');
+      if (qh.length === 0) {
+        analysisEval.textContent = 'Aún no has usado el Evaluador. Completa al menos un intento para ver aquí tu confiabilidad promedio y los temas que más se te dificultan.';
+      } else {
+        const weakCounts = {};
+        qh.forEach(e => (e.weak || []).forEach(w => { weakCounts[w] = (weakCounts[w] || 0) + 1; }));
+        const sortedWeak = Object.entries(weakCounts).sort((a, b) => b[1] - a[1]);
+        let txt = 'Has completado ' + qh.length + ' evaluación' + (qh.length === 1 ? '' : 'es') + ', con una confiabilidad promedio de ' + avgQuiz + '%. ';
+        if (sortedWeak.length) {
+          txt += 'El tema que más se repite como débil es "' + sortedWeak[0][0] + '" (' + sortedWeak[0][1] + ' veces). Conviene reforzarlo en los Ejes temáticos antes de tu próximo intento.';
+        } else {
+          txt += 'No se han registrado temas débiles recurrentes: buen dominio general.';
+        }
+        analysisEval.textContent = txt;
+      }
+
+      const analysisGame = document.getElementById('analysisGame');
+      if (gh.length === 0) {
+        analysisGame.textContent = 'Aún no has jugado "Clasifica el periférico". Juega al menos una partida para ver aquí tu promedio de aciertos y en qué categoría te confundes más.';
+      } else {
+        const avgPct = Math.round((avgGame / ITEMS.length) * 100);
+        let txt = 'Has jugado ' + gh.length + ' partida' + (gh.length === 1 ? '' : 's') + ', con un promedio de ' + avgGame.toFixed(1) + '/12 aciertos (' + avgPct + '%). ';
+        const wrongEntries = Object.entries(typeStats).map(([k, s]) => [k, s.wrong]).filter(([, w]) => w > 0).sort((a, b) => b[1] - a[1]);
+        if (wrongEntries.length) {
+          txt += 'La categoría que más se confunde es "' + wrongEntries[0][0] + '", con ' + wrongEntries[0][1] + ' error' + (wrongEntries[0][1] === 1 ? '' : 'es') + ' registrado' + (wrongEntries[0][1] === 1 ? '' : 's') + '. Repasa esa categoría en "Ejes temáticos".';
+        } else {
+          txt += 'No se han registrado errores por categoría: buen dominio de la clasificación.';
+        }
+        analysisGame.textContent = txt;
+      }
+    }
+    renderDashboard();
+
+    document.getElementById('resetDashBtn').addEventListener('click', () => {
+      if (confirm('¿Seguro que deseas borrar todo el historial guardado en este navegador?')) {
+        DASH = { quizHistory: [], gameHistory: [], typeStats: { entrada: { correct: 0, wrong: 0 }, salida: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } } };
+        saveDash();
+        renderDashboard();
+      }
+    });
+
+    /* ================= Reporte imprimible ================= */
+    function populatePrintReport() {
+      renderDashboard();
+
+      REGISTRO = loadRegistro() || REGISTRO;
+      const reg = REGISTRO || {};
+      const setReg = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value || ''; };
+      setReg('regNombre', reg.nombre);
+      setReg('regDocumento', reg.documento);
+      setReg('regFicha', reg.ficha);
+      setReg('regPrograma', reg.programa || REG_DEFAULTS.programa);
+      setReg('regCentro', reg.centro || REG_DEFAULTS.centro);
+      setReg('regRegional', reg.regional || REG_DEFAULTS.regional);
+      setReg('regInstructor', reg.instructor);
+
+      const chartsWrap = document.getElementById('reportCharts');
+      if (chartsWrap) {
+        chartsWrap.innerHTML = ['chartQuizBar', 'chartVerdictBar', 'chartGamePie', 'chartTypePie'].map(id => {
+          const src = document.getElementById(id);
+          const title = src && src.previousElementSibling ? src.previousElementSibling.textContent : '';
+          return '<div class="report-chart"><h4>' + title + '</h4>' + (src ? src.innerHTML : '') + '</div>';
+        }).join('');
+      }
+
+      const qh = DASH.quizHistory || [];
+      const gh = DASH.gameHistory || [];
+      const typeStats = DASH.typeStats || { entrada: { correct: 0, wrong: 0 }, salida: { correct: 0, wrong: 0 }, almacenamiento: { correct: 0, wrong: 0 } };
+      const fmt = n => (n || 0).toLocaleString('es-CO');
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const reportDateEl = document.getElementById('reportDate');
+      if (reportDateEl) reportDateEl.textContent = dateStr;
+
+      const avgQuiz = qh.length ? Math.round(qh.reduce((s, e) => s + (e.score / e.total * 100), 0) / qh.length) : null;
+      const avgGame = gh.length ? (gh.reduce((s, g) => s + g.score, 0) / gh.length) : null;
+      const bestGame = gh.length ? Math.max(...gh.map(g => g.score)) : 0;
+      const bestQuiz = qh.length ? Math.max(...qh.map(e => e.score)) : 0;
+      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
+      const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
+      const totalAnswers = totalCorrect + totalWrong;
+      const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : null;
+
+      const statsGrid = document.getElementById('reportStatsGrid');
+      if (statsGrid) {
+        statsGrid.innerHTML = `
+      <div class="report-stat-card"><div class="report-stat-value">${qh.length}</div><div class="report-stat-label">Evaluaciones</div></div>
+      <div class="report-stat-card"><div class="report-stat-value">${avgQuiz !== null ? avgQuiz + '%' : '-'}</div><div class="report-stat-label">Confiabilidad Promedio</div></div>
+      <div class="report-stat-card"><div class="report-stat-value">${gh.length}</div><div class="report-stat-label">Partidas Jugadas</div></div>
+      <div class="report-stat-card"><div class="report-stat-value">${avgGame !== null ? avgGame.toFixed(1) + '/12' : '-'}</div><div class="report-stat-label">Aciertos Promedio</div></div>
+      <div class="report-stat-card"><div class="report-stat-value">${accuracyPct !== null ? accuracyPct + '%' : (gh.length ? bestGame + '/12' : '-')}</div><div class="report-stat-label">Precisión Global</div></div>
+    `;
+      }
+
+      const NEX_MAX = 200000, NEX_EVAL = 100000, NEX_GAME = 100000;
+      const nexEval = Math.round((bestQuiz / QUIZ.length) * NEX_EVAL);
+      const nexGame = Math.round((bestGame / ITEMS.length) * NEX_GAME);
+      const nexTotal = nexEval + nexGame;
+      const isComplete = nexTotal >= NEX_MAX;
+      const rewardCard = document.getElementById('reportRewardCard');
+      if (rewardCard) {
+        rewardCard.innerHTML = `
+      <div class="report-reward-box">
+        <h4>🌟 Detective supremo &mdash; Sistema de Recompensas</h4>
+        <p><strong>NEXs Acumulados:</strong> ${fmt(nexTotal)} / ${fmt(NEX_MAX)} NEXs (${Math.round(nexTotal / NEX_MAX * 100)}%) &bull; <em>${isComplete ? '¡Reto Completado con Éxito!' : 'Reto en progreso'}</em></p>
+        <div class="report-reward-pills">
+          <div class="report-reward-pill"><b>Evaluador (mejor intento):</b> ${bestQuiz}/${QUIZ.length} (${fmt(nexEval)} NEXs)</div>
+          <div class="report-reward-pill"><b>Juego (mejor partida):</b> ${bestGame}/${ITEMS.length} (${fmt(nexGame)} NEXs)</div>
+          <div class="report-reward-pill"><b>Total acumulado:</b> ${fmt(nexTotal)} NEXs</div>
+        </div>
+      </div>
+    `;
+      }
+
+      const repEval = document.getElementById('reportAnalysisEval');
+      const repGame = document.getElementById('reportAnalysisGame');
+      const analysisEvalSrc = document.getElementById('analysisEval');
+      const analysisGameSrc = document.getElementById('analysisGame');
+      if (repEval) repEval.textContent = analysisEvalSrc ? analysisEvalSrc.textContent : 'Sin registros de evaluación.';
+      if (repGame) repGame.textContent = analysisGameSrc ? analysisGameSrc.textContent : 'Sin partidas registradas.';
+
+      const catTable = document.getElementById('reportCategoryTable');
+      if (catTable) {
+        catTable.innerHTML = `
+      <table class="report-table">
+        <thead><tr><th>Categoría</th><th>Aciertos</th><th>Errores</th><th>Total</th><th>Efectividad</th></tr></thead>
+        <tbody>
+          ${['entrada', 'salida', 'almacenamiento'].map(cat => {
+          const c = typeStats[cat] ? typeStats[cat].correct : 0;
+          const w = typeStats[cat] ? typeStats[cat].wrong : 0;
+          const tot = c + w;
+          const pct = tot > 0 ? Math.round((c / tot) * 100) + '%' : '-';
+          const label = cat.charAt(0).toUpperCase() + cat.slice(1);
+          return `<tr><td><strong>${label}</strong></td><td style="color:#065F46;font-weight:700;">${c}</td><td style="color:#991B1B;font-weight:700;">${w}</td><td>${tot}</td><td><strong>${pct}</strong></td></tr>`;
+        }).join('')}
+        </tbody>
+      </table>
+    `;
+      }
+
+      const evalWrap = document.getElementById('reportEvalTable');
+      if (evalWrap) {
+        if (qh.length === 0) {
+          evalWrap.innerHTML = '<p style="font-size:8pt;color:#666;font-style:italic;margin:4px 0;">No se han registrado evaluaciones en este navegador.</p>';
+        } else {
+          evalWrap.innerHTML = `
+        <table class="report-table">
+          <thead><tr><th style="width:25px;">#</th><th>Fecha/Hora</th><th>Puntaje</th><th>Confiabilidad %</th><th>Resultado</th><th>Temas a Reforzar</th></tr></thead>
+          <tbody>
+            ${qh.map((ev, idx) => {
+            const date = ev.ts ? new Date(ev.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+            const pct = Math.round((ev.score / ev.total) * 100);
+            const verdictClass = ev.verdict === 'high' ? 'badge-high' : (ev.verdict === 'mid' ? 'badge-mid' : 'badge-low');
+            const verdictText = ev.verdict === 'high' ? 'Alto / Confiable' : (ev.verdict === 'mid' ? 'Medio / Usar con cautela' : 'Bajo / No recomendado');
+            const weakText = ev.weak && ev.weak.length ? ev.weak.join(', ') : 'Ninguno (Excelente)';
+            return `<tr><td>${idx + 1}</td><td>${date}</td><td>${ev.score} / ${ev.total} pts</td><td><strong>${pct}%</strong></td><td><span class="report-badge ${verdictClass}">${verdictText}</span></td><td>${weakText}</td></tr>`;
+          }).join('')}
+          </tbody>
+        </table>
+      `;
+        }
+      }
+
+      const gameWrap = document.getElementById('reportGameTable');
+      if (gameWrap) {
+        if (gh.length === 0) {
+          gameWrap.innerHTML = '<p style="font-size:8pt;color:#666;font-style:italic;margin:4px 0;">No se han registrado partidas del simulador en este navegador.</p>';
+        } else {
+          gameWrap.innerHTML = `
+        <table class="report-table">
+          <thead><tr><th>Partida</th><th>Fecha/Hora</th><th>Aciertos</th><th>Errores</th><th>Efectividad</th><th>NEXs Estimados</th></tr></thead>
+          <tbody>
+            ${gh.map((g, idx) => {
+            const date = g.ts ? new Date(g.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+            const pct = Math.round((g.score / g.total) * 100);
+            const nex = Math.round((g.score / g.total) * 100000);
+            return `<tr><td><strong>Partida ${idx + 1}</strong></td><td>${date}</td><td style="color:#065F46;font-weight:700;">${g.score} / ${g.total}</td><td style="color:#991B1B;font-weight:700;">${g.total - g.score}</td><td><strong>${pct}%</strong></td><td>+${fmt(nex)} NEXs</td></tr>`;
+          }).join('')}
+          </tbody>
+        </table>
+      `;
+        }
+      }
+    }
+
+    const printReportBtn = document.getElementById('printReportBtn');
+    if (printReportBtn) {
+      printReportBtn.addEventListener('click', () => {
+        populatePrintReport();
+        document.body.classList.add('printing-report');
+        window.print();
+      });
+    }
+    window.addEventListener('afterprint', () => {
+      document.body.classList.remove('printing-report');
+    });
+  </script>
+</body>
+
+</html>
