@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portal del Aprendiz SENA - Reglamento e InformaciÃ³n Institucional</title>
+    <title>Portal del Aprendiz SENA - Reglamento e Información Institucional</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -375,6 +375,70 @@
         .reg-label {
             color: var(--accent-dark);
         }
+
+        /* ===== HORARIO / CRONOGRAMA ===== */
+        .hz-stat{background:#fff;border:1px solid #e2e8f0;border-radius:.75rem;padding:.875rem;box-shadow:0 1px 2px rgba(0,0,0,.05);display:flex;flex-direction:column;justify-content:space-between}
+        .hz-stat span{font-size:.7rem;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;display:flex;gap:.4rem;align-items:center}
+        .hz-stat b{font-size:1.5rem;font-weight:900;color:#1e293b}.hz-stat small{font-size:.75rem;font-weight:600;color:#64748b;margin-left:.25rem}
+        .hz-stat em{font-style:normal;font-size:.68rem;color:#94a3b8;margin-top:.25rem}
+        .hz-stat-gold{background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fcd34d}.hz-stat-gold span{color:#92400e}.hz-stat-gold b{color:#78350f}.hz-stat-gold em{color:#b45309}
+        .hz-bar{display:flex;height:2rem;border-radius:.6rem;overflow:hidden;border:1px solid #cbd5e1}
+        .hz-bar1,.hz-bar2{display:flex;align-items:center;justify-content:center;color:#fff;font-size:.72rem;font-weight:800;white-space:nowrap}
+        .hz-bar1{background:linear-gradient(90deg,#4F82D0,#6F9FE0)}.hz-bar2{background:linear-gradient(90deg,#2E9B6E,#4FB083)}
+        .hz-info{background:#fff;border:1px solid #e2e8f0;border-radius:.65rem;padding:.55rem .75rem;display:flex;flex-direction:column;gap:.15rem}
+        .hz-info span{font-size:.65rem;font-weight:700;color:#0F766E;text-transform:uppercase;letter-spacing:.06em}
+        .hz-info b{font-size:.8rem;color:#1e293b;font-weight:700;line-height:1.35}
+        #cronograma-table{min-width:1500px;border-collapse:separate;border-spacing:0}
+        #cronograma-table th,#cronograma-table td{border-right:1px solid #cbd5e1;border-bottom:1px solid #cbd5e1;padding:.7rem .75rem;vertical-align:middle}
+        #cronograma-table th:last-child,#cronograma-table td:last-child{border-right:0}
+        .hz-th{color:#fff;text-align:center;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;font-weight:800;border-color:#334155 !important}
+        .hz-th1{background:#1e293b}.hz-th2{background:#0F766E}.hz-th4{background:#115e59;font-size:.66rem}
+        .hz-th.hz-g2{background:#334155}.hz-th4.hz-g2{background:#475569}.hz-th.hz-g3{background:#3f4a5e}.hz-th4.hz-g3{background:#56627a}
+        .hz-comp td{background:linear-gradient(90deg,#FFF6D6,#FFFBEA);border-bottom:2px solid #E7C75A !important;font-size:.82rem;text-transform:uppercase;letter-spacing:.02em;color:#3b2f06;padding:.8rem 1rem !important}
+        .hz-tag{display:inline-flex;gap:.35rem;align-items:center;font-size:.62rem;font-weight:900;background:#F5D668;color:#4a3a05;padding:.15rem .55rem;border-radius:.4rem;margin-right:.5rem;letter-spacing:.08em}
+        .hz-r1 td{background:#F3F7FD}.hz-r2 td{background:#F2FAF5}
+        .hz-row:hover td{filter:brightness(.97)}
+        td.hz-rap{vertical-align:top !important}
+        .hz-rapc1{background:#DCE8F8 !important}.hz-rapc2{background:#DAF0E3 !important}
+        .hz-sticky{position:sticky;top:.75rem;display:flex;flex-direction:column;gap:.55rem}
+        .hz-sticky p{font-weight:700;color:#1e293b;line-height:1.45;font-size:.82rem}
+        .hz-rapnum{align-self:flex-start;background:#1e293b;color:#fff;font-size:.65rem;font-weight:900;letter-spacing:.1em;padding:.2rem .6rem;border-radius:.4rem}
+        .hz-sub{align-self:flex-start;background:#fff;border:1px solid #cbd5e1;border-radius:.5rem;padding:.2rem .6rem;font-size:.72rem;font-weight:800;color:#78350f}.hz-sub i{color:#d97706}
+        .hz-week{text-align:center;font-weight:800;color:#1e293b}
+        .hz-weekc1{background:#C4D7F2 !important}.hz-weekc2{background:#BFE5CE !important}
+        .hz-week span{display:block;font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:#475569;font-weight:700}
+        .hz-week b{font-size:1.15rem;font-weight:900}
+        .hz-tema{font-weight:700;color:#0f172a;line-height:1.5}
+        .hz-act{color:#334155;line-height:1.55;text-align:left}
+        .hz-nex{display:inline-flex;gap:.3rem;align-items:center;background:#fef3c7;border:1px solid #fcd34d;color:#78350f;font-weight:800;font-size:.75rem;padding:.25rem .6rem;border-radius:.5rem;white-space:nowrap}.hz-nex i{color:#d97706}
+        .hz-badge{line-height:1.25;text-align:left}
+        .hz-chk{color:#059669;font-size:1.05rem}
+        .hz-blank{min-width:48px;background-image:none}
+        td.hz-blank:last-child{min-width:160px}
+        #cronograma-table tfoot td{background:#f1f5f9;border-top:2px solid #94a3b8;font-weight:800}
+        .hz-foot-l{text-align:right;text-transform:uppercase;letter-spacing:.06em;color:#475569;font-size:.72rem}.hz-foot-r{text-align:center}
+        .hz-row.hz-dim td{opacity:.28}.hz-row.hz-hit td{box-shadow:inset 0 0 0 9999px rgba(250,204,21,.18)}
+        .pdf-fullscreen-wrapper:fullscreen,.pdf-fullscreen-wrapper:-webkit-full-screen{width:100vw !important;height:100vh !important;border-radius:0 !important;border:none !important;background:#fff !important}
+        .pdf-fullscreen-wrapper:fullscreen #cronograma-printable-area{max-height:none}
+        .pdf-fullscreen-wrapper:fullscreen .pdf-fs-exit-btn,.pdf-fullscreen-wrapper:-webkit-full-screen .pdf-fs-exit-btn{display:inline-flex !important}
+        #cronograma-excel-container{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        @media print{
+            @page{size:landscape;margin:8mm}
+            *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+            body{background:#fff !important}
+            .site-header,.site-footer,.tabs-bar,.hz-noprint,.pdf-fs-exit-btn,.btn-next{display:none !important}
+            .tab-content{display:none !important}
+            #tab-horario{display:block !important}
+            #tab-horario .route-card{box-shadow:none !important;border:none !important;padding:0 !important;background:#fff !important}
+            #tab-horario .route-card > *:not(#cronograma-excel-container){display:none !important}
+            #cronograma-excel-container{border:none !important;display:block !important}
+            #cronograma-printable-area{overflow:visible !important;padding:0 !important;background:#fff !important}
+            #cronograma-table{min-width:0 !important;font-size:7.5px}
+            #cronograma-table th,#cronograma-table td{padding:3px 4px !important}
+            .hz-sticky{position:static}
+            .hz-row.hz-dim td{opacity:1}
+            #cronograma-table tr{break-inside:avoid}
+        }
     </style>
 </head>
 
@@ -523,6 +587,11 @@
                 style="--accent:#4338CA;--accent-border:#BDB9EC;--accent-glow:rgba(67,56,202,0.3);">
                 <i class="fas fa-rocket text-sm"></i>
                 <span>Retos Byteon</span>
+            </button>
+            <button class="tab-btn" data-tab="horario"
+                style="--accent:#0F766E;--accent-border:#A9D2CD;--accent-glow:rgba(15,118,110,0.3);">
+                <i class="fas fa-calendar-alt text-sm"></i>
+                <span>Horario</span>
             </button>
         </div>
     </div>
@@ -1734,6 +1803,209 @@
             </div>
         </div>
 
+
+        <!-- PESTAÑA: HORARIO (CRONOGRAMA OPCIONAL) -->
+        <div style="--accent:#0F766E;--accent-dark:#0B5A54;--accent-soft:rgba(15,118,110,0.12);--accent-border:#A9D2CD;--card-bg:#F0F8F7;--accent-glow:rgba(15,118,110,0.3);"
+            id="tab-horario" class="tab-content">
+            <div class="grid grid-cols-1 gap-5">
+                <article class="route-card rounded-xl p-5 sm:p-7 flex flex-col">
+
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-5 pb-4 border-b bd-accent">
+                        <div class="flex items-center gap-3.5">
+                            <div class="icon-box w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                                style="background: var(--accent-soft); color: var(--accent-dark);">
+                                <i class="fas fa-calendar-alt text-2xl"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap mb-1">
+                                    <span class="text-xs font-bold tracking-wider uppercase px-2.5 py-0.5 rounded-md inline-flex items-center gap-1.5"
+                                        style="background: var(--accent-soft); color: var(--accent-dark);">
+                                        <i class="fas fa-clock text-[10px]"></i> Horario
+                                    </span>
+                                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-md inline-flex items-center gap-1 bg-emerald-100 text-emerald-800 border border-emerald-300">
+                                        <i class="fas fa-file-excel text-emerald-600"></i> CRONOGRAMA (OPCIONAL).xlsx
+                                    </span>
+                                </div>
+                                <h3 class="card-title text-xl sm:text-2xl font-bold leading-tight">Horario &bull; Cronograma de Formaci&oacute;n</h3>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2.5">
+                            <a href="CRONOGRAMA_OPCIONAL.xlsx" download="CRONOGRAMA (OPCIONAL).xlsx"
+                                class="text-white text-sm font-bold px-4 py-2.5 rounded-lg inline-flex items-center gap-2 shadow-md hover:brightness-110 active:scale-95 transition cursor-pointer"
+                                style="background: linear-gradient(135deg, #107C41 0%, #0B5A2F 100%);">
+                                <i class="fas fa-file-excel text-base"></i><span>Descargar Excel (.xlsx)</span>
+                            </a>
+                            <button type="button" onclick="printCronogramaSheet()"
+                                class="text-sm font-semibold px-3.5 py-2.5 rounded-lg inline-flex items-center gap-2 border bd-accent bg-white shadow-sm hover:bg-slate-50 transition cursor-pointer"
+                                style="color: var(--accent-dark);" title="Imprimir o guardar como PDF">
+                                <i class="fas fa-print text-xs"></i><span class="hidden sm:inline">Imprimir / PDF</span>
+                            </button>
+                            <button type="button" onclick="togglePdfFullscreen('cronograma-excel-container')"
+                                class="text-sm font-semibold px-3.5 py-2.5 rounded-lg inline-flex items-center gap-2 border bd-accent bg-white shadow-sm hover:bg-slate-50 transition cursor-pointer"
+                                style="color: var(--accent-dark);" title="Ver a pantalla completa">
+                                <i class="fas fa-expand text-xs"></i><span>Pantalla completa</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm sm:text-base card-text leading-relaxed mb-5 text-justify">
+                        Este es el cronograma de la formaci&oacute;n: <strong>11 semanas</strong>, <strong>2 resultados de aprendizaje</strong>,
+                        el tema y la actividad de cada semana, la <strong>insignia</strong> que ganas y los <strong>NEXs</strong> que acumulas
+                        al entregar cada una. Imprime tus RESULTADOS CONSOLIDADOS al terminar cada actividad y ent&eacute;gaselos a tu instructor.
+                    </p>
+
+                    <!-- MÉTRICAS -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
+                        <div class="hz-stat"><span><i class="fas fa-calendar-week text-teal-600"></i> Duraci&oacute;n</span><div><b>11</b><small>Semanas</small></div><em>Semanas 1 a 11</em></div>
+                        <div class="hz-stat"><span><i class="fas fa-certificate text-emerald-600"></i> Competencia</span><div><b>1</b><small>Clave</small></div><em>Herramientas inform&aacute;ticas</em></div>
+                        <div class="hz-stat"><span><i class="fas fa-graduation-cap text-blue-600"></i> Resultados</span><div><b>2</b><small>RAPs</small></div><em>Sistemas de informaci&oacute;n y ofim&aacute;tica</em></div>
+                        <div class="hz-stat"><span><i class="fas fa-medal text-amber-500"></i> Insignias</span><div><b>15</b><small>Gal&aacute;cticas</small></div><em>Detective &amp; Investigador</em></div>
+                        <div class="hz-stat hz-stat-gold col-span-2 sm:col-span-1"><span><i class="fas fa-coins text-amber-600"></i> Total NEXs</span><div><b>1.640.000</b></div><em>Recompensas totales</em></div>
+                    </div>
+
+                    <!-- DISTRIBUCIÓN NEXs -->
+                    <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-4 mb-5">
+                        <div class="flex items-center justify-between flex-wrap gap-2 text-xs font-bold text-slate-600 uppercase tracking-wider mb-2">
+                            <span><i class="fas fa-chart-simple text-teal-600 mr-1"></i> Distribuci&oacute;n de NEXs por resultado</span>
+                            <span class="text-slate-500 normal-case font-semibold">Total: 1.640.000 NEXs</span>
+                        </div>
+                        <div class="hz-bar"><div class="hz-bar1" style="width:36.59%">RAP 1 &bull; 600.000</div><div class="hz-bar2" style="width:63.41%">RAP 2 &bull; 1.040.000</div></div>
+                        <div class="flex flex-wrap gap-x-5 gap-y-1 mt-2 text-[11px] text-slate-500 font-medium">
+                            <span><i class="fas fa-square" style="color:#6F9FE0"></i> RAP 1 &middot; Semanas 1 a 4</span>
+                            <span><i class="fas fa-square" style="color:#4FB083"></i> RAP 2 &middot; Semanas 5 a 11</span>
+                        </div>
+                    </div>
+
+                    <!-- CONTENEDOR HOJA -->
+                    <div id="cronograma-excel-container"
+                        class="pdf-fullscreen-wrapper w-full rounded-xl overflow-hidden border-2 bd-accent bg-white shadow-inner flex flex-col relative">
+
+                        <button type="button" onclick="togglePdfFullscreen('cronograma-excel-container')"
+                            class="pdf-fs-exit-btn hidden absolute top-4 right-4 z-50 bg-slate-900/80 hover:bg-slate-900 text-white text-xs px-3.5 py-2 rounded-lg shadow-xl transition items-center gap-2 cursor-pointer border border-white/20">
+                            <i class="fas fa-compress text-xs"></i><span>Salir de pantalla completa</span>
+                        </button>
+
+                        <div class="bg-gradient-to-r from-emerald-800 via-emerald-700 to-teal-800 text-white px-4 py-2.5 flex items-center justify-between border-b border-emerald-900 shrink-0 hz-noprint">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-7 h-7 rounded-lg bg-white/15 flex items-center justify-center text-xs"><i class="fas fa-file-excel text-emerald-200"></i></span>
+                                <div>
+                                    <div class="text-xs sm:text-sm font-bold tracking-wide flex items-center gap-2">
+                                        <span>CRONOGRAMA (OPCIONAL).xlsx</span>
+                                        <span class="text-[10px] bg-emerald-900/60 text-emerald-200 font-semibold px-2 py-0.5 rounded-full border border-emerald-500/30">Hoja1</span>
+                                    </div>
+                                    <div class="text-[10px] text-emerald-200/90 hidden sm:block">Servicio Nacional de Aprendizaje SENA &bull; Fase: Análisis y planeación</div>
+                                </div>
+                            </div>
+                            <div class="relative w-44 sm:w-64">
+                                <i class="fas fa-search absolute left-3 top-2.5 text-emerald-200 text-xs"></i>
+                                <input type="text" id="cronograma-filter-input" oninput="filterCronogramaTable()" placeholder="Buscar tema, actividad o insignia..."
+                                    class="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg bg-white/15 placeholder-emerald-100/80 text-white border border-white/25 focus:outline-none focus:bg-white focus:text-slate-800 focus:placeholder-slate-400" />
+                            </div>
+                        </div>
+
+                        <div class="p-4 sm:p-6 overflow-auto flex-1 bg-slate-50" id="cronograma-printable-area">
+
+                            <!-- Encabezado institucional -->
+                            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 p-1.5 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center">
+                                        <img src="sena.png" alt="SENA" class="max-h-full max-w-full object-contain" onerror="this.style.display='none'" />
+                                    </div>
+                                    <div>
+                                        <span class="text-[11px] font-black uppercase text-emerald-800 tracking-wider block">Servicio Nacional de Aprendizaje SENA &bull; Regional Distrito Capital</span>
+                                        <h4 class="text-base sm:text-lg font-black text-slate-800 leading-tight uppercase">Gestión del Talento Humano</h4>
+                                        <p class="text-xs text-slate-600 font-semibold mt-0.5">Cronograma de formaci&oacute;n y distribuci&oacute;n de retos</p>
+                                    </div>
+                                </div>
+                                <div class="text-right sm:border-l sm:border-slate-200 sm:pl-4">
+                                    <span class="inline-block px-2.5 py-1 rounded-md bg-teal-50 text-teal-900 text-xs font-bold border border-teal-200">Fase: Análisis y planeación</span>
+                                    <p class="text-[11px] text-slate-500 font-medium mt-1">Jornada diurna</p>
+                                </div>
+                            </div>
+
+                            <!-- Datos generales (hoja) -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                                <div class="hz-info"><span><i class="fas fa-location-dot"></i> Regional</span><b>Distrito Capital</b></div>
+                                <div class="hz-info"><span><i class="fas fa-sitemap"></i> Coordinación académica</span><b>Gestión del Talento Humano</b></div>
+                                <div class="hz-info"><span><i class="fas fa-sun"></i> Jornada</span><b>Diurna</b></div>
+                                <div class="hz-info"><span><i class="fas fa-user-tie"></i> Responsable</span><b>—</b></div>
+                                <div class="hz-info"><span><i class="fas fa-calendar-plus"></i> Vigencia · Fecha inicio</span><b>—</b></div>
+                                <div class="hz-info"><span><i class="fas fa-calendar-check"></i> Vigencia · Fecha fin</span><b>—</b></div>
+                                <div class="hz-info"><span><i class="fas fa-layer-group"></i> Fase</span><b>Análisis y planeación</b></div>
+                                <div class="hz-info sm:col-span-2 lg:col-span-4"><span><i class="fas fa-diagram-project"></i> Nombre del proyecto</span><b>APOYO A LAS ACTIVIDADES DE TALENTO HUMANO, MEDIANTE EL USO DE HERRAMIENTAS TECNOLÓGICAS, PARA EL SECTOR PRODUCTIVO COLOMBIANO</b></div>
+                            </div>
+
+                            <div class="overflow-x-auto rounded-xl border-2 border-slate-300 bg-white shadow-sm">
+                                <table id="cronograma-table" class="w-full border-collapse text-left text-xs sm:text-sm">
+                                    <thead>
+<tr>
+<th rowspan="2" class="hz-th hz-th1 min-w-[230px]">Resultado de aprendizaje</th>
+<th rowspan="2" class="hz-th hz-th1 min-w-[96px]">Semana</th>
+<th colspan="4" class="hz-th hz-th2">Actividad a desarrollar</th>
+<th colspan="2" class="hz-th hz-th2 hz-g2">Forma de entrega</th>
+<th colspan="3" class="hz-th hz-th2 hz-g3">Fecha de entrega</th>
+<th colspan="2" class="hz-th hz-th2 hz-g2">Entregó a conformidad</th>
+<th rowspan="2" class="hz-th hz-th1 min-w-[160px]">Observaciones</th>
+</tr>
+<tr>
+<th class="hz-th hz-th4 min-w-[200px]">Tema</th>
+<th class="hz-th hz-th4 min-w-[320px]">Actividad</th>
+<th class="hz-th hz-th4 min-w-[190px]">Insignia</th>
+<th class="hz-th hz-th4 min-w-[120px]">NEXs</th>
+<th class="hz-th hz-th4 hz-g2">Digital</th><th class="hz-th hz-th4 hz-g2">Físico</th>
+<th class="hz-th hz-th4 hz-g3">Día</th><th class="hz-th hz-th4 hz-g3">Mes</th><th class="hz-th hz-th4 hz-g3">Año</th>
+<th class="hz-th hz-th4 hz-g2">Sí</th><th class="hz-th hz-th4 hz-g2">No</th>
+</tr>
+</thead>
+                                    <tbody>
+<tr class="hz-comp"><td colspan="14"><span class="hz-tag"><i class="fas fa-certificate"></i> Competencia</span> <strong>Operar herramientas informáticas y digitales de acuerdo con protocolos y manuales técnicos</strong></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td rowspan="8" class="hz-rap hz-rapc1"><div class="hz-sticky"><span class="hz-rapnum">RAP 1</span><p>Caracterizar sistemas de información de acuerdo a disponibilidad y necesidades de talento humano</p><span class="hz-sub"><i class="fas fa-coins"></i> 600.000 NEXs</span></div></td><td rowspan="2" class="hz-week hz-weekc1"><span>Semana</span><b>1</b></td><td class="hz-tema">Fuentes de información primarias, secundarias y terciarias: definición y características.</td><td class="hz-act">Realizar un recorrido por la aplicación: fuentes de información, Responde las dos evaluaciones del Evaluador de fuentes y el juego Clasifica la fuente, así mismo imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 1</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 50.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td class="hz-tema">Datos, información y sistema de información: definición, características, ejemplos, sistema binario y ciclo de vida.</td><td class="hz-act">Realizar recorrido por la aplicación: Datos, información y sistemas de información, Responde las dos evaluaciones del Evaluador de calidad y el juego dato, información o conocimiento, además imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 2</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 50.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td rowspan="2" class="hz-week hz-weekc1"><span>Semana</span><b>2</b></td><td class="hz-tema">Sistemas de almacenamiento: definición, unidades y ejemplos.</td><td class="hz-act">Realizar un recorrido por la aplicación: Sistemas de almacenamiento, Responde las dos evaluaciones del Evaluador de almacenamiento y el juego clasifica el almacenamiento, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 3</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 50.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td class="hz-tema">Manual técnico: características, licenciamiento (concepto y normativa), modelos de interacción con plataformas, configuración de variables, almacenamiento y compatibilidad de las herramientas</td><td class="hz-act">Realizar un recorrido por la aplicación: Manuales técnicos, Responde las dos evaluaciones del Evaluador de almacenamiento y el juego clasifica la licencia, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 4</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 50.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td rowspan="2" class="hz-week hz-weekc1"><span>Semana</span><b>3</b></td><td class="hz-tema">Métodos para la recolección de información: primarios y secundarios.</td><td class="hz-act">Realizar un recorrido por la aplicación: Técnicas de recolección de información, Responde las dos evaluaciones del Evaluador de almacenamiento y el juego Clasifica la Técnica, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 5</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 50.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td class="hz-tema">Instrumentos de recolección de información: Características, tipos, formatos</td><td class="hz-act">Realizar un recorrido por la aplicación: Técnicas de recolección de información, Responde las dos evaluaciones del Evaluador de instrumentos y el juego Clasifica el instrumento, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 6</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 50.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td rowspan="2" class="hz-week hz-weekc1"><span>Semana</span><b>4</b></td><td class="hz-tema">Seguridad de la información: normativa, criterios de manejo y confidencialidad de los datos.</td><td class="hz-act">Realizar un recorrido por la aplicación: Seguridad de la información, Responde las dos evaluaciones del Evaluador de conocimientos y el juego Clasifica la situación, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-sky-100 text-sky-900 border-sky-300"><i class="fas fa-user-secret"></i><span>Detective espacial · Grado 7</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 100.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r1 hz-row" data-rap="1"><td class="hz-tema">Hardware, Software, redes y configuraciones: conceptos y funcionalidad.</td><td class="hz-act">Realizar un recorrido por la aplicación: Infraestructura de Byteon, Responde las dos evaluaciones del Evaluador de conocimientos y el juego Clasifica el periférico, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-amber-100 text-amber-900 border-amber-300"><i class="fas fa-crown"></i><span>Detective supremo</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 200.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td rowspan="7" class="hz-rap hz-rapc2"><div class="hz-sticky"><span class="hz-rapnum">RAP 2</span><p>Tratar información de talento humano utilizando paquete básico de ofimática de acuerdo con recursos y requerimientos de la organización.</p><span class="hz-sub"><i class="fas fa-coins"></i> 1.040.000 NEXs</span></div></td><td rowspan="2" class="hz-week hz-weekc2"><span>Semana</span><b>5</b></td><td class="hz-tema">Clasificación de la información: (digital, física, pública, privada, confidencial, interna, externa, personal ejemplos)</td><td class="hz-act">Realizar un recorrido por la aplicación: Tratamiento y clasificación de la información, Responde las dos evaluaciones del Evaluador de conocimientos y el juego Clasifica la información, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 1</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 80.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td class="hz-tema">Tipos de procesamiento de datos: de clasificación, de ordenación, de operación.</td><td class="hz-act">Realizar un recorrido por la aplicación: Tipos de procesamiento de datos, Responde las dos evaluaciones del Evaluador de procesos y datos y el juego Practica con 12 retos, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 2</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 80.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td rowspan="1" class="hz-week hz-weekc2"><span>Semana</span><b>6</b></td><td class="hz-tema">Software de gestión, de programación, de sistemas: conceptos básicos.</td><td class="hz-act">Realizar un recorrido por la aplicación: Software de Gestión, de Programación y de Sistema, Responde las dos evaluaciones del Evaluador de software y el juego Resuelve los 12 retos de software, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 3</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 80.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td rowspan="4" class="hz-week hz-weekc2"><span>Semanas</span><b>7 - 11</b></td><td rowspan="4" class="hz-tema">Software de aplicación: conceptos, tipos, versiones y uso.</td><td class="hz-act">Realizar un recorrido por la aplicación: Software de aplicación, Responde las dos evaluaciones del Evaluador de conocimiento y el juego clasifica el componente, imprime los RESULTADOS CONSOLIDADOS para tu instructor.</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 4</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 80.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td class="hz-act">Realizar un recorrido por la aplicación: Procesadores de texto, Responde las dos evaluaciones del Evaluador de procesadores de texto, Resuelve los dos talleres de Word en la pestaña talleres y el juego clasifica el procesador, entrega tus talleres al instructor así como la impresión de los RESULTADOS CONSOLIDADOS</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 5</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 240.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td class="hz-act">Realizar un recorrido por la aplicación: Hojas de cálculo, Responde las dos evaluaciones del Evaluador de hojas de cálculo, Resuelve los dos talleres de Excel en la pestaña talleres y el juego Pon a prueba lo aprendido, entrega tus talleres al instructor así como la impresión de los RESULTADOS CONSOLIDADOS</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 6</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 240.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+<tr class="hz-r2 hz-row" data-rap="2"><td class="hz-act">Realizar un recorrido por la aplicación: gestores de presentación, Responde las dos evaluaciones del Evaluador de gestores y presentaciones, Resuelve los dos talleres de PowerPoint y dos de Power BI en la pestaña talleres y el juego clasifica el Gestor, entrega tus talleres al instructor así como la impresión de los RESULTADOS CONSOLIDADOS</td><td class="text-center"><span class="hz-badge inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border font-bold text-xs bg-emerald-100 text-emerald-900 border-emerald-300"><i class="fas fa-microscope"></i><span>Investigador galáctico · Grado 7</span></span></td><td class="text-center"><span class="hz-nex"><i class="fas fa-coins"></i> 240.000</span></td><td class="hz-chk text-center"><i class="fas fa-check-circle"></i></td><td class="hz-chk text-center"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td><td class="hz-blank"></td></tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="5" class="hz-foot-l"><i class="fas fa-calculator mr-1"></i> Total acumulado de recompensas</td>
+                                            <td class="hz-foot-r"><span class="hz-nex"><i class="fas fa-coins"></i> 1.640.000</span></td>
+                                            <td colspan="8" class="hz-foot-e"></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <p id="cronograma-empty" class="hidden text-center text-sm text-slate-500 py-3"><i class="fas fa-circle-info mr-1"></i> Sin coincidencias para tu b&uacute;squeda.</p>
+                        </div>
+
+                        <div class="bg-slate-200 border-t border-slate-300 px-4 py-1.5 flex items-center justify-between text-xs text-slate-600 shrink-0 hz-noprint">
+                            <span class="bg-white text-emerald-800 font-bold px-3 py-1 rounded-t-md border-t-2 border-emerald-600 inline-flex items-center gap-1.5"><i class="fas fa-file-excel text-emerald-600 text-xs"></i> Hoja1</span>
+                            <div class="flex items-center gap-4 text-[11px] text-slate-500 font-medium">
+                                <span class="hidden sm:inline"><i class="fas fa-table-cells mr-1"></i> 11 semanas &bull; 15 actividades</span>
+                                <span class="font-bold text-slate-700"><i class="fas fa-coins text-amber-600 mr-1"></i> SUMA: 1.640.000 NEXs</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-5 border-t bd-accent flex justify-between items-center flex-wrap gap-3 hz-noprint">
+                        <button type="button" class="btn-next text-sm font-semibold px-5 py-2.5 rounded-lg inline-flex items-center gap-2 cursor-pointer border bd-accent bg-white shadow-sm hover:bg-slate-50" style="color: var(--accent-dark);" data-next="retos">
+                            <i class="fas fa-arrow-left text-xs"></i> Volver a Retos Byteon
+                        </button>
+                        <span class="text-xs text-slate-500 font-medium"><i class="fas fa-info-circle text-slate-400 mr-1"></i> Datos tomados de <strong>CRONOGRAMA (OPCIONAL).xlsx</strong>.</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+
     </main>
 
     <!-- FOOTER -->
@@ -1930,6 +2202,38 @@
         });
 
         // La aplicación siempre inicia en Registro (ya está marcada como activa en el HTML)
+
+        // ---------- HORARIO ----------
+        function togglePdfFullscreen(elemId) {
+            const el = document.getElementById(elemId);
+            if (!el) return;
+            if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                (el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen || function () { }).call(el);
+            } else {
+                (document.exitFullscreen || document.webkitExitFullscreen || function () { }).call(document);
+            }
+        }
+
+        function filterCronogramaTable() {
+            const input = document.getElementById('cronograma-filter-input');
+            const table = document.getElementById('cronograma-table');
+            if (!input || !table) return;
+            const q = input.value.toLowerCase().trim();
+            const rows = table.querySelectorAll('tbody tr.hz-row');
+            let hits = 0;
+            rows.forEach(row => {
+                const hit = q !== '' && row.innerText.toLowerCase().includes(q);
+                row.classList.toggle('hz-hit', hit);
+                row.classList.toggle('hz-dim', q !== '' && !hit);
+                if (hit) hits++;
+            });
+            const empty = document.getElementById('cronograma-empty');
+            if (empty) empty.classList.toggle('hidden', !(q !== '' && hits === 0));
+        }
+
+        function printCronogramaSheet() {
+            window.print();
+        }
     </script>
 </body>
 
