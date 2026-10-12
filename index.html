@@ -2235,6 +2235,563 @@
             window.print();
         }
     </script>
-</body>
+<!-- ========================================== -->
+    <!-- WIDGET DE CHATBOT ESTÁTICO: LucIA flotante -->
+    <!-- ========================================== -->
+    
+    <!-- Botón flotante para abrir el chat -->
+    <button id="chatbot-toggle-btn" class="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200" style="background-color: #0284C7; border: 3px solid #A6D4EB; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.4);">
+        <img src="lucIA.png" alt="Chat con LucIA" class="w-10 h-10 object-contain rounded-full" onerror="this.src='sena.png'" />
+    </button>
 
-</html>
+    <!-- Contenedor del Chat (Oculto por defecto) -->
+    <div id="chatbot-container" class="fixed bottom-28 right-6 z-50 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl flex flex-col overflow-hidden transition-all duration-300 opacity-0 pointer-events-none translate-y-4" style="border: 2px solid #A6D4EB; height: 550px; max-height: 75vh;">
+        
+        <!-- Cabecera del Chat -->
+        <div class="px-4 py-3 flex items-center justify-between text-white shadow-md relative overflow-hidden" style="background: linear-gradient(135deg, #02679B 0%, #0284C7 100%);">
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 10px 10px;"></div>
+            
+            <div class="flex items-center gap-3 relative z-10">
+                <div class="w-12 h-12 rounded-full bg-white p-1 overflow-hidden flex items-center justify-center border-2 border-white/30 shadow-inner">
+                    <img src="lucIA.png" alt="LucIA" class="w-full h-full object-contain rounded-full" onerror="this.src='sena.png'" />
+                </div>
+                <div>
+                    <h4 class="font-bold text-base leading-tight drop-shadow-sm">LucIA</h4>
+                    <span class="text-[10px] text-[#A6D4EB] font-bold uppercase tracking-wider block mt-0.5">Tutora Guía • Planeta Byteon</span>
+                </div>
+            </div>
+            <button id="chatbot-close-btn" class="relative z-10 text-white/80 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full w-8 h-8 flex items-center justify-center">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+        </div>
+
+        <!-- LOS 15 CHIPS DE SUGERENCIAS DE TEMAS -->
+        <div class="bg-[#F0F8FC] border-b border-[#A6D4EB] px-3 py-2 sugerencias-scroll">
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">1. Fuentes de Info</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">2. Datos y SI</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">3. Almacenamiento</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">4. Manuales Técnicos</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">5. Téc. de Recolección</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">6. Inst. de Recolección</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">7. Seg. de la Info</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">8. Hardware y Redes</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">9. Clasificación Info</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">10. Procesamiento Info</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">11. Software Gestión</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">12. Software Aplicación</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">13. Procesadores Texto</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">14. Hojas de Cálculo</button>
+            <button class="topic-btn text-[10px] font-bold text-[#02679B] bg-white border border-[#A6D4EB] rounded-full px-3 py-1 hover:bg-[#0284C7] hover:text-white transition-colors flex-shrink-0">15. Gestores Presentación</button>
+        </div>
+
+        <!-- Área de mensajes -->
+        <div id="chatbot-messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-4" style="background-color: #F8FBFC;">
+            <!-- Mensaje de bienvenida inicial -->
+            <div class="flex items-start gap-2.5 max-w-[88%]">
+                <div class="w-8 h-8 rounded-full bg-white border border-[#A6D4EB] flex-shrink-0 flex items-center justify-center overflow-hidden shadow-sm">
+                    <img src="lucIA.png" alt="LucIA" class="w-full h-full object-contain" onerror="this.src='sena.png'" />
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm text-sm border border-[#A6D4EB]" style="color: var(--ink);">
+                    <p class="font-bold text-[#02679B] mb-1">¡Hola Aprendiz!</p>
+                    <p>Soy <strong>LucIA</strong>. ¿Sobre cuál de las 15 misiones de Byteon deseas consultar hoy?</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Área de input -->
+        <div class="p-3 bg-white border-t border-[#A6D4EB]">
+            <form id="chatbot-form" class="flex items-end gap-2 relative">
+                <textarea id="chatbot-input" rows="1" class="flex-1 px-4 py-3 rounded-xl text-sm outline-none transition-shadow resize-none overflow-hidden" placeholder="Escribe tu pregunta..." style="background: #F0F8FC; border: 1px solid #A6D4EB; min-height: 44px; max-height: 100px;" required></textarea>
+                <button type="submit" class="w-11 h-11 rounded-xl text-white flex items-center justify-center shadow-md transition-transform hover:scale-105 flex-shrink-0" style="background-color: #0284C7;">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Estilos de LucIA -->
+    <style>
+        /* Diseño de la barra de desplazamiento horizontal para las sugerencias */
+        .sugerencias-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            gap: 8px;
+            padding-bottom: 6px; 
+        }
+
+        /* Estilizar la barra para navegadores basados en WebKit */
+        .sugerencias-scroll::-webkit-scrollbar {
+            height: 6px; 
+        }
+        .sugerencias-scroll::-webkit-scrollbar-track {
+            background: #E0F2FE; 
+            border-radius: 10px;
+        }
+        .sugerencias-scroll::-webkit-scrollbar-thumb {
+            background: #7DD3FC; 
+            border-radius: 10px;
+        }
+        .sugerencias-scroll::-webkit-scrollbar-thumb:hover {
+            background: #0284C7; 
+        }
+
+        /* Estilo para el botón de profundizar */
+        .profundizar-btn {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 2px 8px;
+            background-color: #E0F2FE;
+            color: #0284C7;
+            border: 1px solid #BAE6FD;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .profundizar-btn:hover { background-color: #BAE6FD; }
+        .hidden-content { display: none; margin-top: 6px; padding-left: 8px; border-left: 2px solid #0284C7; font-size: 12px; color: #334155;}
+    </style>
+
+    <!-- Lógica de LucIA -->
+    <script>
+        const chatbotToggleBtn = document.getElementById('chatbot-toggle-btn');
+        const chatbotCloseBtn = document.getElementById('chatbot-close-btn');
+        const chatbotContainer = document.getElementById('chatbot-container');
+        const chatbotForm = document.getElementById('chatbot-form');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const topicButtons = document.querySelectorAll('.topic-btn');
+
+        // Función para mostrar/ocultar el contenido al hacer clic en "Profundizar"
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight; // Auto-scroll
+        }
+
+        // ==========================================
+        // BASE DE CONOCIMIENTOS (15 RETOS DE BYTEON)
+        // ==========================================
+        const knowledgeBase = [
+            {
+                // RETO 1
+                keywords: ['1. fuentes de info', 'fuente', 'origen', 'primaria', 'terciaria'],
+                response: `
+                    <strong style="color:#02679B">1. FUENTES DE INFORMACIÓN</strong><br>
+                    <br>
+                    <strong>01. CLASIFICACIÓN POR ORIGEN Y PROCESAMIENTO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t1-1')">[Profundizar]</button>
+                    <div id="t1-1" class="hidden-content">Las fuentes se clasifican por su origen (internas y externas a la organización) y por su procesamiento: primarias (datos originales), secundarias (datos procesados) y terciarias.</div>
+                    <br><br>
+                    <strong>02. ENFOQUE DIGITAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t1-2')">[Profundizar]</button>
+                    <div id="t1-2" class="hidden-content">En el entorno digital de Byteon, las fuentes incluyen bases de datos, APIs, sensores, logs de sistemas y datos abiertos (Open Data).</div>
+                `
+            },
+            {
+                // RETO 2
+                keywords: ['2. datos y si', 'dato', 'informacion', 'sistema de informacion', 'conocimiento'],
+                response: `
+                    <strong style="color:#02679B">2. DATOS, INFORMACIÓN Y S.I.</strong><br>
+                    <br>
+                    <strong>01. DEL DATO AL CONOCIMIENTO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t2-1')">[Profundizar]</button>
+                    <div id="t2-1" class="hidden-content">Dato: registro sin contexto (ej. "42"). Información: dato procesado con sentido. Conocimiento: información sumada a la experiencia humana para la toma de decisiones.</div>
+                    <br><br>
+                    <strong>02. SISTEMAS DE INFORMACIÓN Y CALIDAD</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t2-2')">[Profundizar]</button>
+                    <div id="t2-2" class="hidden-content">Un SI captura, procesa, almacena y distribuye la información. La calidad del dato exige exactitud, completitud, oportunidad y validez.</div>
+                `
+            },
+            {
+                // RETO 3
+                keywords: ['3. almacenamiento', 'nube', 'disco', 'ram', 'ciberseguridad'],
+                response: `
+                    <strong style="color:#02679B">3. SISTEMAS DE ALMACENAMIENTO</strong><br>
+                    <br>
+                    <strong>01. ARQUITECTURAS DE ALMACENAMIENTO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t3-1')">[Profundizar]</button>
+                    <div id="t3-1" class="hidden-content">ON-PREMISE (Local en servidores físicos, alto costo pero control total), NUBE (Cloud Storage, centros de datos remotos, escalabilidad infinita) y Almacenamiento Híbrido.</div>
+                    <br><br>
+                    <strong>02. LA DEFENSA DEL NÚCLEO: CIBERSEGURIDAD</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t3-2')">[Profundizar]</button>
+                    <div id="t3-2" class="hidden-content">Tres pilares de los Aspís-Dóry: Cifrado (encriptación de datos legibles), Copias de Seguridad (Backups) y redundancia para evitar pérdidas por Ransomware espacial.</div>
+                    <br><br>
+                    <strong>03. IMPACTO EN LA GESTIÓN DEL TALENTO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t3-3')">[Profundizar]</button>
+                    <div id="t3-3" class="hidden-content">Garantiza tres beneficios: Privacidad (cumplimiento normativo), Disponibilidad (datos listos para decidir) e Integridad (evita alteración maliciosa de evaluaciones o certificados).</div>
+                `
+            },
+            {
+                // RETO 4
+                keywords: ['4. manuales tecnicos', 'manual', 'licencia', 'licenciamiento'],
+                response: `
+                    <strong style="color:#02679B">4. MANUALES TÉCNICOS</strong><br>
+                    <br>
+                    <strong>01. ¿QUÉ ES UN MANUAL TÉCNICO?</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t4-1')">[Profundizar]</button>
+                    <div id="t4-1" class="hidden-content">Documento con instrucciones detalladas para instalar, configurar y mantener sistemas. Dirigido a administradores. Reduce la dependencia del conocimiento individual y estandariza procesos.</div>
+                    <br><br>
+                    <strong>02. ESTRUCTURA DEL MANUAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t4-2')">[Profundizar]</button>
+                    <div id="t4-2" class="hidden-content">1. Requisitos y prerrequisitos, 2. Arquitectura y Diagramas, 3. Procedimientos paso a paso, 4. Mantenimiento y Troubleshooting.</div>
+                    <br><br>
+                    <strong>03. LICENCIAMIENTO DE SOFTWARE</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t4-3')">[Profundizar]</button>
+                    <div id="t4-3" class="hidden-content">Tipos: Propietaria (restringe copia/acceso), SaaS (suscripción en nube), Open Source (permite modificar y redistribuir) y Copyleft (GPL).</div>
+                    <br><br>
+                    <strong>04. NORMATIVA Y SEGURIDAD</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t4-4')">[Profundizar]</button>
+                    <div id="t4-4" class="hidden-content">Derechos de Autor (protege la propiedad intelectual) y Protección de Datos (ej. Ley 1581) que exige perfiles de acceso y controles cifrados en manuales.</div>
+                `
+            },
+            {
+                // RETO 5
+                keywords: ['5. tec. de recoleccion', 'tecnica', 'entrevista', 'encuesta', 'grupo focal'],
+                response: `
+                    <strong style="color:#02679B">5. TÉCNICAS DE RECOLECCIÓN</strong><br>
+                    <br>
+                    <strong>01. MÉTODOS PRIMARIOS: DIRECTOS DE LA FUENTE</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t5-1')">[Profundizar]</button>
+                    <div id="t5-1" class="hidden-content">Permiten obtener información de "primera mano" directamente de los Neógenos o autómatas. Incluyen: Encuestas y Cuestionarios, Entrevistas, Observación Directa y Grupos Focales.</div>
+                    <br><br>
+                    <strong>02. MÉTODOS SECUNDARIOS Y MIXTOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t5-2')">[Profundizar]</button>
+                    <div id="t5-2" class="hidden-content">Uso de información procesada e indexada previamente. Incluye: Revisión de Literatura, Bases de Datos, e Informes Previos. Las técnicas mixtas incluyen la Técnica Delphi y Etnografía Robótica.</div>
+                    <br><br>
+                    <strong>03. COMPARATIVA Y TRIANGULACIÓN</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t5-3')">[Profundizar]</button>
+                    <div id="t5-3" class="hidden-content">La triangulación es el secreto: combinar métodos primarios (observar o entrevistar) con secundarios (revisar métricas históricas) para no confiar en una sola técnica.</div>
+                    <br><br>
+                    <strong>04. ETAPAS DE ANÁLISIS Y RECOLECCIÓN</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t5-4')">[Profundizar]</button>
+                    <div id="t5-4" class="hidden-content">Tres etapas: 1. Planeación (determinar qué recolectar), 2. Preparación (entrenar analistas y preparar bases), 3. Ejecución (recolección, filtrado y redacción del análisis).</div>
+                `
+            },
+            {
+                // RETO 6
+                keywords: ['6. inst. de recoleccion', 'instrumento', 'cuestionario', 'formato'],
+                response: `
+                    <strong style="color:#02679B">6. INSTRUMENTOS DE RECOLECCIÓN</strong><br>
+                    <br>
+                    <strong>01. CARACTERÍSTICAS CRÍTICAS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t6-1')">[Profundizar]</button>
+                    <div id="t6-1" class="hidden-content">Dimensiones metodológicas: Validez (exactitud), Confiabilidad (consistencia), Objetividad (neutralidad) y Adaptabilidad (flexibilidad).</div>
+                    <br><br>
+                    <strong>02. TIPOS DE INSTRUMENTOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t6-2')">[Profundizar]</button>
+                    <div id="t6-2" class="hidden-content">Enfoques: Cuantitativos (numéricos: encuestas, experimentos) y Cualitativos (percepciones: entrevistas, grupos focales). El enfoque Mixto (Triangulación) combina ambos.</div>
+                    <br><br>
+                    <strong>03. FORMATOS DE REGISTRO NEOGÉNICOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t6-3')">[Profundizar]</button>
+                    <div id="t6-3" class="hidden-content">Formatos Estructurados (bases de datos/CRM), Formatos Textuales (diarios de campo, entrevistas literales) y Formatos Audiovisuales (audio, video, fotografía).</div>
+                `
+            },
+            {
+                // RETO 7
+                keywords: ['7. seg. de la info', 'seguridad', 'iso 27001', 'gdpr', 'cia'],
+                response: `
+                    <strong style="color:#02679B">7. SEGURIDAD DE LA INFORMACIÓN</strong><br>
+                    <br>
+                    <strong>01. LA TRÍADA CIA Y DIMENSIONES DEL DATO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t7-1')">[Profundizar]</button>
+                    <div id="t7-1" class="hidden-content">Los criterios inquebrantables: Confidencialidad, Integridad, Disponibilidad, además de Autenticidad y Trazabilidad (logs inmutables).</div>
+                    <br><br>
+                    <strong>02. NORMATIVA DE LOS "ASPÍS-DÓRY" (ISO 27001 Y GDPR)</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t7-2')">[Profundizar]</button>
+                    <div id="t7-2" class="hidden-content">ISO 27001 (SGSI): Seguridad organizacional y controles técnicos (la "fortaleza"). GDPR/RGPD: Privacidad de la persona, consentimiento y minimización de datos (el "titular").</div>
+                    <br><br>
+                    <strong>03. CONTROLES DE SEGURIDAD (HARDWARE, SOFTWARE Y PERSONAS)</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t7-3')">[Profundizar]</button>
+                    <div id="t7-3" class="hidden-content">Físicos (biometría, bloqueo USB), Lógicos (RBAC, Cifrado, MFA) y de Personal (Acuerdos de confidencialidad NDA, offboarding rápido y capacitación).</div>
+                `
+            },
+            {
+                // RETO 8
+                keywords: ['8. hardware y redes', 'hardware', 'redes', 'reprografia', 'lan'],
+                response: `
+                    <strong style="color:#02679B">8. INFRAESTRUCTURA TECNOLÓGICA</strong><br>
+                    <br>
+                    <strong>01. HARDWARE Y SOFTWARE: CUERPO Y MENTE</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t8-1')">[Profundizar]</button>
+                    <div id="t8-1" class="hidden-content">Hardware es el equipo físico (CPU, Memoria, Periféricos). Software es el soporte lógico (Sistema Operativo, de Programación y de Aplicación).</div>
+                    <br><br>
+                    <strong>02. REDES: EL SISTEMA NERVIOSO CENTRAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t8-2')">[Profundizar]</button>
+                    <div id="t8-2" class="hidden-content">Clasificación por alcance (LAN, MAN, WAN) y topología (Estrella, Anillo, Bus). Usan Routers, Switches y Puntos de Acceso (AP).</div>
+                    <br><br>
+                    <strong>03. ORGANIZACIÓN DE ARCHIVOS Y LA NUBE</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t8-3')">[Profundizar]</button>
+                    <div id="t8-3" class="hidden-content">Estructuración en ficheros y carpetas jerárquicas. La nube ofrece escalabilidad, elasticidad y disponibilidad desde cualquier terminal.</div>
+                    <br><br>
+                    <strong>04. REPROGRAFÍA: EL PUENTE FÍSICO-DIGITAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t8-4')">[Profundizar]</button>
+                    <div id="t8-4" class="hidden-content">Traslado de datos del entorno virtual al material y viceversa utilizando fotocopiadoras, escáneres, impresoras láser/inyección y duplicadoras.</div>
+                `
+            },
+            {
+                // RETO 9
+                keywords: ['9. clasificacion info', 'clasificacion', 'confidencial', 'sensible'],
+                response: `
+                    <strong style="color:#02679B">9. CLASIFICACIÓN DE LA INFORMACIÓN</strong><br>
+                    <br>
+                    <strong>01. CARACTERÍSTICAS Y VIGENCIA</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t9-1')">[Profundizar]</button>
+                    <div id="t9-1" class="hidden-content">Todo dato en Byteon debe contar con validez, vigencia adecuada para su uso, importancia para el negocio y un significado claro.</div>
+                    <br><br>
+                    <strong>02. CLASIFICACIÓN Y MARCO LEGAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t9-2')">[Profundizar]</button>
+                    <div id="t9-2" class="hidden-content">La información se clasifica en Pública, Privada, Confidencial y Sensible (protegida bajo normativas como la Ley 1581 de protección de datos personales).</div>
+                `
+            },
+            {
+                // RETO 10
+                keywords: ['10. procesamiento info', 'procesamiento', 'oficial de proteccion'],
+                response: `
+                    <strong style="color:#02679B">10. PROCESAMIENTO DE LA INFORMACIÓN</strong><br>
+                    <br>
+                    <strong>01. GESTIÓN ESTRATÉGICA DE DATOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t10-1')">[Profundizar]</button>
+                    <div id="t10-1" class="hidden-content">Transforma datos crudos en conocimiento útil. Requiere fuentes confiables y un modelo de gobierno de datos estructurado que garantice su completitud.</div>
+                    <br><br>
+                    <strong>02. PRIVACIDAD Y OFICIAL DE DATOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t10-2')">[Profundizar]</button>
+                    <div id="t10-2" class="hidden-content">Se protege la privacidad mediante la figura de un Oficial de Protección de Datos autónomo, que mitiga riesgos bajo el principio de responsabilidad demostrada.</div>
+                `
+            },
+            {
+                // RETO 11
+                keywords: ['11. software gestion', 'software de gestion', 'erp', 'crm', 'digitalizacion'],
+                response: `
+                    <strong style="color:#02679B">11. SOFTWARE DE GESTIÓN EMPRESARIAL</strong><br>
+                    <br>
+                    <strong>01. FUNDAMENTOS Y EVOLUCIÓN HISTÓRICA</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t11-1')">[Profundizar]</button>
+                    <div id="t11-1" class="hidden-content">Aplicaciones orientadas a administrar, automatizar y controlar procesos corporativos. Sus características son: Automatización, Integración Total y Seguridad Avanzada.</div>
+                    <br><br>
+                    <strong>02. ARQUITECTURA MODULAR DE LOS SISTEMAS ERP</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t11-2')">[Profundizar]</button>
+                    <div id="t11-2" class="hidden-content">Integran flujos en una estructura coordinada. Ejemplos de módulos: Finanzas y Contabilidad (control presupuestario) y Cadena de Suministro SCM (inventarios y logística).</div>
+                    <br><br>
+                    <strong>03. TIPOLOGÍAS DE SOFTWARE CORPORATIVO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t11-3')">[Profundizar]</button>
+                    <div id="t11-3" class="hidden-content">Categorías principales: CRM (Relación con Clientes), Gestión de Talento Humano (nóminas, reclutamiento) y Business Intelligence BI (transformación de datos en tableros).</div>
+                    <br><br>
+                    <strong>04. IMPACTO EN LA COMPETITIVIDAD Y TRANSFORMACIÓN DIGITAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t11-4')">[Profundizar]</button>
+                    <div id="t11-4" class="hidden-content">Beneficios: Eficiencia operativa, mejor toma de decisiones y escalabilidad. Desafíos: Resistencia cultural, inversión inicial y brecha digital.</div>
+                    <br><br>
+                    <strong>05. TENDENCIAS EMERGENTES Y EL FUTURO DE LA GESTIÓN</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t11-5')">[Profundizar]</button>
+                    <div id="t11-5" class="hidden-content">El horizonte está marcado por: Agentes Autónomos de IA, Plataformas de Experiencia de Conocimiento (KXP) y Arquitecturas Cloud Híbridas.</div>
+                `
+            },
+            {
+                // RETO 12
+                keywords: ['12. software aplicacion', 'software de aplicacion', 'ofimatica', 'versionado'],
+                response: `
+                    <strong style="color:#02679B">12. SOFTWARE DE APLICACIÓN</strong><br>
+                    <br>
+                    <strong>01. EL CONCEPTO EN EL PLANETA BYTEON</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t12-1')">[Profundizar]</button>
+                    <div id="t12-1" class="hidden-content">Programa diseñado específicamente para ayudar a los usuarios a realizar tareas concretas (redactar, analizar, comunicarse), a diferencia del software de sistema que gestiona el hardware.</div>
+                    <br><br>
+                    <strong>02. CLASIFICACIÓN FUNCIONAL DE LAS HERRAMIENTAS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t12-2')">[Profundizar]</button>
+                    <div id="t12-2" class="hidden-content">Categorías: Productividad y Ofimática, Comunicación y Colaboración, Gestión Empresarial (HRIS/HCM), Diseño y Multimedia, y Desarrollo y Ciberseguridad.</div>
+                    <br><br>
+                    <strong>03. CICLO DE VIDA Y VERSIONADO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t12-3')">[Profundizar]</button>
+                    <div id="t12-3" class="hidden-content">El código evoluciona mediante versiones (X.Y.Z). Fases de estabilidad: Fase ALPHA (prueba interna), Fase BETA (betatesters) y Release Candidate (candidata a lanzamiento oficial).</div>
+                    <br><br>
+                    <strong>04. EL ECOSISTEMA CONTEMPORÁNEO (2024-2026)</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t12-4')">[Profundizar]</button>
+                    <div id="t12-4" class="hidden-content">Retos actuales: La Inteligencia Artificial Generativa integrada en herramientas (requiere supervisión humana) y la Ciberseguridad/Cadena de Suministro (uso de SBOM).</div>
+                `
+            },
+            {
+                // RETO 13
+                keywords: ['13. procesadores texto', 'procesador', 'word', 'texto'],
+                response: `
+                    <strong style="color:#02679B">13. PROCESADORES DE TEXTO (WORD)</strong><br>
+                    <br>
+                    <strong>01. EL ORIGEN DE LA EDICIÓN DIGITAL</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t13-1')">[Profundizar]</button>
+                    <div id="t13-1" class="hidden-content">Programa informático diseñado para crear, editar, modificar y procesar documentos con formato. Permiten aplicar estilos complejos, insertar gráficos y revisar gramática.</div>
+                    <br><br>
+                    <strong>02. CARACTERÍSTICAS DE WORD EN BYTEON</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t13-2')">[Profundizar]</button>
+                    <div id="t13-2" class="hidden-content">Formato avanzado, Inserción multimedia, Uso de plantillas pre-diseñadas, Revisión ortográfica/gramatical y Marcas de agua (ej. "Confidencial").</div>
+                    <br><br>
+                    <strong>03. HERRAMIENTAS AVANZADAS PARA TALENTO HUMANO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t13-3')">[Profundizar]</button>
+                    <div id="t13-3" class="hidden-content">Combinación de Correspondencia (correo masivo automatizado), Creación de Formularios (pestaña programador) y El Control de Cambios (revisión colaborativa de normativas).</div>
+                    <br><br>
+                    <strong>04. GESTIÓN DE SEGURIDAD Y COMPARTICIÓN</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t13-4')">[Profundizar]</button>
+                    <div id="t13-4" class="hidden-content">Permite restringir la edición, proteger documentos críticos con contraseña e integrarse a la nube para coautoría en tiempo real.</div>
+                `
+            },
+            {
+                // RETO 14
+                keywords: ['14. hojas de calculo', 'hoja', 'calculo', 'excel'],
+                response: `
+                    <strong style="color:#02679B">14. HOJAS DE CÁLCULO (EXCEL)</strong><br>
+                    <br>
+                    <strong>01. DEFINICIÓN DEL ECOSISTEMA</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t14-1')">[Profundizar]</button>
+                    <div id="t14-1" class="hidden-content">Herramienta estructurada para organizar, calcular y analizar datos mediante filas y columnas. Plataformas destacadas: Microsoft Excel, Google Sheets y LibreOffice Calc.</div>
+                    <br><br>
+                    <strong>02. CARACTERÍSTICAS FUNDAMENTALES</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t14-2')">[Profundizar]</button>
+                    <div id="t14-2" class="hidden-content">Organización matricial, automatización de tareas repetitivas (macros), uso de funciones complejas y análisis visual mediante paneles, minigráficos y diagramas.</div>
+                    <br><br>
+                    <strong>03. CLASES Y USOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t14-3')">[Profundizar]</button>
+                    <div id="t14-3" class="hidden-content">Se clasifican en: calculadoras rápidas (desechables), formatos de referencia (documentales), bases de datos (almacenamiento) y formatos estandarizados (plantillas).</div>
+                    <br><br>
+                    <strong>04. APLICACIÓN EN TALENTO HUMANO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t14-4')">[Profundizar]</button>
+                    <div id="t14-4" class="hidden-content">Usos vitales: Presupuestos y nómina (cálculo de salarios), Análisis de reclutamiento (tableros dinámicos), Inventarios de dotación y Matrices de evaluación de desempeño.</div>
+                    <br><br>
+                    <strong>05. BUENAS PRÁCTICAS DE MODELADO</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t14-5')">[Profundizar]</button>
+                    <div id="t14-5" class="hidden-content">Separación lógica de datos, bloqueo/protección de celdas críticas con fórmulas, privacidad anonimizando identificadores y adecuada trazabilidad/versionado.</div>
+                `
+            },
+            {
+                // RETO 15
+                keywords: ['15. gestores presentacion', 'presentacion', 'powerpoint', 'power bi'],
+                response: `
+                    <strong style="color:#02679B">15. GESTORES DE PRESENTACIONES</strong><br>
+                    <br>
+                    <strong>01. DEFINICIÓN Y CARACTERÍSTICAS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t15-1')">[Profundizar]</button>
+                    <div id="t15-1" class="hidden-content">Aplicaciones diseñadas para crear apoyos visuales profesionales. Se caracterizan por su interactividad, integración multimedia (audio/video), flexibilidad y compatibilidad de diseño.</div>
+                    <br><br>
+                    <strong>02. TIPOS DE SOFTWARE</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t15-2')">[Profundizar]</button>
+                    <div id="t15-2" class="hidden-content">Se dividen en: Presentación interactiva (AhaSlides), no lineal (Prezi), enfoque visual (Canva), simplista (Zoho Show) y de video animado (Powtoon).</div>
+                    <br><br>
+                    <strong>03. CLASES Y EJEMPLOS</strong>
+                    <button class="profundizar-btn" onclick="toggleContent('t15-3')">[Profundizar]</button>
+                    <div id="t15-3" class="hidden-content">Tradicionales empresariales (Microsoft PowerPoint), opciones colaborativas en línea (Google Slides) y opciones especializadas de análisis interactivo (Power BI).</div>
+                `
+            }
+        ];
+
+        // Auto-ajustar altura del textarea
+        chatbotInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = (this.scrollHeight) + 'px';
+        });
+
+        chatbotInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                chatbotForm.dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Abrir/Cerrar el chat
+        function toggleChat() {
+            const isOpen = chatbotContainer.classList.contains('opacity-100');
+            if (isOpen) {
+                chatbotContainer.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                chatbotContainer.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+            } else {
+                chatbotContainer.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+                chatbotContainer.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+                chatbotInput.focus();
+            }
+        }
+
+        chatbotToggleBtn.addEventListener('click', toggleChat);
+        chatbotCloseBtn.addEventListener('click', toggleChat);
+
+        // Disparador al clickear los chips (botones superiores)
+        topicButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                chatbotInput.value = btn.textContent;
+                chatbotInput.style.height = 'auto';
+                chatbotInput.focus();
+                chatbotForm.dispatchEvent(new Event('submit'));
+            });
+        });
+
+        function addMessage(text, sender) {
+            const isUser = sender === 'user';
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex items-start gap-2.5 max-w-[88%] ${isUser ? 'ml-auto flex-row-reverse' : ''}`;
+            
+            let avatarHTML = '';
+            if (!isUser) {
+                avatarHTML = `
+                    <div class="w-8 h-8 rounded-full bg-white border border-[#A6D4EB] flex-shrink-0 flex items-center justify-center overflow-hidden shadow-sm">
+                        <img src="lucIA.png" alt="LucIA" class="w-full h-full object-contain" onerror="this.src='sena.png'" />
+                    </div>
+                `;
+            }
+
+            const bubbleStyles = isUser 
+                ? `background-color: #02679B; color: white; border-radius: 1.2rem 1.2rem 0 1.2rem; box-shadow: 0 2px 5px rgba(2,103,155,0.2);`
+                : `background-color: white; color: var(--ink); border: 1px solid #A6D4EB; border-radius: 1.2rem 1.2rem 1.2rem 0; box-shadow: 0 2px 5px rgba(166,212,235,0.2);`;
+
+            // Formatear negritas básicas si el mensaje es del usuario
+            let formattedText = text;
+            if (isUser) {
+                formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+            }
+
+            msgDiv.innerHTML = `
+                ${avatarHTML}
+                <div class="p-3 text-sm leading-relaxed" style="${bubbleStyles}">
+                    ${formattedText}
+                </div>
+            `;
+
+            chatbotMessages.appendChild(msgDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        // Buscador de palabras clave en la Base de Datos Estática
+        function getBotResponse(input) {
+            const lowerInput = input.toLowerCase();
+            for (let item of knowledgeBase) {
+                for (let keyword of item.keywords) {
+                    const normalizedInput = lowerInput.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    const normalizedKeyword = keyword.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    if (normalizedInput.includes(normalizedKeyword)) {
+                        return item.response;
+                    }
+                }
+            }
+            return "Mis circuitos lógicos no encontraron información exacta sobre eso en Byteon. Intenta seleccionar uno de los 15 temas de la barra superior para explorar la Matriz de Conocimiento.";
+        }
+
+        chatbotForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userText = chatbotInput.value.trim();
+            if (!userText) return;
+
+            addMessage(userText, 'user');
+            chatbotInput.value = '';
+            chatbotInput.style.height = 'auto'; 
+
+            const typingId = 'typing-' + Date.now();
+            addMessage('<span class="flex gap-1 items-center text-[#0284C7] font-semibold text-xs"><i class="fas fa-circle-notch fa-spin"></i> Consultando a DataPrime...</span>', 'bot');
+            chatbotMessages.lastElementChild.id = typingId;
+
+            setTimeout(() => {
+                document.getElementById(typingId).remove();
+                const respuesta = getBotResponse(userText);
+                addMessage(respuesta, 'bot');
+            }, 600);
+        });
+    </script>
