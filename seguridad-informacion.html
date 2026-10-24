@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -400,6 +400,69 @@
     .material-card:hover .material-btn {
       background: var(--teal);
       color: #FFFFFF;
+    }
+
+    .intro-documents-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .intro-document-card {
+      min-width: 0;
+      padding: 20px;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-left: 6px solid var(--teal);
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(20, 33, 61, 0.06);
+    }
+
+    .intro-document-card h3 {
+      font-size: 1.05rem;
+      margin: 4px 0 12px;
+      overflow-wrap: anywhere;
+    }
+
+    .intro-document-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .intro-document-actions .pdf-btn-open,
+    .intro-document-actions .pdf-btn-dl {
+      padding: 8px 12px;
+      font-size: 0.82rem;
+    }
+
+    .intro-document-preview {
+      height: 520px;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+    }
+
+    .intro-document-preview iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .activity-document-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      margin-top: 16px;
+    }
+
+    @media (max-width: 760px) {
+      .intro-documents-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     main {
@@ -1207,7 +1270,11 @@
       body.printing-report>.tabs,
       body.printing-report>.tabs-bar,
       body.printing-report>.mapa-modal,
-      body.printing-report>#mapaModal {
+      body.printing-report>#mapaModal,
+      body.printing-report .aduana-wrapper,
+      body.printing-report #aduanaFrame,
+      body.printing-cards .aduana-wrapper,
+      body.printing-cards #aduanaFrame {
         display: none !important;
       }
 
@@ -1280,10 +1347,19 @@
       }
 
       .report-project-title {
-        font-size: 10.5pt;
+        font-size: 11pt;
         font-weight: 900;
         color: #14213D;
         margin-bottom: 2px;
+      }
+
+      .report-project-context {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #8C5D1E;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
       }
 
       .report-project-sub {
@@ -2366,6 +2442,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="actividad">Actividad presencial</button>
         <button data-section="venn">Diagrama de Venn</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2414,8 +2491,40 @@
             <button data-goto="actividad">🚨 Actividad presencial — Sala de Crisis Byteon (simulacro de
               incidente)</button>
             <button data-goto="venn">🔗 Diagrama de Venn — ISO 27001 frente a GDPR</button>
+            <button data-goto="aduana">🛃 Aduana — Control y verificación de aprendizajes</button>
           </div>
         </div>
+      </div>
+
+      <div class="intro-documents-grid" aria-label="Documentos complementarios">
+        <article class="intro-document-card">
+          <span class="tag">DOCUMENTO COMPLEMENTARIO</span>
+          <h3>Seguridad de la información en Talento Humano</h3>
+          <div class="intro-document-actions">
+            <a href="Seguridad_de_la_informacion_talento_humano.html" target="_blank" rel="noopener noreferrer"
+              class="pdf-btn-open" title="Abrir el documento y usar su opción de impresión">Abrir / imprimir &#8599;</a>
+            <a href="Seguridad_de_la_informacion_talento_humano.html"
+              download="Seguridad_de_la_informacion_talento_humano.html" class="pdf-btn-dl">Descargar &#11015;</a>
+          </div>
+          <div class="intro-document-preview">
+            <iframe src="Seguridad_de_la_informacion_talento_humano.html"
+              title="Previsualización: Seguridad de la información en Talento Humano"></iframe>
+          </div>
+        </article>
+
+        <article class="intro-document-card">
+          <span class="tag">PRESENTACIÓN EN PDF</span>
+          <h3>Protocolo Tekhne</h3>
+          <div class="intro-document-actions">
+            <a href="Protocolo_Tekhne.pdf" target="_blank" rel="noopener noreferrer" class="pdf-btn-open"
+              title="Abrir el PDF y usar los controles para imprimir">Abrir / imprimir &#8599;</a>
+            <a href="Protocolo_Tekhne.pdf" download="Protocolo_Tekhne.pdf" class="pdf-btn-dl">Descargar PDF &#11015;</a>
+          </div>
+          <div class="intro-document-preview">
+            <iframe src="Protocolo_Tekhne.pdf#toolbar=1&navpanes=0"
+              title="Previsualización: Protocolo Tekhne PDF"></iframe>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2843,7 +2952,6 @@
         <div id="quizGeneralQuestions"></div>
         <div class="eval-actions">
           <button type="button" class="primary" data-quiz-submit="general">Ver resultado</button>
-          <button type="button" class="ghost" data-quiz-reset="general">Reiniciar</button>
         </div>
         <div class="verdict" id="verdict-general">
           <h4 class="v-title"></h4>
@@ -2857,7 +2965,6 @@
         <div id="quizNormativoQuestions"></div>
         <div class="eval-actions">
           <button type="button" class="primary" data-quiz-submit="normativo">Ver resultado</button>
-          <button type="button" class="ghost" data-quiz-reset="normativo">Reiniciar</button>
         </div>
         <div class="verdict" id="verdict-normativo">
           <h4 class="v-title"></h4>
@@ -2967,7 +3074,7 @@
           </svg>
           Borrar historial del dashboard
         </button>
-        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+        <button class="btn-print-dashboard" id="printReportBtn" type="button" onclick="imprimirReporteInstitucional()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -3041,6 +3148,25 @@
           y repartirlas como tarjetas adicionales.</p>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir banco de situaciones y hoja de respuestas</button>
       </div>
+
+      <div class="activity-document-grid">
+        <div class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">GUÍA DE ACTIVIDAD</span>
+            <h3>Actividad: Guardianes de Tekhne</h3>
+            <p>Documento de apoyo para la actividad presencial sobre seguridad de la información.</p>
+            <div class="pdf-actions">
+              <a href="Actividad_Guardianes_de_Tekhne_Seguridad_de_la_informacion.pdf" target="_blank"
+                rel="noopener noreferrer" class="pdf-btn-open"
+                title="Abrir el PDF y usar los controles para imprimir">Abrir / imprimir &#8599;</a>
+              <a href="Actividad_Guardianes_de_Tekhne_Seguridad_de_la_informacion.pdf"
+                download="Actividad_Guardianes_de_Tekhne_Seguridad_de_la_informacion.pdf" class="pdf-btn-dl">Descargar
+                PDF &#11015;</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- DIAGRAMA DE VENN -->
@@ -3112,6 +3238,15 @@
         </div>
       </div>
     </section>
+
+    <!-- ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
+      </div>
+    </section>
   </main>
 
   <!-- Printable content, only visible via window.print() -->
@@ -3150,12 +3285,13 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        <div class="report-project-title">Reto 7. Seguridad de la Información</div>
+        <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
           DESEMPE&Ntilde;O</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 4. SEGURIDAD DE LA INFORMACI&Oacute;N (ISO 27001 Y GDPR)
+          <strong>RETO:</strong> Reto 7. Seguridad de la Información
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3353,10 +3489,28 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
       b.addEventListener('click', () => goTo(b.dataset.goto));
+    });
+
+    // Sincronización de altura dinámica con el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
     });
 
     // ---------- Evaluador sub-nav ----------
@@ -3694,10 +3848,12 @@
         saveDash();
       });
 
-      resetBtn.addEventListener('click', () => {
-        renderQuiz(containerId, questions, kind);
-        verdictBox.classList.remove('show', 'low', 'mid', 'high');
-      });
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          renderQuiz(containerId, questions, kind);
+          verdictBox.classList.remove('show', 'low', 'mid', 'high');
+        });
+      }
     }
 
     setupQuiz('general', QUIZ_GENERAL, 'quizGeneralQuestions');
@@ -4318,24 +4474,42 @@
       }
     }
 
+    function imprimirReporteInstitucional() {
+      try {
+        populatePrintReport();
+      } catch (e) {
+        console.warn('Advertencia en preparación de impresión:', e);
+      }
+      document.body.classList.remove('printing-cards');
+      document.body.classList.add('printing-report');
+      document.title = 'Reto 7. Seguridad de la Información';
+
+      setTimeout(() => {
+        window.print();
+      }, 50);
+    }
+    window.imprimirReporteInstitucional = imprimirReporteInstitucional;
+
     const printReportBtn = document.getElementById('printReportBtn');
     if (printReportBtn) {
-      printReportBtn.addEventListener('click', () => {
-        // Si algo falla al armar el reporte, se imprime igual con lo que haya:
-        // asi el boton nunca queda "sin hacer nada".
-        try {
-          populatePrintReport();
-        } catch (err) {
-          console.error('No se pudo completar el reporte:', err);
-        }
-        document.body.classList.add('printing-report');
-        window.print();
-      });
+      printReportBtn.addEventListener('click', imprimirReporteInstitucional);
     }
 
+    window.addEventListener('beforeprint', () => {
+      if (!document.body.classList.contains('printing-cards')) {
+        try {
+          populatePrintReport();
+        } catch (e) { }
+        document.title = 'Reto 7. Seguridad de la Información';
+      }
+    });
+
     window.addEventListener('afterprint', () => {
-      document.body.classList.remove('printing-cards');
-      document.body.classList.remove('printing-report');
+      setTimeout(() => {
+        document.body.classList.remove('printing-cards');
+        document.body.classList.remove('printing-report');
+        document.title = 'Seguridad de la Información — ISO 27001 y GDPR';
+      }, 1500);
     });
 
     // ---------- Mapa Mental Lightbox ----------
