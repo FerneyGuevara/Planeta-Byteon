@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -358,6 +358,46 @@
       margin-top: 16px;
     }
 
+    .intro-resource-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 20px;
+    }
+
+    .resource-card {
+      display: block;
+      min-width: 0;
+    }
+
+    .resource-preview {
+      width: 100%;
+      height: 360px;
+      display: block;
+      margin-top: 14px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
+    .resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .resource-actions .material-btn {
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+      text-decoration: none;
+    }
+
+    @media (max-width: 700px) {
+      .intro-resource-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .material-card {
       background: var(--paper);
       border: 1px solid var(--border-cool);
@@ -370,6 +410,10 @@
       color: inherit;
       border-left: 6px solid var(--teal);
       transition: all 0.2s ease;
+    }
+
+    .material-card.resource-card {
+      display: block;
     }
 
     .material-card:hover {
@@ -1459,7 +1503,11 @@
       body.printing-report>.tabs,
       body.printing-report>.tabs-bar,
       body.printing-report>.mapa-modal,
-      body.printing-report>#mapaModal {
+      body.printing-report>#mapaModal,
+      body.printing-report .aduana-wrapper,
+      body.printing-report #aduanaFrame,
+      body.printing-cards .aduana-wrapper,
+      body.printing-cards #aduanaFrame {
         display: none !important;
       }
 
@@ -1532,10 +1580,19 @@
       }
 
       .report-project-title {
-        font-size: 10.5pt;
+        font-size: 11pt;
         font-weight: 900;
         color: #14213D;
         margin-bottom: 2px;
+      }
+
+      .report-project-context {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #8C5D1E;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
       }
 
       .report-project-sub {
@@ -2306,6 +2363,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
         <button data-section="mapamental">Mapa Mental</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2345,8 +2403,47 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — feria de instrumentos en equipo</button>
             <button data-goto="mapamental">🗺️ Mapa Mental - Esquema conceptual y diagrama completo</button>
+            <button data-goto="aduana">🛃 Aduana — Control y verificación de aprendizajes</button>
           </div>
         </div>
+      </div>
+
+      <div class="material-grid intro-resource-grid">
+        <article class="material-card resource-card">
+          <div class="material-body">
+            <span class="tag">DOCUMENTO COMPLEMENTARIO</span>
+            <h3>Instrumentos de recolección en Talento Humano</h3>
+            <p>Documento sobre características, tipos y formatos de instrumentos aplicados a la gestión del talento
+              humano.</p>
+            <div class="resource-actions">
+              <a href="Instrumentos_de_recoleccion_talento_humano.html" target="_blank" rel="noopener"
+                class="material-btn">Abrir documento ↗</a>
+              <a href="Instrumentos_de_recoleccion_talento_humano.html"
+                download="Instrumentos_de_recoleccion_talento_humano.html" class="material-btn">Descargar ⬇</a>
+              <button type="button" class="material-btn" data-print-frame="previewTalentoHumano">Imprimir 🖨</button>
+            </div>
+            <iframe id="previewTalentoHumano" class="resource-preview"
+              src="Instrumentos_de_recoleccion_talento_humano.html"
+              title="Previsualización: Instrumentos de recolección en Talento Humano"></iframe>
+          </div>
+        </article>
+
+        <article class="material-card resource-card">
+          <div class="material-body">
+            <span class="tag">PRESENTACIÓN COMPLEMENTARIA</span>
+            <h3>System Rescue Protocol</h3>
+            <p>Presentación en PDF con el protocolo de recuperación del sistema.</p>
+            <div class="resource-actions">
+              <a href="System_Rescue_Protocol.pdf" target="_blank" rel="noopener" class="material-btn">Abrir PDF ↗</a>
+              <a href="System_Rescue_Protocol.pdf" download="System_Rescue_Protocol.pdf" class="material-btn">Descargar
+                ⬇</a>
+              <button type="button" class="material-btn" data-print-frame="previewSystemRescue">Imprimir 🖨</button>
+            </div>
+            <iframe id="previewSystemRescue" class="resource-preview"
+              src="System_Rescue_Protocol.pdf#toolbar=1&navpanes=0"
+              title="Previsualización: System Rescue Protocol PDF"></iframe>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2814,7 +2911,7 @@
           </svg>
           Borrar historial del dashboard
         </button>
-        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+        <button class="btn-print-dashboard" id="printReportBtn" type="button" onclick="imprimirReporteInstitucional()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -2856,6 +2953,18 @@
             (estructurado, textual o audiovisual) para guardar los datos que obtendría.</li>
         </ol>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas de caso y guía del taller</button>
+      </div>
+
+      <div class="material-grid">
+        <a href="Actividad_Arsenal_de_instrumentos_Reto2.pdf" target="_blank" rel="noopener" class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO DE LA ACTIVIDAD</span>
+            <h3>Arsenal de instrumentos — Reto 2</h3>
+            <p>Documento para desarrollar la actividad presencial sobre instrumentos de recolección de información.</p>
+            <span class="material-btn">Abrir documento PDF ↗</span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -3060,6 +3169,15 @@
         </div>
       </div>
     </section>
+
+    <!-- ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
+      </div>
+    </section>
   </main>
 
   <!-- Printable content, only visible via window.print() -->
@@ -3099,12 +3217,13 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        <div class="report-project-title">Reto 6. Instrumentos de Recolección de Información</div>
+        <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
           DESEMPE&Ntilde;O</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 2. INSTRUMENTOS DE RECOLECCI&Oacute;N DE INFORMACI&Oacute;N
+          <strong>RETO:</strong> Reto 6. Instrumentos de Recolección de Información
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3447,10 +3566,40 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
       b.addEventListener('click', () => goTo(b.dataset.goto));
+    });
+
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
+    });
+
+    document.querySelectorAll('[data-print-frame]').forEach(button => {
+      button.addEventListener('click', () => {
+        const frame = document.getElementById(button.dataset.printFrame);
+        if (!frame || !frame.contentWindow) {
+          window.alert('No fue posible cargar el documento para imprimirlo.');
+          return;
+        }
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+      });
     });
 
     // ---------- Evaluador sub-nav ----------
@@ -3568,7 +3717,6 @@
       container.innerHTML = html +
         '<div class="eval-actions">' +
         '<button type="button" class="primary" data-grade="' + kind + '">Corregir y ver veredicto</button>' +
-        '<button type="button" class="ghost" data-restart="' + kind + '">Reiniciar</button>' +
         '</div>' +
         '<div class="verdict" id="verdict-' + kind + '"><h4 class="v-title"></h4><p class="v-text"></p><p class="v-weak" style="font-size:0.88rem;color:var(--ink-soft);"></p></div>';
 
@@ -3644,7 +3792,10 @@
       });
 
       container.querySelector('[data-grade="' + kind + '"]').addEventListener('click', () => gradeQuiz(kind));
-      container.querySelector('[data-restart="' + kind + '"]').addEventListener('click', () => renderQuiz(kind));
+      const restartBtn = container.querySelector('[data-restart="' + kind + '"]');
+      if (restartBtn) {
+        restartBtn.addEventListener('click', () => renderQuiz(kind));
+      }
     }
 
     function gradeQuiz(kind) {
@@ -4379,18 +4530,42 @@
       }
     }
 
+    function imprimirReporteInstitucional() {
+      try {
+        populatePrintReport();
+      } catch (e) {
+        console.warn('Advertencia en preparación de impresión:', e);
+      }
+      document.body.classList.remove('printing-cards');
+      document.body.classList.add('printing-report');
+      document.title = 'Reto 6. Instrumentos de Recolección de Información';
+
+      setTimeout(() => {
+        window.print();
+      }, 50);
+    }
+    window.imprimirReporteInstitucional = imprimirReporteInstitucional;
+
     const printReportBtn = document.getElementById('printReportBtn');
     if (printReportBtn) {
-      printReportBtn.addEventListener('click', () => {
-        populatePrintReport();
-        document.body.classList.add('printing-report');
-        window.print();
-      });
+      printReportBtn.addEventListener('click', imprimirReporteInstitucional);
     }
 
+    window.addEventListener('beforeprint', () => {
+      if (!document.body.classList.contains('printing-cards')) {
+        try {
+          populatePrintReport();
+        } catch (e) { }
+        document.title = 'Reto 6. Instrumentos de Recolección de Información';
+      }
+    });
+
     window.addEventListener('afterprint', () => {
-      document.body.classList.remove('printing-cards');
-      document.body.classList.remove('printing-report');
+      setTimeout(() => {
+        document.body.classList.remove('printing-cards');
+        document.body.classList.remove('printing-report');
+        document.title = 'Instrumentos de Recolección de Información — características, tipos y formatos';
+      }, 1500);
     });
 
     // ---------- Mapa Mental Lightbox ----------

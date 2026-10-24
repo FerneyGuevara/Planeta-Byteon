@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -401,6 +401,100 @@
     .material-card:hover .material-btn {
       background: var(--teal);
       color: #FFFFFF;
+    }
+
+    .intro-document-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      width: 100%;
+      margin: 24px 0 0;
+    }
+
+    .document-preview-card {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      gap: 6px;
+      padding: 16px;
+      border-radius: 9px;
+      border-left-width: 5px;
+      box-shadow: none;
+    }
+
+    .document-preview-card .material-body {
+      width: 100%;
+    }
+
+    .document-preview-card .material-icon {
+      font-size: 1.8rem;
+      line-height: 1;
+      margin-bottom: 0;
+    }
+
+    .document-preview-card .tag {
+      font-size: 0.55rem;
+    }
+
+    .document-preview-card .material-body h3 {
+      font-size: 0.95rem;
+      line-height: 1.3;
+      margin: 3px 0 4px;
+    }
+
+    .document-preview-card .material-body p {
+      font-size: 0.76rem;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .document-preview-actions {
+      gap: 8px;
+      margin: 0 0 4px;
+    }
+
+    .document-preview-actions .pdf-btn-open,
+    .document-preview-actions .pdf-btn-dl {
+      padding: 5px 8px;
+      border: 0;
+      border-radius: 5px;
+      background: rgba(31, 122, 108, 0.1);
+      color: var(--teal-dark);
+      font-size: 0.68rem;
+      font-weight: 700;
+    }
+
+    .document-preview-actions .pdf-btn-open:hover,
+    .document-preview-actions .pdf-btn-dl:hover {
+      background: rgba(31, 122, 108, 0.18);
+    }
+
+    .document-preview {
+      width: 100%;
+      height: 260px;
+      overflow: hidden;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 7px;
+    }
+
+    .document-preview iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .activity-document-grid {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 520px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 760px) {
+      .intro-document-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     main {
@@ -1188,27 +1282,50 @@
 
     @media print {
 
+      /* Si se imprimen tarjetas */
       body.printing-cards>.hero,
-      body.printing-cards>main>section {
+      body.printing-cards>main,
+      body.printing-cards>#printReport,
+      body.printing-cards .tabs,
+      body.printing-cards .tabs-bar {
         display: none !important;
       }
 
+      body.printing-cards #printCards {
+        display: block !important;
+      }
+
+      /* Por defecto (o con .printing-report): mostrar SIEMPRE el reporte */
+      body:not(.printing-cards)>.hero,
+      body:not(.printing-cards)>main,
+      body:not(.printing-cards)>header,
+      body:not(.printing-cards)>footer,
+      body:not(.printing-cards)>nav,
+      body:not(.printing-cards)>#printCards,
+      body:not(.printing-cards) .tabs,
+      body:not(.printing-cards) .tabs-bar,
+      body:not(.printing-cards) .aduana-wrapper,
+      body:not(.printing-cards) #aduanaFrame,
       body.printing-report>.hero,
       body.printing-report>main,
       body.printing-report>header,
       body.printing-report>footer,
       body.printing-report>nav,
       body.printing-report>#printCards,
-      body.printing-report>.tabs,
-      body.printing-report>.tabs-bar {
+      body.printing-report .tabs,
+      body.printing-report .tabs-bar,
+      body.printing-report .aduana-wrapper,
+      body.printing-report #aduanaFrame {
         display: none !important;
       }
 
+      body:not(.printing-cards),
       body.printing-report {
         background: #ffffff !important;
         color: #111827 !important;
       }
 
+      body:not(.printing-cards) #printReport,
       body.printing-report #printReport {
         display: block !important;
         width: 100% !important;
@@ -1273,10 +1390,19 @@
       }
 
       .report-project-title {
-        font-size: 10.5pt;
+        font-size: 11pt;
         font-weight: 900;
         color: #14213D;
         margin-bottom: 2px;
+      }
+
+      .report-project-context {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #8C5D1E;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
       }
 
       .report-project-sub {
@@ -1719,6 +1845,7 @@
         <button data-section="juego">Juego: clasifica</button>
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -1755,8 +1882,48 @@
             <button data-goto="juego">🎮 Juego — clasifica 12 ejemplos de licenciamiento</button>
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — versión física del juego</button>
+            <button data-goto="aduana">📦 Aduana — Envío de evidencias y acumulador de NEXs</button>
           </div>
         </div>
+      </div>
+      <div class="intro-document-grid" aria-label="Documentos complementarios">
+        <article class="material-card document-preview-card">
+          <div class="material-icon" aria-hidden="true">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO DE CONSULTA</span>
+            <h3>Manuales técnicos y licenciamiento</h3>
+            <p>Referencia sobre manuales técnicos y licencias de software en talento humano.</p>
+          </div>
+          <div class="pdf-actions document-preview-actions">
+            <a href="Manuales%20t%C3%A9cnicos%20y%20licenciamiento%20de%20software%20en%20talento%20humano.html"
+              target="_blank" rel="noopener" class="pdf-btn-open">Abrir documento ↗</a>
+            <a href="Manuales%20t%C3%A9cnicos%20y%20licenciamiento%20de%20software%20en%20talento%20humano.html"
+              download class="pdf-btn-dl">Descargar documento ⬇</a>
+          </div>
+          <div class="document-preview">
+            <iframe id="introManualPreview"
+              src="Manuales%20t%C3%A9cnicos%20y%20licenciamiento%20de%20software%20en%20talento%20humano.html"
+              title="Previsualización de Manuales técnicos y licenciamiento de software en talento humano"></iframe>
+          </div>
+        </article>
+
+        <article class="material-card document-preview-card">
+          <div class="material-icon" aria-hidden="true">📊</div>
+          <div class="material-body">
+            <span class="tag">PRESENTACIÓN</span>
+            <h3>Byteon Cyber Audit Protocol</h3>
+            <p>Protocolo de auditoría cibernética para el reto Byteon.</p>
+          </div>
+          <div class="pdf-actions document-preview-actions">
+            <a href="Byteon_Cyber_Audit_Protocol.pdf" target="_blank" rel="noopener" class="pdf-btn-open">Abrir vista
+              previa ↗</a>
+            <a href="Byteon_Cyber_Audit_Protocol.pdf" download class="pdf-btn-dl">Descargar presentación ⬇</a>
+          </div>
+          <div class="document-preview">
+            <iframe id="introPresentationPreview" src="Byteon_Cyber_Audit_Protocol.pdf#toolbar=1&navpanes=0"
+              title="Previsualización de Byteon Cyber Audit Protocol"></iframe>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2168,7 +2335,6 @@
           </div>
           <div class="eval-actions">
             <button type="submit" class="primary">Ver veredicto</button>
-            <button type="button" class="ghost" data-reset="evalFormGeneral">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormGeneral">
@@ -2253,7 +2419,6 @@
           </div>
           <div class="eval-actions">
             <button type="submit" class="primary">Ver veredicto</button>
-            <button type="button" class="ghost" data-reset="evalFormTecnico">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormTecnico">
@@ -2361,7 +2526,7 @@
           </svg>
           Borrar historial del dashboard
         </button>
-        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+        <button class="btn-print-dashboard" id="printReportBtn" type="button" onclick="imprimirReporteInstitucional()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -2398,6 +2563,31 @@
         </ol>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas y hoja de respuestas</button>
       </div>
+      <div class="material-grid activity-document-grid">
+        <article class="material-card">
+          <div class="material-icon" aria-hidden="true">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO DE ACTIVIDAD</span>
+            <h3>Actividad de auditores del manual de talento humano</h3>
+            <p>Guía descargable para realizar la actividad presencial de auditoría del manual.</p>
+            <div class="pdf-actions">
+              <a href="Actividad_Auditores_del_Manual_Talento_Humano.pdf" target="_blank" rel="noopener"
+                class="pdf-btn-open">Abrir documento PDF ↗</a>
+              <a href="Actividad_Auditores_del_Manual_Talento_Humano.pdf" download class="pdf-btn-dl">Descargar PDF
+                ⬇</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PESTAÑA ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
+      </div>
     </section>
   </main>
 
@@ -2425,6 +2615,7 @@
     <!-- ENCABEZADO INSTITUCIONAL SENA (DEL INDEX.HTML) -->
     <header class="report-header">
       <div class="report-header-top">
+        <img src="sena.png" alt="Logo SENA" class="report-logo" onerror="this.style.display='none'" />
         <div class="report-header-text">
           <div class="report-org">SERVICIO NACIONAL DE APRENDIZAJE SENA &bull; REGIONAL DISTRITO CAPITAL</div>
           <h1 class="report-center">CENTRO DE GESTI&Oacute;N ADMINISTRATIVA</h1>
@@ -2436,12 +2627,13 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        <div class="report-project-title">Reto 4. Manuales Técnicos</div>
+        <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
           DESEMPE&Ntilde;O</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 2. MANUALES T&Eacute;CNICOS
+          <strong>RETO:</strong> Reto 4. Manuales Técnicos
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -2618,12 +2810,29 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
       b.addEventListener('click', () => goTo(b.dataset.goto));
     });
 
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
+    });
     // ---------- Evaluador sub-nav ----------
     const evalSubButtons = document.querySelectorAll('#evalSubnav button');
     const evalPanels = { general: document.getElementById('evalGeneralPanel'), tecnico: document.getElementById('evalTecnicoPanel') };
@@ -2690,10 +2899,13 @@
         saveDash();
       });
 
-      form.parentElement.querySelector('[data-reset="' + formId + '"]').addEventListener('click', () => {
-        form.reset();
-        verdictBox.classList.remove('show', 'low', 'mid', 'high');
-      });
+      const resetBtn = form.parentElement.querySelector('[data-reset="' + formId + '"]');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          verdictBox.classList.remove('show', 'low', 'mid', 'high');
+        });
+      }
     }
     setupEvaluator('evalFormGeneral');
     setupEvaluator('evalFormTecnico');
@@ -3035,7 +3247,11 @@
         const nGeneral = evalHistory.filter(e => e.kind === 'general').length;
         const nTecnico = evalHistory.filter(e => e.kind === 'tecnico').length;
         const weakCounts = {};
-        evalHistory.forEach(e => e.weak.forEach(w => { weakCounts[w] = (weakCounts[w] || 0) + 1; }));
+        evalHistory.forEach(e => {
+          if (Array.isArray(e.weak)) {
+            e.weak.forEach(w => { weakCounts[w] = (weakCounts[w] || 0) + 1; });
+          }
+        });
         const sortedWeak = Object.entries(weakCounts).sort((a, b) => b[1] - a[1]);
         let txt = 'Has completado ' + evalHistory.length + ' evaluaciones (' + nGeneral + ' de Manual técnico y ' + nTecnico + ' de Licenciamiento y normativa), con una comprensión promedio de ' + avgConfiabilidad + '%. ';
         if (sortedWeak.length) {
@@ -3307,18 +3523,42 @@
       }
     }
 
+    function imprimirReporteInstitucional() {
+      try {
+        populatePrintReport();
+      } catch (e) {
+        console.warn('Advertencia en preparación de impresión:', e);
+      }
+      document.body.classList.remove('printing-cards');
+      document.body.classList.add('printing-report');
+      document.title = 'Reto 4. Manuales Técnicos';
+
+      setTimeout(() => {
+        window.print();
+      }, 50);
+    }
+    window.imprimirReporteInstitucional = imprimirReporteInstitucional;
+
     const printReportBtn = document.getElementById('printReportBtn');
     if (printReportBtn) {
-      printReportBtn.addEventListener('click', () => {
-        populatePrintReport();
-        document.body.classList.add('printing-report');
-        window.print();
-      });
+      printReportBtn.addEventListener('click', imprimirReporteInstitucional);
     }
 
+    window.addEventListener('beforeprint', () => {
+      if (!document.body.classList.contains('printing-cards')) {
+        try {
+          populatePrintReport();
+        } catch (e) { }
+        document.title = 'Reto 4. Manuales Técnicos';
+      }
+    });
+
     window.addEventListener('afterprint', () => {
-      document.body.classList.remove('printing-cards');
-      document.body.classList.remove('printing-report');
+      setTimeout(() => {
+        document.body.classList.remove('printing-cards');
+        document.body.classList.remove('printing-report');
+        document.title = 'Manuales Técnicos - características, licenciamiento y normativa';
+      }, 1500);
     });
 
   </script>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manuales técnicos y licenciamiento de software en la gestión del talento humano</title>
+<style>
+:root{--bg:#0b1026;--card:#121a3a;--tx:#e6ecff;--mu:#9fb0e0;--c1:#22d3ee;--c2:#8b5cf6;--c3:#f472b6;--bd:#26325f;--th:#1a2550;--h3:#b8a4ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f7ff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#d5ddf5;--th:#e8eeff;--h3:#6d28d9;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f4f7ff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#d5ddf5;--th:#e8eeff;--h3:#6d28d9;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--bd)}
+.bar b{color:var(--c1);letter-spacing:.08em;font-size:.85rem}
+button{cursor:pointer;border:0;border-radius:999px;padding:9px 20px;font:600 .9rem inherit;color:#fff;background:linear-gradient(90deg,var(--c2),var(--c1))}
+main{max-width:900px;margin:0 auto;padding:20px}
+.cover{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:48px 36px;border-radius:20px;color:#e6ecff;background:radial-gradient(circle at 80% 15%,#8b5cf655,transparent 40%),radial-gradient(circle at 10% 90%,#22d3ee44,transparent 40%),linear-gradient(160deg,#050816,#12195a);border:1px solid #3b4a9a;position:relative;overflow:hidden}
+.cover:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#9fe 1px,transparent 1px);background-size:70px 70px,110px 110px;background-position:0 0,35px 50px;opacity:.25}
+.cover>*{position:relative}.tag{color:#22d3ee;letter-spacing:.3em;font-size:.8rem;font-weight:700}
+.cover h1{font-size:2.3rem;line-height:1.2;margin:14px 0;background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover p{color:#c7d2fe;margin:4px 0}.bits{font:700 .9rem/1.4 ui-monospace,Consolas,monospace;color:#22d3ee;opacity:.8;margin-top:18px;letter-spacing:.1em}
+.meta{margin-top:26px;border-left:3px solid #22d3ee;padding-left:16px;font-size:.95rem}
+nav.toc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:22px 26px;margin:26px 0}
+nav.toc ol{columns:2;column-gap:30px;margin:0;padding-left:1.3em}nav.toc li{margin:3px 0;break-inside:avoid}
+a{color:var(--c1);text-decoration:none}a:hover{text-decoration:underline}
+h2{display:flex;align-items:center;gap:12px;font-size:1.5rem;margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid transparent;border-image:linear-gradient(90deg,var(--c1),var(--c2),transparent) 1;color:var(--c1);break-after:avoid}
+h2 i{font-style:normal;font-size:.9rem;min-width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:#fff;background:linear-gradient(135deg,var(--c2),var(--c1))}
+h3{color:var(--h3);font-size:1.1rem;margin:20px 0 6px;break-after:avoid}
+.tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.88rem;background:var(--card)}
+th{background:linear-gradient(90deg,var(--c2),var(--c1));color:#fff;text-align:left}th,td{padding:8px 10px;border:1px solid var(--bd);vertical-align:top}tr:nth-child(even) td{background:var(--th)}
+.box{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--c3);border-radius:10px;padding:10px 16px;margin:12px 0}
+.flow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.flow div{flex:1 1 120px;background:var(--card);border:1px solid var(--bd);border-top:3px solid var(--c1);border-radius:10px;padding:8px 10px;font-size:.85rem;position:relative;break-inside:avoid}
+.flow div:nth-child(even){border-top-color:var(--c2)}.flow b{display:block;color:var(--c1)}
+.flow div:not(:last-child):after{content:"\2192";position:absolute;right:-12px;top:40%;color:var(--c3);font-weight:700}
+ul,ol{padding-left:1.3em}li{margin:3px 0}.kw{color:var(--mu);font-size:.92rem}.ref p{padding-left:2em;text-indent:-2em;margin:6px 0;font-size:.9rem}
+footer{text-align:center;color:var(--mu);font-size:.8rem;margin:40px 0 20px}
+@page{size:A4;margin:16mm 14mm;@bottom-center{content:"Página " counter(page);font:10pt sans-serif;color:#555}}
+@media print{
+:root,:root[data-theme]{--bg:#fff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#cfd8f3;--th:#eef2ff;--h3:#6d28d9;color-scheme:light}
+body{font-size:11pt;background:#fff}.bar,footer{display:none}main{max-width:none;padding:0}
+.cover{min-height:255mm;border-radius:0;break-after:page}nav.toc{break-after:page;margin:0}
+h2,h3{break-after:avoid}table,tr,.box,li,.flow div{break-inside:avoid}.tbl{overflow:visible}h2{margin-top:22px}a{color:inherit}}
+</style>
+</head>
+<body>
+<div class="bar"><b>◈ BYTEON · MISIÓN BÁSICA 2</b><button onclick="window.print()">🖨 Imprimir / Guardar PDF</button></div>
+<main>
+<section class="cover">
+<div class="tag">TÉCNICO EN TALENTO HUMANO</div>
+<h1>Manuales técnicos y licenciamiento de software en los sistemas de información de talento humano</h1>
+<p>Características, estructura y evaluación de manuales técnicos; concepto, tipos y normativa del licenciamiento, con aplicación al caso del planeta Byteon</p>
+<div class="bits">MANUAL · LICENCIA · NORMA · USO LEGAL</div>
+<div class="meta"><p><b>Competencia:</b> Operación de herramientas informáticas y digitales para talento humano</p><p><b>Autor(a):</b> [Nombre completo del aprendiz]</p><p><b>Instructor(a):</b> [Nombre del instructor]</p><p><b>Ficha / Centro:</b> [Número de ficha] – [Centro de formación]</p><p><b>Bogotá D.C., octubre de 2026</b></p></div>
+</section>
+
+<nav class="toc"><h2 style="margin-top:0">Tabla de contenido</h2>
+<ol>
+<li><a href="#s1">Resumen y palabras clave</a></li><li><a href="#s2">Introducción</a></li><li><a href="#s3">Planteamiento del problema y justificación</a></li><li><a href="#s4">Objetivos</a></li><li><a href="#s5">Metodología</a></li><li><a href="#s6">Marco teórico</a></li><li><a href="#s7">Marco normativo</a></li><li><a href="#s8">Aplicación en talento humano</a></li><li><a href="#s9">Aplicación al caso Byteon</a></li><li><a href="#s10">Tendencias y retos</a></li><li><a href="#s11">Conclusiones</a></li><li><a href="#s12">Recomendaciones</a></li><li><a href="#s13">Glosario</a></li><li><a href="#s14">Referencias</a></li><li><a href="#s15">Anexo: lista de verificación</a></li>
+</ol></nav>
+
+<h2 id="s1"><i>01</i>Resumen y palabras clave</h2>
+<p>Este trabajo explica qué es un manual técnico de funcionamiento, cómo se estructura y cómo se evalúa, y qué significa licenciar un software, con énfasis en los sistemas de información de talento humano. Parte de la Misión básica 2 de la guía «Retos del planeta Byteon»: reconocer manuales técnicos y su licenciamiento (concepto y normativa). Se revisan los tipos y características de los manuales, las normas internacionales de documentación para usuarios (ISO/IEC/IEEE 26511, 26514 y 15289), el marco Diátaxis, los tipos y modelos de licencia, la gestión de activos de software (ISO/IEC 19770-1) y el régimen colombiano de derechos de autor sobre programas de computador. Se propone una lista de verificación para auditar un manual y su licencia y se aplica al caso ficticio de Byteon. Se concluye que operar legal y eficientemente un sistema de talento humano exige leer su manual, comprender los términos de su licencia y documentar el cumplimiento.</p>
+<p class="kw"><b>Palabras clave:</b> manual técnico, documentación, licenciamiento, derechos de autor, software libre, SaaS, talento humano.</p>
+
+<h2 id="s2"><i>02</i>Introducción</h2>
+<p>Un sistema de nómina, de selección o de asistencia no funciona bien solo por estar instalado: quienes lo usan necesitan saber qué hace, cómo se configura, cómo se respalda y qué hacer cuando falla. Esa información está en el manual técnico. A la vez, ningún programa puede usarse libremente: cada uno trae condiciones de uso, es decir, una licencia, y la ley protege a su autor.</p>
+<p>La guía plantea que los neógenos de Byteon guardan sus manuales en una «matriz del conocimiento» y que el aprendiz debe asimilarlos con tres pasos: revisar la información, verificar que cumpla las normas vigentes y evaluar su utilidad. Este documento desarrolla esos pasos con fuentes reales.</p>
+
+<h2 id="s3"><i>03</i>Planteamiento del problema y justificación</h2>
+<p>En muchas organizaciones los manuales están desactualizados, dispersos o ausentes, y el software se instala sin verificar licencias, por costumbre o por ahorro. Esto genera errores de operación, dependencia de una sola persona, riesgos de seguridad y sanciones por uso ilegal de programas.</p>
+<div class="box"><b>Pregunta de investigación:</b> ¿qué características debe tener un manual técnico de un sistema de información de talento humano y qué normas y condiciones de licenciamiento deben verificarse para usarlo legalmente?</div>
+<p>El técnico en talento humano opera estos sistemas, capacita a otros usuarios y apoya auditorías; por eso debe saber evaluar un manual y reconocer si el software está licenciado.</p>
+
+<h2 id="s4"><i>04</i>Objetivos</h2>
+<p><b>General:</b> describir las características de los manuales técnicos y el licenciamiento de software, y aplicarlos a los sistemas de información de talento humano y al caso Byteon.</p>
+<ol><li>Definir manual técnico, sus tipos, características y estructura.</li><li>Reconocer normas y marcos de buenas prácticas para documentación de usuarios.</li><li>Explicar el concepto, los tipos y los modelos de licenciamiento de software.</li><li>Identificar la normativa colombiana e internacional sobre derechos de autor y software.</li><li>Elaborar una lista de verificación para evaluar un manual y su licencia.</li></ol>
+
+<h2 id="s5"><i>05</i>Metodología</h2>
+<p>Investigación <b>documental descriptiva</b>, con enfoque cualitativo: lectura de la guía base; revisión de estándares ISO/IEC/IEEE, textos de las licencias de software libre, normas colombianas y comunicados de la Dirección Nacional de Derecho de Autor (DNDA); y construcción de una lista de verificación. <b>Limitaciones:</b> los nombres y condiciones comerciales de los productos cambian, y las normas deben verificarse en su versión vigente; este trabajo no es asesoría jurídica.</p>
+
+<h2 id="s6"><i>06</i>Marco teórico</h2>
+<h3>6.1 Concepto y tipos de manuales</h3>
+<p>Un <b>manual técnico de funcionamiento</b> es un documento con instrucciones detalladas sobre la instalación, configuración, uso y mantenimiento de un sistema. Según su público se distinguen:</p>
+<div class="tbl"><table><tr><th>Tipo</th><th>Público</th><th>Contenido</th></tr>
+<tr><td>Manual de usuario</td><td>Quien opera el sistema</td><td>Pasos para tareas cotidianas</td></tr>
+<tr><td>Manual técnico o de administración</td><td>Administradores y soporte</td><td>Arquitectura, requisitos, instalación, seguridad, respaldos</td></tr>
+<tr><td>Guía de referencia rápida y preguntas frecuentes</td><td>Todos</td><td>Consulta puntual</td></tr>
+<tr><td>Notas de versión</td><td>Administradores y usuarios</td><td>Cambios, correcciones y requisitos de cada actualización</td></tr>
+<tr><td>Procedimiento operativo (<i>runbook</i>)</td><td>Soporte</td><td>Qué hacer ante un incidente</td></tr></table></div>
+<h3>6.2 Características de un buen manual</h3>
+<p>La guía destaca estructura organizada, lenguaje técnico preciso, enfoque en usabilidad, instrucciones de mantenimiento e ilustraciones. Se complementan con criterios de calidad de la documentación: <b>exactitud</b> (coincide con la versión del sistema), <b>completitud</b>, <b>consistencia</b> de términos, <b>claridad</b> y escritura orientada a la tarea, <b>accesibilidad</b> (fácil de encontrar y de leer) y <b>control de versiones</b> con fecha, autor y cambios. Los manuales se prueban con usuarios reales: si alguien no logra completar una tarea siguiéndolo, el manual falla.</p>
+<h3>6.3 Estructura y normas de documentación</h3>
+<div class="flow"><div><b>1. Introducción</b>objetivo del sistema</div><div><b>2. Requisitos</b>hardware, software, compatibilidad</div><div><b>3. Instalación</b>configuración inicial</div><div><b>4. Funcionalidades</b>módulos</div><div><b>5. Guía de uso</b>paso a paso</div><div><b>6. Mantenimiento</b>copias y actualizaciones</div><div><b>7. Solución de problemas</b>errores comunes</div><div><b>8. Anexos</b>glosario y referencias</div></div>
+<p>La serie <b>ISO/IEC/IEEE 26510 a 26515</b> establece requisitos para la documentación de usuarios: la 26511 se dirige a quienes gestionan esa documentación, la 26514 al diseño y desarrollo de la información para usuarios, y la 15289 define el contenido de los productos de información del ciclo de vida. La norma ISO 9001 exige además controlar la «información documentada» de un sistema de gestión.</p>
+<p>El marco <b>Diátaxis</b> (Procida) propone cuatro tipos de documentación según la necesidad del lector: <i>tutoriales</i> (aprender), <i>guías prácticas</i> (resolver una tarea), <i>referencia</i> (consultar datos) y <i>explicación</i> (comprender el porqué). Mezclarlos suele producir manuales confusos.</p>
+<h3>6.4 Ciclo de vida del manual</h3>
+<div class="flow"><div><b>Planear</b>público y alcance</div><div><b>Redactar</b>según plantilla</div><div><b>Revisar</b>técnica y de estilo</div><div><b>Probar</b>con usuarios</div><div><b>Publicar</b>repositorio con acceso</div><div><b>Mantener</b>versión y retiro</div></div>
+<h3>6.5 Licenciamiento: concepto</h3>
+<p>El software es una obra protegida por el <b>derecho de autor</b>. Quien lo compra no adquiere el código ni la propiedad, sino una <b>licencia</b>: la autorización del titular para usarlo bajo ciertas condiciones. El derecho de autor protege la forma de expresión del programa, no las ideas. Los manuales y la documentación también están protegidos.</p>
+<h3>6.6 Tipos de licencia</h3>
+<div class="tbl"><table><tr><th>Tipo</th><th>Características</th><th>Ejemplos</th></tr>
+<tr><td><b>Propietaria (EULA)</b></td><td>El titular conserva el código y fija condiciones; normalmente no se puede copiar, modificar ni redistribuir.</td><td>Suites ofimáticas y sistemas ERP comerciales</td></tr>
+<tr><td><b>Software como servicio (SaaS)</b></td><td>No se instala: se accede por Internet con suscripción y términos de servicio.</td><td>Plataformas HCM en la nube</td></tr>
+<tr><td><b>Freeware / shareware</b></td><td>Uso gratuito (con límites) o de prueba antes de comprar.</td><td>Versiones de evaluación</td></tr>
+<tr><td><b>Libre y de código abierto con copyleft</b></td><td>Permite usar, estudiar, modificar y redistribuir, y exige que las obras derivadas conserven la misma licencia.</td><td>GNU GPL</td></tr>
+<tr><td><b>Código abierto permisiva</b></td><td>Permite casi todo, incluso integrarlo en software propietario, conservando el aviso de derechos y la licencia.</td><td>MIT, BSD, Apache 2.0</td></tr></table></div>
+<p>La Free Software Foundation define el software libre por cuatro libertades (usar, estudiar y modificar, redistribuir y redistribuir las versiones modificadas); la Open Source Initiative publica la Definición de Código Abierto. «Libre» se refiere a libertades, no necesariamente a precio. La documentación puede licenciarse, por ejemplo, con Creative Commons.</p>
+<h3>6.7 Modelos de licenciamiento</h3>
+<div class="tbl"><table><tr><th>Modelo</th><th>Cómo se cuenta</th></tr>
+<tr><td>Perpetua</td><td>Se paga una vez por una versión; el soporte y las actualizaciones suelen cobrarse aparte.</td></tr>
+<tr><td>Suscripción</td><td>Pago periódico; si vence, se pierde el derecho de uso.</td></tr>
+<tr><td>Por usuario nominal</td><td>Cada persona identificada requiere su licencia.</td></tr>
+<tr><td>Concurrente (flotante)</td><td>Se limita cuántos usuarios usan el sistema al mismo tiempo.</td></tr>
+<tr><td>Por dispositivo, por núcleo o por volumen</td><td>Se cuenta por equipo, por procesador o por paquetes corporativos.</td></tr></table></div>
+<h3>6.8 Gestión de activos de software</h3>
+<p>La norma ISO/IEC 19770-1 establece un sistema de gestión de activos de TI (SAM). En la práctica implica un <b>inventario</b> del software instalado, el registro de licencias adquiridas (facturas, contratos, certificados), la comparación entre lo instalado y lo licenciado, y la renovación a tiempo. Los fabricantes pueden auditar el uso y exigir regularización.</p>
+
+<h2 id="s7"><i>07</i>Marco normativo</h2>
+<div class="tbl"><table><tr><th>Norma</th><th>Contenido relevante</th></tr>
+<tr><td>Convenio de Berna; Acuerdo sobre los ADPIC (art. 10); Tratado de la OMPI sobre Derecho de Autor (1996)</td><td>Protegen los programas de computador como obras literarias; Colombia aprobó el tratado de la OMPI mediante la Ley 565 de 2000.</td></tr>
+<tr><td>Decisión Andina 351 de 1993</td><td>Régimen común de derecho de autor en la Comunidad Andina; incluye los programas de ordenador.</td></tr>
+<tr><td>Ley 23 de 1982 y Ley 44 de 1993</td><td>Régimen de derechos de autor en Colombia; la Ley 44 la modificó e incluyó el software.</td></tr>
+<tr><td>Ley 603 de 2000</td><td>Obliga a las sociedades comerciales a informar en su informe de gestión sobre el cumplimiento de las normas de propiedad intelectual y derechos de autor.</td></tr>
+<tr><td>Directivas Presidenciales 01 de 1999 y 02 de 2002; Circular 17 de 2011 de la DNDA (modificada por la Circular externa 027 de 2023)</td><td>Entidades públicas: usar software legal y reportar cada año a la DNDA la verificación del licenciamiento.</td></tr>
+<tr><td>Código Penal (Ley 599 de 2000), arts. 270 a 272</td><td>Sancionan la violación de los derechos de autor y de sus mecanismos de protección.</td></tr>
+<tr><td>Ley 1915 de 2018</td><td>Modifica la Ley 23 de 1982 y actualiza aspectos de derechos de autor, incluidas medidas tecnológicas de protección.</td></tr>
+<tr><td>Ley 1581 de 2012 (arts. 18 y 26)</td><td>Deberes del encargado del tratamiento y reglas para transferir datos personales al exterior, relevantes cuando el sistema es SaaS.</td></tr></table></div>
+
+<h2 id="s8"><i>08</i>Aplicación en talento humano</h2>
+<h3>8.1 Los sistemas que menciona la guía</h3>
+<div class="tbl"><table><tr><th>Sistema</th><th>Qué es</th><th>Modelo de licencia típico</th></tr>
+<tr><td>SAP SuccessFactors</td><td>Plataforma de gestión del talento en la nube (SAP)</td><td>Suscripción SaaS</td></tr>
+<tr><td>Oracle HCM Cloud</td><td>Suite de capital humano en la nube (hoy Oracle Fusion Cloud HCM)</td><td>Suscripción SaaS</td></tr>
+<tr><td>Workday HCM</td><td>Plataforma de talento y finanzas en la nube</td><td>Suscripción SaaS</td></tr>
+<tr><td>Kronos Workforce Central</td><td>Gestión de tiempo y asistencia; Kronos hoy forma parte de UKG</td><td>Licencia perpetua o suscripción, según el contrato</td></tr></table></div>
+<p>Estos son ejemplos comerciales; las condiciones exactas dependen del contrato con cada proveedor y deben consultarse allí.</p>
+<h3>8.2 Cómo evaluar un manual y una licencia</h3>
+<p>Los tres pasos de la guía se convierten en una revisión práctica:</p>
+<ol><li><b>Revisar la información que contiene:</b> ¿incluye las ocho secciones? ¿corresponde a la versión instalada? ¿tiene fecha y responsable?</li><li><b>Verificar que cumpla las normas vigentes:</b> ¿hay licencia que respalde el uso? ¿el número de usuarios y equipos coincide con lo contratado? ¿el manejo de datos personales respeta la Ley 1581?</li><li><b>Evaluar su utilidad:</b> ¿un usuario nuevo puede completar una tarea con el manual? ¿las soluciones a errores funcionan?</li></ol>
+<div class="box"><b>Ejemplo:</b> una empresa compra 5 licencias nominales del sistema de nómina, pero lo usan 8 personas. Hay 3 usuarios sin licencia: es un incumplimiento que se corrige comprando las licencias faltantes o retirando accesos, y que debe quedar documentado. La contratación de un SaaS con servidores en el exterior exige además revisar el contrato de tratamiento de datos.</div>
+
+<h2 id="s9"><i>09</i>Aplicación al caso Byteon</h2>
+<table><tr><th>En la guía de Byteon</th><th>Equivalente real</th></tr>
+<tr><td>«Matriz del conocimiento»</td><td>Repositorio o base de conocimiento de manuales, con control de versiones y acceso</td></tr>
+<tr><td>«Diadema de la información»</td><td>Proceso de revisión: leer, verificar normas, evaluar utilidad</td></tr>
+<tr><td>Mandos del núcleo prohibido, con código, nombre y finalidad</td><td>Inventario de sistemas con su manual y su licencia asociada</td></tr>
+<tr><td>Unificación con la confederación</td><td>Armonizar manuales, licencias y reglas entre organizaciones</td></tr></table>
+<p>Para el reporte a la entidad central se recomienda un inventario con tres columnas por sistema: manual (versión y estado), licencia (tipo, vigencia, cantidad) y hallazgos. Un mando sin manual vigente o sin licencia es un riesgo de continuidad y legal.</p>
+
+<h2 id="s10"><i>10</i>Tendencias y retos</h2>
+<ul><li><b>Documentación como código:</b> los manuales se escriben en texto plano, se versionan y se publican automáticamente junto con el software.</li><li><b>Ayuda dentro de la aplicación:</b> guías contextuales y asistentes que reducen la dependencia del manual extenso.</li><li><b>Inteligencia artificial:</b> ayuda a redactar y buscar en manuales, pero exige revisión humana para asegurar exactitud.</li><li><b>SaaS y actualizaciones continuas:</b> el manual cambia con el sistema, por lo que el control de versiones y las notas de versión son clave.</li><li><b>Cumplimiento de licencias:</b> el crecimiento de componentes de código abierto obliga a conocer las condiciones de cada licencia.</li></ul>
+
+<h2 id="s11"><i>11</i>Conclusiones</h2>
+<ol><li>El manual técnico es una herramienta de operación, capacitación y continuidad; su valor depende de que esté completo, vigente y accesible.</li><li>Normas como ISO/IEC/IEEE 26514 y marcos como Diátaxis ayudan a producir documentación clara y centrada en el usuario.</li><li>Comprar software es adquirir una licencia de uso, no su propiedad: los tipos y modelos de licencia definen qué se puede hacer.</li><li>En Colombia el software está protegido por el derecho de autor y las empresas deben reportar su cumplimiento; usar programas sin licencia acarrea riesgos legales.</li><li>La revisión en tres pasos (contenido, normas, utilidad) es un método práctico para auditar un sistema y su documentación.</li></ol>
+
+<h2 id="s12"><i>12</i>Recomendaciones</h2>
+<ul><li>Mantener un inventario de software con su licencia, vigencia y manual asociado.</li><li>Guardar facturas, contratos y certificados de licencia, y revisar anualmente el cumplimiento.</li><li>Nombrar un responsable de cada manual y actualizarlo con cada cambio de versión.</li><li>Probar los manuales con usuarios nuevos antes de publicarlos.</li><li>Antes de contratar un SaaS, revisar condiciones de datos personales, ubicación de servidores y salida del servicio.</li><li>No instalar ni copiar software sin licencia, y escalar cualquier solicitud en ese sentido.</li></ul>
+
+<h2 id="s13"><i>13</i>Glosario</h2>
+<ul><li><b>Copyleft:</b> licencia que exige mantener las mismas libertades en las obras derivadas.</li><li><b>EULA:</b> contrato de licencia de usuario final.</li><li><b>Licencia:</b> autorización del titular para usar una obra bajo condiciones.</li><li><b>Manual técnico:</b> documento de instrucciones de operación y mantenimiento de un sistema.</li><li><b>SaaS:</b> software como servicio, accedido por Internet.</li><li><b>SAM:</b> gestión de activos de software.</li><li><b>Troubleshooting:</b> diagnóstico y solución de errores.</li><li><b>Usuario nominal:</b> licencia asignada a una persona identificada.</li></ul>
+
+<h2 id="s14"><i>14</i>Referencias</h2>
+<div class="ref">
+<p>Comunidad Andina. (1993). <i>Decisión 351: Régimen común sobre derecho de autor y derechos conexos</i>.</p>
+<p>Congreso de la República de Colombia. (1982). <i>Ley 23 de 1982</i>. (1993). <i>Ley 44 de 1993</i>. (2000). <i>Ley 565 de 2000</i>; <i>Ley 599 de 2000 (Código Penal)</i>; <i>Ley 603 de 2000</i>. (2012). <i>Ley Estatutaria 1581 de 2012</i>. (2018). <i>Ley 1915 de 2018</i>.</p>
+<p>Dirección Nacional de Derecho de Autor. (2011). <i>Circular 17 de 2011</i>; (2023). <i>Circular externa 027 de 2023</i>. https://www.derechodeautor.gov.co</p>
+<p>Free Software Foundation. (s. f.). <i>What is free software?</i> https://www.gnu.org/philosophy/free-sw.html</p>
+<p>ISO. (2015). <i>ISO 9001:2015. Quality management systems — Requirements</i>.</p>
+<p>ISO/IEC. (2017). <i>ISO/IEC 19770-1:2017. IT asset management — IT asset management systems — Requirements</i>.</p>
+<p>ISO/IEC/IEEE. (2018). <i>ISO/IEC/IEEE 26511:2018. Requirements for managers of information for users of systems, software, and services</i>.</p>
+<p>ISO/IEC/IEEE. (2022). <i>ISO/IEC/IEEE 26514:2022. Design and development of information for users</i>. (2019). <i>ISO/IEC/IEEE 15289:2019. Content of life-cycle information items (documentation)</i>.</p>
+<p>Open Source Initiative. (s. f.). <i>The open source definition</i>. https://opensource.org/osd</p>
+<p>Presidencia de la República de Colombia. (1999). <i>Directiva Presidencial 01 de 1999</i>. (2002). <i>Directiva Presidencial 02 de 2002</i>.</p>
+<p>Procida, D. (s. f.). <i>Diátaxis: A systematic approach to technical documentation authoring</i>. https://diataxis.fr</p>
+<p>SENA. (s. f.). <i>Retos del planeta Byteon, Misión básica 2: Manual técnico, características, licenciamiento</i> [Guía de aprendizaje].</p>
+<p>Organización Mundial de la Propiedad Intelectual. (1996). <i>Tratado de la OMPI sobre Derecho de Autor (WCT)</i>.</p>
+</div>
+
+<h2 id="s15"><i>15</i>Anexo: lista de verificación de manual y licencia</h2>
+<div class="tbl"><table><tr><th>Manual técnico</th><th>Licencia y cumplimiento</th></tr>
+<tr><td>☐ Tiene las 8 secciones básicas<br>☐ Indica versión, fecha y responsable<br>☐ Coincide con la versión instalada<br>☐ Incluye mantenimiento y copias de seguridad<br>☐ Tiene solución de problemas probada<br>☐ Está accesible para los usuarios autorizados</td><td>☐ Existe licencia o contrato que respalde el uso<br>☐ Tipo y modelo identificados (nominal, concurrente, suscripción)<br>☐ Cantidad de licencias coincide con los usuarios<br>☐ Vigencia y renovación controladas<br>☐ Condiciones de datos personales revisadas<br>☐ Soportes guardados y reportados cuando aplica</td></tr></table></div>
+</main>
+<footer>Documento de investigación · Bogotá D.C., 2026</footer>
+</body>
+</html>
