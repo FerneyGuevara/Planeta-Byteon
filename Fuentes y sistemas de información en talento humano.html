@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fuentes y sistemas de información en la gestión del talento humano</title>
+<style>
+:root{--bg:#0b1026;--card:#121a3a;--tx:#e6ecff;--mu:#9fb0e0;--c1:#22d3ee;--c2:#8b5cf6;--c3:#f472b6;--bd:#26325f;--th:#1a2550;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f7ff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#d5ddf5;--th:#e8eeff;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f4f7ff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#d5ddf5;--th:#e8eeff;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--bd)}
+.bar b{color:var(--c1);letter-spacing:.08em;font-size:.85rem}
+button{cursor:pointer;border:0;border-radius:999px;padding:9px 20px;font:600 .9rem inherit;color:#fff;background:linear-gradient(90deg,var(--c2),var(--c1))}
+main{max-width:900px;margin:0 auto;padding:20px}
+.cover{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:48px 36px;border-radius:20px;color:#e6ecff;background:radial-gradient(circle at 80% 15%,#8b5cf655,transparent 40%),radial-gradient(circle at 10% 90%,#22d3ee44,transparent 40%),linear-gradient(160deg,#050816,#12195a);border:1px solid #3b4a9a;position:relative;overflow:hidden}
+.cover:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#9fe 1px,transparent 1px);background-size:70px 70px,110px 110px;background-position:0 0,35px 50px;opacity:.25}
+.cover>*{position:relative}.tag{color:#22d3ee;letter-spacing:.3em;font-size:.8rem;font-weight:700}
+.cover h1{font-size:2.3rem;line-height:1.2;margin:14px 0;background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover p{color:#c7d2fe;margin:4px 0}.meta{margin-top:30px;border-left:3px solid #22d3ee;padding-left:16px;font-size:.95rem}
+nav.toc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:22px 26px;margin:26px 0}
+nav.toc ol{columns:2;column-gap:30px;margin:0;padding-left:1.3em}nav.toc li{margin:3px 0;break-inside:avoid}
+a{color:var(--c1);text-decoration:none}a:hover{text-decoration:underline}
+h2{display:flex;align-items:center;gap:12px;font-size:1.5rem;margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid transparent;border-image:linear-gradient(90deg,var(--c1),var(--c2),transparent) 1;color:var(--c1);break-after:avoid}
+h2 i{font-style:normal;font-size:.9rem;min-width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:#fff;background:linear-gradient(135deg,var(--c2),var(--c1))}
+h3{color:var(--c2);font-size:1.1rem;margin:20px 0 6px;break-after:avoid}
+:root[data-theme="dark"] h3,:root:not([data-theme]) h3{color:#b8a4ff}
+.tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.88rem;background:var(--card)}
+th{background:linear-gradient(90deg,var(--c2),var(--c1));color:#fff;text-align:left}th,td{padding:8px 10px;border:1px solid var(--bd);vertical-align:top}tr:nth-child(even) td{background:var(--th)}
+.box{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--c3);border-radius:10px;padding:10px 16px;margin:12px 0}
+ul,ol{padding-left:1.3em}li{margin:3px 0}.kw{color:var(--mu);font-size:.92rem}.ref p{padding-left:2em;text-indent:-2em;margin:6px 0;font-size:.9rem}
+footer{text-align:center;color:var(--mu);font-size:.8rem;margin:40px 0 20px}
+@page{size:A4;margin:16mm 14mm;@bottom-center{content:"Página " counter(page);font:10pt sans-serif;color:#555}}
+@media print{
+:root,:root[data-theme]{--bg:#fff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#cfd8f3;--th:#eef2ff;color-scheme:light}
+body{font-size:11pt;background:#fff}.bar,footer{display:none}main{max-width:none;padding:0}
+.cover{min-height:255mm;border-radius:0;break-after:page}nav.toc{break-after:page;margin:0}
+h2,h3{break-after:avoid}table,tr,.box,li{break-inside:avoid}.tbl{overflow:visible}h2{margin-top:22px}
+a{color:inherit}}
+</style>
+</head>
+<body>
+<div class="bar"><b>◈ BYTEON · TALENTO HUMANO</b><button onclick="window.print()">🖨 Imprimir / Guardar PDF</button></div>
+<main>
+<section class="cover">
+<div class="tag">TÉCNICO EN TALENTO HUMANO</div>
+<h1>Fuentes de información y sistemas de información en la gestión del talento humano</h1>
+<p>Caracterización de sistemas de información según su disponibilidad y las necesidades del talento humano: el caso del planeta Byteon</p>
+<div class="meta"><p><b>Competencia:</b> Operación de herramientas informáticas y digitales para talento humano</p><p><b>Autor(a):</b> [Nombre completo del aprendiz]</p><p><b>Instructor(a):</b> [Nombre del instructor]</p><p><b>Ficha / Centro:</b> [Número de ficha] – [Centro de formación]</p><p><b>Bogotá D.C., octubre de 2026</b></p></div>
+</section>
+
+<nav class="toc"><h2 style="margin-top:0">Tabla de contenido</h2>
+<ol>
+<li><a href="#s1">Resumen y palabras clave</a></li><li><a href="#s2">Introducción</a></li><li><a href="#s3">Planteamiento del problema y justificación</a></li><li><a href="#s4">Objetivos</a></li><li><a href="#s5">Metodología</a></li><li><a href="#s6">Marco teórico</a></li><li><a href="#s7">Marco normativo (Colombia)</a></li><li><a href="#s8">Caracterización de sistemas de información</a></li><li><a href="#s9">Aplicación al caso Byteon</a></li><li><a href="#s10">Tendencias y retos</a></li><li><a href="#s11">Conclusiones</a></li><li><a href="#s12">Recomendaciones</a></li><li><a href="#s13">Glosario</a></li><li><a href="#s14">Referencias</a></li><li><a href="#s15">Anexo: lista de verificación</a></li>
+</ol></nav>
+
+<h2 id="s1"><i>01</i>Resumen y palabras clave</h2>
+<p>Este trabajo analiza las fuentes y los sistemas de información que sustentan la gestión del talento humano. Parte de la misión de la guía «Retos del planeta Byteon»: caracterizar sistemas de información según su disponibilidad y las necesidades de talento humano. Se revisan los conceptos de dato, información y conocimiento; las fuentes primarias, secundarias y terciarias; las fuentes internas, externas y mixtas; los principales sistemas (HRIS, ATS, LMS, nómina, analítica de personas) y el marco colombiano de protección de datos. Se propone una matriz de caracterización y se aplica al caso ficticio de Byteon. La calidad de las decisiones de talento humano depende de conocer el origen de los datos, garantizar su disponibilidad y proteger su confidencialidad.</p>
+<p class="kw"><b>Palabras clave:</b> talento humano, sistemas de información, fuentes de información, HRIS, disponibilidad, protección de datos, analítica de personas.</p>
+
+<h2 id="s2"><i>02</i>Introducción</h2>
+<p>Las decisiones sobre las personas (contratar, capacitar, pagar, promover, retener) son más acertadas cuando se apoyan en datos confiables. Esos datos tienen un origen, se almacenan en sistemas y se convierten en información útil. Entender las fuentes y los sistemas que los gestionan es una competencia básica del técnico en talento humano.</p>
+<p>La guía de aprendizaje plantea un escenario ficticio: un planeta que administra su «talento robótico» y debe unificar sus sistemas con una confederación. Aunque el contexto es imaginario, los conceptos son reales y se aplican a cualquier organización.</p>
+
+<h2 id="s3"><i>03</i>Planteamiento del problema y justificación</h2>
+<p>Muchas organizaciones guardan datos de su personal en archivos dispersos, hojas de cálculo, sistemas de nómina y papel, sin saber qué fuente es confiable, quién accede, cada cuánto se actualiza o si cumple la normativa. Esto genera duplicidad, errores, demoras y riesgos legales.</p>
+<div class="box"><b>Pregunta de investigación:</b> ¿cómo caracterizar los sistemas y fuentes de información de talento humano según su disponibilidad y las necesidades de gestión de las personas?</div>
+<p>Caracterizar permite diagnosticar qué datos existen, cuáles faltan y qué tan confiables son antes de integrarlos o migrarlos. Además, en Colombia el tratamiento de datos de trabajadores está regulado.</p>
+
+<h2 id="s4"><i>04</i>Objetivos</h2>
+<p><b>General:</b> caracterizar los sistemas y fuentes de información de talento humano según su disponibilidad y necesidades, aplicando el análisis al planeta Byteon.</p>
+<ol><li>Definir dato, información, conocimiento y sistema de información.</li><li>Clasificar las fuentes en primarias, secundarias y terciarias, y en internas, externas y mixtas.</li><li>Describir los principales sistemas de información de gestión humana.</li><li>Identificar el marco normativo colombiano aplicable.</li><li>Proponer una matriz de caracterización y aplicarla al caso Byteon.</li></ol>
+
+<h2 id="s5"><i>05</i>Metodología</h2>
+<p>Investigación <b>documental descriptiva</b> con enfoque cualitativo: (1) lectura de la guía base; (2) revisión de libros de texto, normas técnicas y legislación colombiana; (3) análisis y síntesis de clasificaciones; (4) aplicación de la matriz al escenario de Byteon. <b>Limitación:</b> Byteon es ficción y se usa como caso de aprendizaje; las normas deben verificarse en su versión vigente.</p>
+
+<h2 id="s6"><i>06</i>Marco teórico</h2>
+<h3>6.1 Dato, información y conocimiento</h3>
+<p><b>Dato:</b> registro bruto («34»). <b>Información:</b> datos con significado («el ausentismo de logística fue 3,4 % en marzo»). <b>Conocimiento:</b> información interpretada y orientada a la acción («rediseñar turnos reduce el ausentismo»). Un sistema de información recolecta, procesa, almacena y distribuye información para apoyar decisiones, coordinación y control (Laudon y Laudon, 2016) e integra personas, procesos, datos, hardware, software y redes.</p>
+<h3>6.2 Sistemas de información de talento humano</h3>
+<p>El <b>HRIS</b> (<i>Human Resource Information System</i>) reúne los datos del personal; el <b>HCM</b> (<i>Human Capital Management</i>) integra más funciones. Sus módulos habituales: administración de personal y nómina; reclutamiento y selección (ATS); formación (LMS); desempeño y talento; asistencia y turnos; seguridad y salud en el trabajo; clima y experiencia del empleado; y analítica de personas. La norma ISO 30414:2018 propone métricas de capital humano (costos, productividad, rotación, diversidad) que exigen fuentes ordenadas y confiables.</p>
+<h3>6.3 Fuentes primarias, secundarias y terciarias</h3>
+<div class="tbl"><table><tr><th>Tipo</th><th>Definición</th><th>Ejemplos en talento humano</th></tr>
+<tr><td><b>Primaria</b></td><td>Información original, sin interpretar; primer nivel de acceso.</td><td>Contrato, hoja de vida, marcación de asistencia, encuesta de clima sin analizar.</td></tr>
+<tr><td><b>Secundaria</b></td><td>Información analizada o sintetizada a partir de primarias.</td><td>Informe de ausentismo, análisis de evaluaciones, estudio salarial.</td></tr>
+<tr><td><b>Terciaria</b></td><td>Compila, clasifica y resume primarias y secundarias; guía de búsqueda.</td><td>Repositorio de políticas, índice de normativa, directorio de proveedores.</td></tr></table></div>
+<p>Un documento puede cambiar de categoría según su uso: la encuesta cruda es primaria, el informe que la analiza es secundario y el catálogo de informes es terciario.</p>
+<h3>6.4 Fuentes internas, externas y mixtas</h3>
+<ul><li><b>Internas:</b> nómina, registros administrativos, evaluaciones de desempeño, encuestas de clima, planes de carrera.</li><li><b>Externas:</b> estudios del mercado laboral, bolsas de empleo, normativa, <i>benchmarking</i>; en Colombia, DANE (GEIH), Ministerio del Trabajo y Servicio Público de Empleo.</li><li><b>Mixtas:</b> formación y certificaciones, gestión del conocimiento, informes que comparan datos propios con referencias del sector.</li></ul>
+<h3>6.5 Criterios de calidad</h3>
+<div class="tbl"><table><tr><th>Criterio</th><th>Pregunta de control</th></tr>
+<tr><td>Disponibilidad</td><td>¿Quién accede, cuándo y desde dónde? ¿Qué pasa si el sistema falla?</td></tr>
+<tr><td>Actualización</td><td>¿Con qué frecuencia se actualiza? ¿Refleja la realidad actual?</td></tr>
+<tr><td>Confidencialidad y seguridad</td><td>¿Hay perfiles de acceso, copias de seguridad y registro de auditoría?</td></tr>
+<tr><td>Relevancia y precisión</td><td>¿Los datos son correctos, completos y verificables?</td></tr>
+<tr><td>Integrabilidad</td><td>¿Se conecta con nómina, seguridad social y otros sistemas?</td></tr></table></div>
+
+<h2 id="s7"><i>07</i>Marco normativo (Colombia)</h2>
+<ul><li><b>Constitución, art. 15:</b> intimidad y derecho a conocer, actualizar y rectificar datos.</li><li><b>Ley Estatutaria 1581 de 2012:</b> principios de legalidad, finalidad, libertad, veracidad, transparencia, acceso restringido, seguridad y confidencialidad; derechos del titular; autoridad: Superintendencia de Industria y Comercio.</li><li><b>Decreto 1074 de 2015:</b> compila la reglamentación de la Ley 1581 (autorizaciones, políticas, Registro Nacional de Bases de Datos).</li><li><b>Ley 1273 de 2009:</b> delitos informáticos.</li><li><b>Decreto 1072 de 2015:</b> sector trabajo y SG-SST (registros del personal).</li><li><b>Ley 1636 de 2013:</b> Servicio Público de Empleo.</li><li><b>Internacional:</b> GDPR (UE 2016/679) y Ley de IA de la UE (2024/1689), que clasifica como de alto riesgo la IA usada en gestión de trabajadores.</li></ul>
+<div class="box">Casi toda fuente de talento humano contiene datos personales: exige finalidad definida, autorización o base legal, seguridad y conservación razonable. Los datos sensibles (salud, biometría, afiliación sindical) requieren cuidado especial.</div>
+
+<h2 id="s8"><i>08</i>Caracterización de sistemas de información</h2>
+<p>Caracterizar es describir un sistema con atributos estables para compararlo y decidir cómo usarlo o integrarlo, en tres dimensiones:</p>
+<ul><li><b>A. Identidad:</b> nombre, proceso que apoya, tipo (primaria/secundaria/terciaria), origen (interna/externa/mixta), responsable del dato.</li><li><b>B. Disponibilidad:</b> acceso y perfiles, continuidad y contingencia, frecuencia de actualización, formato (estructurado o no) y respaldo.</li><li><b>C. Necesidades:</b> decisiones que alimenta, usuarios, brechas, requisitos legales y de seguridad, integración.</li></ul>
+<div class="tbl"><table><tr><th>Sistema / fuente</th><th>Proceso</th><th>Tipo</th><th>Origen</th><th>Disponibilidad</th><th>Sensibilidad</th><th>Brecha prioritaria</th></tr>
+<tr><td>Nómina</td><td>Compensación</td><td>Primaria</td><td>Interna</td><td>Alta</td><td>Alta</td><td>Integrar con seguridad social</td></tr>
+<tr><td>ATS</td><td>Selección</td><td>Primaria</td><td>Mixta</td><td>Alta</td><td>Alta</td><td>Depurar hojas de vida antiguas</td></tr>
+<tr><td>LMS</td><td>Formación</td><td>Primaria / secundaria</td><td>Mixta</td><td>Alta</td><td>Media</td><td>Cruzar con competencias del cargo</td></tr>
+<tr><td>Informe de ausentismo</td><td>Monitoreo</td><td>Secundaria</td><td>Interna</td><td>Media</td><td>Media</td><td>Pasar a tablero en tiempo real</td></tr>
+<tr><td>Estudio salarial</td><td>Compensación</td><td>Secundaria</td><td>Externa</td><td>Media</td><td>Baja</td><td>Comparar con cargos propios</td></tr>
+<tr><td>Intranet de políticas</td><td>Transversal</td><td>Terciaria</td><td>Mixta</td><td>Alta</td><td>Baja</td><td>Control de versiones</td></tr></table></div>
+<p><b>Uso de la matriz:</b> inventariar, describir, valorar, priorizar las fuentes críticas (alta sensibilidad y alta necesidad) y definir un plan de acción con responsables y plazos.</p>
+
+<h2 id="s9"><i>09</i>Aplicación al caso Byteon</h2>
+<p>Byteon administra su talento robótico (los «neógenos») con un sistema que clasifica, asigna y mejora el rendimiento de los autómatas en tiempo real. El ejercicio consiste en inventariar sus fuentes y evaluar su calidad para la unificación.</p>
+<div class="tbl"><table><tr><th>Elemento en la guía</th><th>Equivalente real</th></tr>
+<tr><td>Sistemas de información de recursos robóticos</td><td>HRIS / HCM</td></tr>
+<tr><td>Registros administrativos</td><td>Nómina, asistencia, capacitación, ascensos</td></tr>
+<tr><td>Evaluaciones, encuestas de clima, planes de carrera</td><td>Desempeño, clima, gestión del talento</td></tr>
+<tr><td>Estudios de mercado, bolsas de empleo, <i>benchmarking</i></td><td>Fuentes externas</td></tr>
+<tr><td>«Núcleo prohibido»</td><td>Repositorio central restringido: acceso y confidencialidad estrictos</td></tr>
+<tr><td>Unificación con la confederación</td><td>Proyecto de integración e interoperabilidad</td></tr></table></div>
+<ul><li><b>Primarias:</b> registros de desempeño en tiempo real, asignaciones, encuestas sin procesar; deben protegerse contra alteraciones.</li><li><b>Secundarias:</b> informes de rendimiento y reportes de redes neuronales; requieren trazabilidad hasta el dato original.</li><li><b>Terciarias:</b> catálogos e índices de repositorios; son clave para unificar porque indican dónde está cada dato.</li><li><b>Disponibilidad:</b> alta, con respaldo y contingencia; acceso al núcleo restringido por perfiles y auditado.</li></ul>
+<div class="box"><b>Para el reporte:</b> presentar la matriz con responsables, señalar fuentes y riesgos críticos, proponer un modelo de datos común y definir reglas de acceso, conservación y auditoría antes de unificar.</div>
+
+<h2 id="s10"><i>10</i>Tendencias y retos</h2>
+<ul><li><b>IA y analítica de personas:</b> su valor depende de la calidad de los datos.</li><li><b>Sesgos algorítmicos:</b> pueden reproducir discriminación histórica; se requiere supervisión humana.</li><li><b>Decisiones automatizadas:</b> el GDPR (art. 22) limita las decisiones basadas únicamente en tratamiento automatizado.</li><li><b>Autoservicio, nube e interoperabilidad:</b> mejoran la disponibilidad, pero exigen revisar contratos y ubicación de los datos.</li><li><b>Ciberseguridad:</b> los datos de personal son objetivo frecuente de ataques.</li></ul>
+
+<h2 id="s11"><i>11</i>Conclusiones</h2>
+<ol><li>Conocer el origen de los datos (primario, secundario, terciario; interno, externo, mixto) permite evaluar su confiabilidad.</li><li>Los sistemas de talento humano forman un ecosistema; su valor crece al integrarlos.</li><li>La disponibilidad incluye acceso, oportunidad, respaldo y actualización, no solo que el sistema funcione.</li><li>La Ley 1581 de 2012 obliga a tratar los datos del personal con finalidad, seguridad y confidencialidad.</li><li>La matriz propuesta es reutilizable y, aplicada a Byteon, permite detectar brechas y preparar la unificación.</li><li>El técnico en talento humano es puente entre el área de personas y tecnología.</li></ol>
+
+<h2 id="s12"><i>12</i>Recomendaciones</h2>
+<ul><li>Mantener un inventario actualizado de fuentes y sistemas, con un responsable por cada dato.</li><li>Documentar la política de tratamiento de datos y aplicar el mínimo privilegio en accesos.</li><li>Establecer copias de seguridad y planes de contingencia probados.</li><li>Integrar nómina, seguridad social, formación y desempeño.</li><li>Medir con indicadores estandarizados (ISO 30414) y mantener trazabilidad.</li><li>Capacitar al personal en seguridad y ética de datos, y revisar con supervisión humana todo sistema automatizado.</li></ul>
+
+<h2 id="s13"><i>13</i>Glosario</h2>
+<ul><li><b>ATS:</b> sistema de seguimiento de candidatos.</li><li><b>Benchmarking:</b> comparación de prácticas con otras organizaciones.</li><li><b>Dato sensible:</b> dato cuyo uso indebido puede generar discriminación.</li><li><b>Disponibilidad:</b> acceso a la información cuando se necesita.</li><li><b>HRIS / HCM:</b> plataformas de gestión de datos y capital humano.</li><li><b>LMS:</b> plataforma de gestión del aprendizaje.</li><li><b>Trazabilidad:</b> posibilidad de rastrear el origen y los cambios de un dato.</li></ul>
+
+<h2 id="s14"><i>14</i>Referencias</h2>
+<div class="ref">
+<p>Chiavenato, I. (2009). <i>Gestión del talento humano</i> (3.ª ed.). McGraw-Hill.</p>
+<p>Congreso de la República de Colombia. (2009). <i>Ley 1273 de 2009</i>.</p>
+<p>Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012</i>.</p>
+<p>Congreso de la República de Colombia. (2013). <i>Ley 1636 de 2013</i>.</p>
+<p>Dessler, G., y Varela, R. (2011). <i>Administración de recursos humanos: enfoque latinoamericano</i> (5.ª ed.). Pearson.</p>
+<p>Hernández-Sampieri, R., y Mendoza, C. P. (2018). <i>Metodología de la investigación</i>. McGraw-Hill.</p>
+<p>ISO. (2018). <i>ISO 30414:2018. Human resource management — Guidelines for internal and external human capital reporting</i>.</p>
+<p>ISO/IEC. (2022). <i>ISO/IEC 27001:2022. Information security management systems — Requirements</i>.</p>
+<p>Laudon, K. C., y Laudon, J. P. (2016). <i>Sistemas de información gerencial</i> (14.ª ed.). Pearson.</p>
+<p>Ministerio de Comercio, Industria y Turismo. (2015). <i>Decreto 1074 de 2015</i>.</p>
+<p>Ministerio del Trabajo. (2015). <i>Decreto 1072 de 2015</i>.</p>
+<p>O’Brien, J. A., y Marakas, G. M. (2011). <i>Sistemas de información gerencial</i> (9.ª ed.). McGraw-Hill.</p>
+<p>Parlamento Europeo y Consejo. (2016). <i>Reglamento (UE) 2016/679 (RGPD)</i>.</p>
+<p>Parlamento Europeo y Consejo. (2024). <i>Reglamento (UE) 2024/1689 (Ley de IA)</i>.</p>
+<p>SENA. (s. f.). <i>Retos del planeta Byteon: Técnico en Talento Humano</i> [Guía de aprendizaje].</p>
+</div>
+
+<h2 id="s15"><i>15</i>Anexo: lista de verificación</h2>
+<div class="tbl"><table><tr><th>Identidad</th><th>Disponibilidad</th><th>Necesidades y calidad</th><th>Cumplimiento</th></tr>
+<tr><td>☐ Nombre y proceso<br>☐ Tipo de fuente<br>☐ Origen<br>☐ Responsable del dato</td><td>☐ Perfiles de acceso<br>☐ Continuidad y contingencia<br>☐ Fecha de actualización<br>☐ Respaldos probados</td><td>☐ Decisiones y usuarios<br>☐ Datos correctos y completos<br>☐ Integración<br>☐ Brechas y plan</td><td>☐ Finalidad y autorización<br>☐ Datos sensibles protegidos<br>☐ Registro de accesos<br>☐ Conservación y supresión</td></tr></table></div>
+</main>
+<footer>Documento de investigación · Bogotá D.C., 2026</footer>
+</body>
+</html>
