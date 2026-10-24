@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -359,6 +359,44 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
       margin-top: 16px;
+    }
+
+    .intro-resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .intro-resource-card {
+      cursor: default;
+    }
+
+    .intro-resource-preview {
+      display: block;
+      width: 100%;
+      height: 420px;
+      margin-top: 14px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      background: #FFFFFF;
+    }
+
+    .intro-resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .intro-resource-actions .btn-pdf-action {
+      padding: 8px 12px;
+    }
+
+    @media (max-width: 760px) {
+      .intro-resource-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .apoyo-card {
@@ -1087,7 +1125,11 @@
       body.printing-report>nav,
       body.printing-report>#printCards,
       body.printing-report>.tabs,
-      body.printing-report>.tabs-bar {
+      body.printing-report>.tabs-bar,
+      body.printing-report .aduana-wrapper,
+      body.printing-report #aduanaFrame,
+      body:not(.printing-cards) .aduana-wrapper,
+      body:not(.printing-cards) #aduanaFrame {
         display: none !important;
       }
 
@@ -1160,10 +1202,19 @@
       }
 
       .report-project-title {
-        font-size: 10.5pt;
+        font-size: 11pt;
         font-weight: 900;
         color: #14213D;
         margin-bottom: 2px;
+      }
+
+      .report-project-context {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #8C5D1E;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
       }
 
       .report-project-sub {
@@ -1586,6 +1637,7 @@
         <button data-section="juego">Juego: clasifica</button>
         <button data-section="dashboard">Dashboard</button>
         <button data-section="mapa-conceptual">Mapa Conceptual</button>
+        <button data-section="aduana">Aduana</button>
         <button data-section="fisica">Actividad presencial</button>
       </nav>
     </div>
@@ -1633,10 +1685,74 @@
               🎮 Juego — Clasifica métodos de recolección</button>
             <button data-goto="dashboard" class="quick-nav-btn">
               📊 Dashboard — Resultados y progreso</button>
+            <button data-goto="mapa-conceptual" class="quick-nav-btn">
+              🗺️ Mapa Conceptual — Visualización interactiva y relaciones</button>
+            <button data-goto="aduana" class="quick-nav-btn">
+              📦 Aduana — Envío de evidencias y acumulador de NEXs</button>
             <button data-goto="fisica" class="quick-nav-btn">
               ✋ Actividad presencial — Taller de roles</button>
           </div>
         </div>
+      </div>
+
+      <div class="intro-resource-grid">
+        <article class="apoyo-card intro-resource-card">
+          <div>
+            <div class="apoyo-card-header">
+              <div class="apoyo-icon">📄</div>
+              <div>
+                <h3 class="apoyo-card-title">Material de apoyo No 4</h3>
+                <span class="tag" style="color:var(--teal);">GUÍA FORMATIVA</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:8px;">
+              Guía para la recolección de información en procesos de talento humano.
+            </p>
+            <div class="apoyo-card-file">Recoleccion_de_informacion_talento_humano.html</div>
+            <iframe id="introGuidePreview" class="intro-resource-preview"
+              src="Recoleccion_de_informacion_talento_humano.html"
+              title="Previsualización de la guía de recolección de información"></iframe>
+          </div>
+          <div class="intro-resource-actions">
+            <a href="Recoleccion_de_informacion_talento_humano.html" target="_blank" rel="noopener noreferrer"
+              class="btn-pdf-action primary">Abrir ↗</a>
+            <a href="Recoleccion_de_informacion_talento_humano.html"
+              download="Recoleccion_de_informacion_talento_humano.html" class="btn-pdf-action secondary">
+              Descargar ⬇
+            </a>
+            <button type="button" class="btn-pdf-action secondary" data-print-frame="introGuidePreview">
+              Imprimir
+            </button>
+          </div>
+        </article>
+
+        <article class="apoyo-card intro-resource-card">
+          <div>
+            <div class="apoyo-card-header">
+              <div class="apoyo-icon">📑</div>
+              <div>
+                <h3 class="apoyo-card-title">Material de apoyo No 5</h3>
+                <span class="tag" style="color:var(--teal);">PRESENTACIÓN</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:8px;">
+              Presentación del protocolo de talento humano de Byteon Cyber.
+            </p>
+            <div class="apoyo-card-file">Byteon_Cyber_HR_Protocol.pdf</div>
+            <iframe id="introProtocolPreview" class="intro-resource-preview"
+              src="Byteon_Cyber_HR_Protocol.pdf#toolbar=1&navpanes=0"
+              title="Previsualización de la presentación Byteon Cyber HR Protocol"></iframe>
+          </div>
+          <div class="intro-resource-actions">
+            <a href="Byteon_Cyber_HR_Protocol.pdf" target="_blank" rel="noopener noreferrer"
+              class="btn-pdf-action primary">Abrir ↗</a>
+            <a href="Byteon_Cyber_HR_Protocol.pdf" download="Byteon_Cyber_HR_Protocol.pdf"
+              class="btn-pdf-action secondary">Descargar ⬇</a>
+            <button type="button" class="btn-pdf-action secondary" data-print-frame="introProtocolPreview">
+              Imprimir
+            </button>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2203,7 +2319,6 @@
 
           <div class="eval-actions">
             <button type="submit" class="primary">Ver resultado</button>
-            <button type="button" class="ghost" data-reset="evalFormConceptos">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormConceptos">
@@ -2312,7 +2427,6 @@
 
           <div class="eval-actions">
             <button type="submit" class="primary">Ver resultado</button>
-            <button type="button" class="ghost" data-reset="evalFormAplicacion">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormAplicacion">
@@ -2418,7 +2532,7 @@
           </svg>
           Borrar historial del dashboard
         </button>
-        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+        <button class="btn-print-dashboard" id="printReportBtn" type="button" onclick="imprimirReporteInstitucional()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -2578,6 +2692,15 @@
       </div>
     </section>
 
+    <!-- PESTAÑA ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
+      </div>
+    </section>
+
     <!-- ACTIVIDAD FÍSICA -->
     <section data-section="fisica">
       <h2 style="font-size:1.5rem;margin-bottom:6px;">Actividad presencial: Taller de roles de investigador</h2>
@@ -2630,6 +2753,28 @@
           <li><strong>Presentación (10%):</strong> Claridad y organización de la exposición</li>
         </ul>
       </div>
+
+      <div class="apoyo-grid">
+        <a href="Actividad_Detectives_de_datos.pdf" target="_blank" rel="noopener noreferrer" class="apoyo-card">
+          <div>
+            <div class="apoyo-card-header">
+              <div class="apoyo-icon">🕵️</div>
+              <div>
+                <h3 class="apoyo-card-title">Actividad: Detectives de datos</h3>
+                <span class="tag" style="color:var(--teal);">ACTIVIDAD PRESENCIAL</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem;color:var(--ink-soft);margin-bottom:8px;">
+              Material de trabajo para la actividad presencial.
+            </p>
+            <div class="apoyo-card-file">Actividad_Detectives_de_datos.pdf</div>
+          </div>
+          <div class="apoyo-card-footer">
+            <span class="apoyo-btn-label">Abrir documento PDF ↗</span>
+            <span style="font-size:0.8rem;color:var(--ink-soft);">PDF</span>
+          </div>
+        </a>
+      </div>
     </section>
 
   </main>
@@ -2651,12 +2796,13 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        <div class="report-project-title">Reto 5. Técnicas de Recolección de Información</div>
+        <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
           DESEMPE&Ntilde;O</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 3. T&Eacute;CNICAS DE RECOLECCI&Oacute;N DE INFORMACI&Oacute;N
+          <strong>RETO:</strong> Reto 5. Técnicas de Recolección de Información
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -2849,6 +2995,14 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
 
     tabButtons.forEach(btn => {
@@ -2857,6 +3011,27 @@
 
     document.querySelectorAll('[data-goto]').forEach(el => {
       el.addEventListener('click', () => showSection(el.dataset.goto));
+    });
+
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
+    });
+
+    document.querySelectorAll('[data-print-frame]').forEach(button => {
+      button.addEventListener('click', () => {
+        const preview = document.getElementById(button.dataset.printFrame);
+        if (!(preview instanceof HTMLIFrameElement)) {
+          throw new Error('No se encontró la previsualización que se desea imprimir.');
+        }
+        preview.contentWindow?.focus();
+        preview.contentWindow?.print();
+      });
     });
 
     // ---------- Evaluador tabs ----------
@@ -2957,10 +3132,13 @@
         saveDash();
       });
 
-      form.parentElement.querySelector('[data-reset="' + formId + '"]').addEventListener('click', () => {
-        form.reset();
-        verdictBox.classList.remove('show', 'low', 'mid', 'high');
-      });
+      const resetBtn = form.parentElement.querySelector('[data-reset="' + formId + '"]');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          verdictBox.classList.remove('show', 'low', 'mid', 'high');
+        });
+      }
     }
     setupEvaluator('evalFormConceptos');
     setupEvaluator('evalFormAplicacion');
@@ -3303,7 +3481,7 @@
       if (box) box.classList.toggle('complete', complete);
       const nexStatusEl = document.getElementById('nexStatus');
       if (nexStatusEl) {
-        nexStatusEl.textContent = complete ? '&#127775; &iexcl;Reto completado! Eres Detective espacial Grado No 3.'
+        nexStatusEl.textContent = complete ? '&#127775; &iexcl;Reto completado! Eres Detective espacial Grado No 5.'
           : (nexTotal === 0
             ? 'AÃºn no has iniciado: completa evaluaciones y juega para ganar NEXs.'
             : 'Reto en progreso: te faltan ' + fmt(NEX_MAX - nexTotal) + ' NEXs para ser Detective espacial Grado No 3.');
@@ -3432,7 +3610,7 @@
       if (rewardCard) {
         rewardCard.innerHTML = `
           <div class="report-reward-box">
-            <h4>&#127775; Detective espacial Grado No 3 &mdash; Sistema de Recompensas</h4>
+            <h4>&#127775; Detective espacial Grado No 5 &mdash; Sistema de Recompensas</h4>
             <p><strong>NEXs Acumulados:</strong> ${fmt(nexTotal)} / ${fmt(NEX_MAX)} NEXs (${Math.round(nexTotal / NEX_MAX * 100)}%) &bull; <em>${isComplete ? '&iexcl;Reto Completado con &eacute;xito!' : 'Reto en progreso'}</em></p>
             <div class="report-reward-pills">
               <div class="report-reward-pill"><b>Evaluador conceptos:</b> ${doneConceptos ? '&#10003; Completado' : 'Pendiente'} (${fmt(doneConceptos ? NEX_EVAL / 2 : 0)} NEXs)</div>
@@ -3574,18 +3752,42 @@
       }
     }
 
+    function imprimirReporteInstitucional() {
+      try {
+        populatePrintReport();
+      } catch (e) {
+        console.warn('Advertencia en preparación de impresión:', e);
+      }
+      document.body.classList.remove('printing-cards');
+      document.body.classList.add('printing-report');
+      document.title = 'Reto 5. Técnicas de Recolección de Información';
+
+      setTimeout(() => {
+        window.print();
+      }, 50);
+    }
+    window.imprimirReporteInstitucional = imprimirReporteInstitucional;
+
     const printReportBtn = document.getElementById('printReportBtn');
     if (printReportBtn) {
-      printReportBtn.addEventListener('click', () => {
-        populatePrintReport();
-        document.body.classList.add('printing-report');
-        window.print();
-      });
+      printReportBtn.addEventListener('click', imprimirReporteInstitucional);
     }
 
+    window.addEventListener('beforeprint', () => {
+      if (!document.body.classList.contains('printing-cards')) {
+        try {
+          populatePrintReport();
+        } catch (e) { }
+        document.title = 'Reto 5. Técnicas de Recolección de Información';
+      }
+    });
+
     window.addEventListener('afterprint', () => {
-      document.body.classList.remove('printing-cards');
-      document.body.classList.remove('printing-report');
+      setTimeout(() => {
+        document.body.classList.remove('printing-cards');
+        document.body.classList.remove('printing-report');
+        document.title = 'Técnicas de Recolección de Información — analiza, clasifica y aplica';
+      }, 1500);
     });
 
     document.getElementById('resetDashBtn').addEventListener('click', () => {

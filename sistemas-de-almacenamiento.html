@@ -403,6 +403,61 @@
       color: #FFFFFF;
     }
 
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .resource-grid.single-column {
+      grid-template-columns: 1fr;
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .resource-card .material-body {
+      width: 100%;
+    }
+
+    .resource-preview {
+      width: 100%;
+      height: 420px;
+      background: var(--paper);
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .resource-frame {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .resource-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .resource-actions .pdf-btn-open,
+    .resource-actions .pdf-btn-dl {
+      padding: 8px 12px;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width:760px) {
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     main {
       max-width: 1080px;
       margin: 0 auto;
@@ -1188,11 +1243,31 @@
 
     @media print {
 
+      /* Tarjetas de la actividad física */
       body.printing-cards>.hero,
-      body.printing-cards>main>section {
+      body.printing-cards>main,
+      body.printing-cards>#printReport,
+      body.printing-cards>.mapa-modal,
+      body.printing-cards>#mapaModal {
         display: none !important;
       }
 
+      body.printing-cards #printCards {
+        display: block !important;
+        font-family: Georgia, serif;
+      }
+
+      /* Por defecto al imprimir o con body.printing-report: ocultar interfaz y mostrar siempre el reporte institucional */
+      body:not(.printing-cards)>.hero,
+      body:not(.printing-cards)>main,
+      body:not(.printing-cards)>header,
+      body:not(.printing-cards)>footer,
+      body:not(.printing-cards)>nav,
+      body:not(.printing-cards)>#printCards,
+      body:not(.printing-cards)>.tabs,
+      body:not(.printing-cards)>.tabs-bar,
+      body:not(.printing-cards)>.mapa-modal,
+      body:not(.printing-cards)>#mapaModal,
       body.printing-report>.hero,
       body.printing-report>main,
       body.printing-report>header,
@@ -1206,13 +1281,16 @@
         display: none !important;
       }
 
+      body:not(.printing-cards),
       body.printing-report {
         background: #ffffff !important;
         color: #111827 !important;
       }
 
+      body:not(.printing-cards) #printReport,
       body.printing-report #printReport {
         display: block !important;
+        visibility: visible !important;
         width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -1275,10 +1353,19 @@
       }
 
       .report-project-title {
-        font-size: 10.5pt;
+        font-size: 11pt;
         font-weight: 900;
         color: #14213D;
         margin-bottom: 2px;
+      }
+
+      .report-project-context {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #8C5D1E;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
       }
 
       .report-project-sub {
@@ -2027,6 +2114,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
         <button data-section="mapamental">Mapa Mental</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2066,8 +2154,57 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — versión física del juego</button>
             <button data-goto="mapamental">🗺️ Mapa Mental - Esquema conceptual y diagrama completo</button>
+            <button data-goto="aduana">📦 Aduana — Envío de evidencias y acumulador de NEXs</button>
           </div>
         </div>
+      </div>
+
+      <div class="resource-grid" aria-label="Documentos complementarios de introducción">
+        <article class="material-card resource-card">
+          <div class="material-body">
+            <span class="tag">DOCUMENTO COMPLEMENTARIO</span>
+            <h3>Sistemas de almacenamiento de información en talento humano</h3>
+            <p>Consulta el documento en la vista previa, ábrelo para imprimirlo o descárgalo.</p>
+            <div class="resource-actions">
+              <a href="Sistemas%20de%20almacenamiento%20de%20informaci%C3%B3n%20en%20talento%20humano.html"
+                target="_blank" rel="noopener" class="pdf-btn-open">Abrir / imprimir ↗</a>
+              <a href="Sistemas%20de%20almacenamiento%20de%20informaci%C3%B3n%20en%20talento%20humano.html"
+                download="Sistemas de almacenamiento de información en talento humano.html" class="pdf-btn-dl">Descargar
+                ⬇</a>
+            </div>
+          </div>
+          <div class="resource-preview">
+            <iframe src="Sistemas%20de%20almacenamiento%20de%20informaci%C3%B3n%20en%20talento%20humano.html"
+              class="resource-frame" loading="lazy"
+              title="Vista previa: Sistemas de almacenamiento de información en talento humano">
+              <p>Tu navegador no permite previsualizar este documento.
+                <a href="Sistemas%20de%20almacenamiento%20de%20informaci%C3%B3n%20en%20talento%20humano.html"
+                  target="_blank" rel="noopener">Ábrelo aquí para imprimirlo.</a>
+              </p>
+            </iframe>
+          </div>
+        </article>
+
+        <article class="material-card resource-card">
+          <div class="material-body">
+            <span class="tag">PRESENTACIÓN</span>
+            <h3>El Protocolo Byteon</h3>
+            <p>Presentación en PDF. Puedes abrirla para imprimirla o descargarla.</p>
+            <div class="resource-actions">
+              <a href="El_Protocolo_Byteon.pdf" target="_blank" rel="noopener" class="pdf-btn-open">Abrir / imprimir
+                ↗</a>
+              <a href="El_Protocolo_Byteon.pdf" download class="pdf-btn-dl">Descargar PDF ⬇</a>
+            </div>
+          </div>
+          <div class="resource-preview">
+            <iframe src="El_Protocolo_Byteon.pdf#toolbar=1&navpanes=0" class="resource-frame" loading="lazy"
+              title="Vista previa: presentación El Protocolo Byteon en PDF">
+              <p>Tu navegador no permite previsualizar este documento.
+                <a href="El_Protocolo_Byteon.pdf" target="_blank" rel="noopener">Ábrelo aquí para imprimirlo.</a>
+              </p>
+            </iframe>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2570,7 +2707,6 @@
           </div>
           <div class="eval-actions">
             <button type="submit" class="primary">Ver veredicto</button>
-            <button type="button" class="ghost" data-reset="evalFormGeneral">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormGeneral">
@@ -2651,7 +2787,6 @@
           </div>
           <div class="eval-actions">
             <button type="submit" class="primary">Ver veredicto</button>
-            <button type="button" class="ghost" data-reset="evalFormTecnico">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormTecnico">
@@ -2759,7 +2894,7 @@
           </svg>
           Borrar historial del dashboard
         </button>
-        <button class="btn-print-dashboard" id="printReportBtn" type="button">
+        <button class="btn-print-dashboard" id="printReportBtn" type="button" onclick="imprimirReporteInstitucional()">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 6 2 18 2 18 9"></polyline>
@@ -2795,6 +2930,21 @@
             y a qué nivel de la jerarquía pertenece.</li>
         </ol>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas y hoja de respuestas</button>
+      </div>
+
+      <div class="material-grid" aria-label="Documento de la actividad presencial">
+        <article class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO DE ACTIVIDAD</span>
+            <h3>Actividad: Arquitectos del Almacenamiento en Talento Humano</h3>
+            <p>Documento de apoyo para realizar la actividad presencial. Ábrelo para imprimirlo o descárgalo.</p>
+            <a href="Actividad_Arquitectos_del_Almacenamiento_Talento_Humano.pdf" target="_blank" rel="noopener"
+              class="material-btn">Abrir e imprimir PDF ↗</a>
+            <a href="Actividad_Arquitectos_del_Almacenamiento_Talento_Humano.pdf" download
+              class="material-btn">Descargar PDF ⬇</a>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2857,6 +3007,15 @@
         </div>
       </div>
     </section>
+
+    <!-- PESTAÑA ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
+      </div>
+    </section>
   </main>
 
   <!-- Printable content, only visible via window.print() -->
@@ -2895,12 +3054,13 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        <div class="report-project-title">Reto 3. Sistemas de Almacenamiento</div>
+        <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
           DESEMPE&Ntilde;O</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 3. SISTEMAS DE ALMACENAMIENTO
+          <strong>RETO:</strong> Reto 3. Sistemas de Almacenamiento
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3077,18 +3237,26 @@
 
     // ---------- Persisted dashboard data ----------
     const DASH_KEY = 'sda_dashboard_v1';
+    function sanitizeDash(d) {
+      if (!d || typeof d !== 'object') d = {};
+      if (!Array.isArray(d.evalHistory)) d.evalHistory = [];
+      if (!Array.isArray(d.gameHistory)) d.gameHistory = [];
+      if (!d.typeStats || typeof d.typeStats !== 'object') d.typeStats = {};
+      ['primario', 'secundario', 'terciario'].forEach(k => {
+        if (!d.typeStats[k] || typeof d.typeStats[k] !== 'object') d.typeStats[k] = { correct: 0, wrong: 0 };
+        d.typeStats[k].correct = Number(d.typeStats[k].correct) || 0;
+        d.typeStats[k].wrong = Number(d.typeStats[k].wrong) || 0;
+      });
+      return d;
+    }
     function loadDash() {
       try {
         const raw = localStorage.getItem(DASH_KEY);
-        if (raw) return JSON.parse(raw);
+        if (raw) return sanitizeDash(JSON.parse(raw));
       } catch (e) { /* localStorage unavailable */ }
-      return null;
+      return sanitizeDash({});
     }
-    let DASH = loadDash() || {
-      evalHistory: [],
-      gameHistory: [],
-      typeStats: { primario: { correct: 0, wrong: 0 }, secundario: { correct: 0, wrong: 0 }, terciario: { correct: 0, wrong: 0 } }
-    };
+    let DASH = loadDash();
     function saveDash() {
       try { localStorage.setItem(DASH_KEY, JSON.stringify(DASH)); } catch (e) { /* ignore */ }
     }
@@ -3101,10 +3269,28 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
       b.addEventListener('click', () => goTo(b.dataset.goto));
+    });
+
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
     });
 
     // ---------- Evaluador sub-nav ----------
@@ -3173,10 +3359,13 @@
         saveDash();
       });
 
-      form.parentElement.querySelector('[data-reset="' + formId + '"]').addEventListener('click', () => {
-        form.reset();
-        verdictBox.classList.remove('show', 'low', 'mid', 'high');
-      });
+      const resetBtn = form.parentElement.querySelector('[data-reset="' + formId + '"]');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          verdictBox.classList.remove('show', 'low', 'mid', 'high');
+        });
+      }
     }
     setupEvaluator('evalFormGeneral');
     setupEvaluator('evalFormTecnico');
@@ -3516,7 +3705,7 @@
         const nGeneral = evalHistory.filter(e => e.kind === 'general').length;
         const nTecnico = evalHistory.filter(e => e.kind === 'tecnico').length;
         const weakCounts = {};
-        evalHistory.forEach(e => e.weak.forEach(w => { weakCounts[w] = (weakCounts[w] || 0) + 1; }));
+        evalHistory.forEach(e => (e.weak || []).forEach(w => { weakCounts[w] = (weakCounts[w] || 0) + 1; }));
         const sortedWeak = Object.entries(weakCounts).sort((a, b) => b[1] - a[1]);
         let txt = 'Has completado ' + evalHistory.length + ' evaluaciones (' + nGeneral + ' de dispositivos y ' + nTecnico + ' de soluciones), con una adecuación promedio de ' + avgConfiabilidad + '%. ';
         if (sortedWeak.length) {
@@ -3552,232 +3741,153 @@
 
     // ---------- Reporte Institucional y Dashboard para Impresión ----------
     function populatePrintReport() {
-      // Asegura que gráficos y análisis estén actualizados antes de copiarlos al reporte
-      renderDashboard();
-
-      // 0. Registro del aprendiz (index.html)
-      REGISTRO = loadRegistro() || REGISTRO;
-      const reg = REGISTRO || {};
-      const setReg = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value || ''; };
-      setReg('regNombre', reg.nombre);
-      setReg('regDocumento', reg.documento);
-      setReg('regFicha', reg.ficha);
-      setReg('regPrograma', reg.programa || REG_DEFAULTS.programa);
-      setReg('regCentro', reg.centro || REG_DEFAULTS.centro);
-      setReg('regRegional', reg.regional || REG_DEFAULTS.regional);
-
-      // Gráficos del dashboard
-      const chartsWrap = document.getElementById('reportCharts');
-      if (chartsWrap) {
-        chartsWrap.innerHTML = ['chartGameBar', 'chartEvalBar', 'chartGamePie', 'chartTypePie'].map(id => {
-          const src = document.getElementById(id);
-          const title = src && src.previousElementSibling ? src.previousElementSibling.textContent : '';
-          return '<div class="report-chart"><h4>' + title + '</h4>' + (src ? src.innerHTML : '') + '</div>';
-        }).join('');
+      try {
+        // Asegura que gráficos y análisis estén actualizados antes de copiarlos al reporte
+        renderDashboard();
+      } catch (err) {
+        console.warn('Advertencia en renderDashboard al preparar reporte:', err);
       }
 
-      const evalHistory = DASH.evalHistory || [];
-      const gameHistory = DASH.gameHistory || [];
-      const typeStats = DASH.typeStats || { primario: { correct: 0, wrong: 0 }, secundario: { correct: 0, wrong: 0 }, terciario: { correct: 0, wrong: 0 } };
-      const fmt = n => (n || 0).toLocaleString('es-CO');
+      try {
+        // 0. Registro del aprendiz (index.html)
+        REGISTRO = loadRegistro() || REGISTRO;
+        const reg = REGISTRO || {};
+        const setReg = (id, value) => { const el = document.getElementById(id); if (el) el.textContent = value || ''; };
+        setReg('regNombre', reg.nombre);
+        setReg('regDocumento', reg.documento);
+        setReg('regFicha', reg.ficha);
+        setReg('regPrograma', reg.programa || REG_DEFAULTS.programa);
+        setReg('regCentro', reg.centro || REG_DEFAULTS.centro);
+        setReg('regRegional', reg.regional || REG_DEFAULTS.regional);
 
-      // 1. Fecha de emisión
-      const now = new Date();
-      const dateStr = now.toLocaleDateString('es-CO', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-      const reportDateEl = document.getElementById('reportDate');
-      if (reportDateEl) reportDateEl.textContent = dateStr;
+        // Gráficos del dashboard
+        const chartsWrap = document.getElementById('reportCharts');
+        if (chartsWrap) {
+          chartsWrap.innerHTML = ['chartGameBar', 'chartEvalBar', 'chartGamePie', 'chartTypePie'].map(id => {
+            const src = document.getElementById(id);
+            const title = src && src.previousElementSibling ? src.previousElementSibling.textContent : '';
+            return '<div class="report-chart"><h4>' + title + '</h4>' + (src ? src.innerHTML : '') + '</div>';
+          }).join('');
+        }
 
-      // 2. Métricas globales
-      const avgConfiabilidad = evalHistory.length
-        ? Math.round(evalHistory.reduce((s, e) => s + (e.total / e.max * 100), 0) / evalHistory.length)
-        : null;
-      const avgGameScore = gameHistory.length
-        ? (gameHistory.reduce((s, g) => s + g.score, 0) / gameHistory.length)
-        : null;
-      const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score)) : null;
+        const evalHistory = DASH.evalHistory || [];
+        const gameHistory = DASH.gameHistory || [];
+        const typeStats = DASH.typeStats || { primario: { correct: 0, wrong: 0 }, secundario: { correct: 0, wrong: 0 }, terciario: { correct: 0, wrong: 0 } };
+        const fmt = n => (n || 0).toLocaleString('es-CO');
 
-      const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
-      const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
-      const totalAnswers = totalCorrect + totalWrong;
-      const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : null;
+        // 1. Fecha de emisión
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('es-CO', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+        const reportDateEl = document.getElementById('reportDate');
+        if (reportDateEl) reportDateEl.textContent = dateStr;
 
-      const statsGrid = document.getElementById('reportStatsGrid');
-      if (statsGrid) {
-        statsGrid.innerHTML = `
-          <div class="report-stat-card">
-            <div class="report-stat-value">${evalHistory.length}</div>
-            <div class="report-stat-label">Evaluaciones</div>
-          </div>
-          <div class="report-stat-card">
-            <div class="report-stat-value">${avgConfiabilidad !== null ? avgConfiabilidad + '%' : '-'}</div>
-            <div class="report-stat-label">Adecuación Promedio</div>
-          </div>
-          <div class="report-stat-card">
-            <div class="report-stat-value">${gameHistory.length}</div>
-            <div class="report-stat-label">Partidas Jugadas</div>
-          </div>
-          <div class="report-stat-card">
-            <div class="report-stat-value">${avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '-'}</div>
-            <div class="report-stat-label">Aciertos Promedio</div>
-          </div>
-          <div class="report-stat-card">
-            <div class="report-stat-value">${accuracyPct !== null ? accuracyPct + '%' : (bestGameScore !== null ? bestGameScore + '/12' : '-')}</div>
-            <div class="report-stat-label">Precisión Global</div>
-          </div>
-        `;
-      }
+        // 2. Métricas globales
+        const avgConfiabilidad = evalHistory.length
+          ? Math.round(evalHistory.reduce((s, e) => s + ((e.total || 0) / (e.max || 1) * 100), 0) / evalHistory.length)
+          : null;
+        const avgGameScore = gameHistory.length
+          ? (gameHistory.reduce((s, g) => s + (g.score || 0), 0) / gameHistory.length)
+          : null;
+        const bestGameScore = gameHistory.length ? Math.max(...gameHistory.map(g => g.score || 0)) : null;
 
-      // 3. Recompensa NEXs
-      const NEX_MAX = 50000, NEX_EVAL = 25000, NEX_GAME = 25000;
-      const doneGeneral = evalHistory.some(e => e.kind === 'general');
-      const doneTecnico = evalHistory.some(e => e.kind === 'tecnico');
-      const nexEval = (doneGeneral ? NEX_EVAL / 2 : 0) + (doneTecnico ? NEX_EVAL / 2 : 0);
-      const bestScoreVal = bestGameScore !== null ? bestGameScore : 0;
-      const nexGame = Math.round((bestScoreVal / ITEMS.length) * NEX_GAME);
-      const nexTotal = nexEval + nexGame;
-      const isComplete = nexTotal >= NEX_MAX;
+        const totalCorrect = Object.values(typeStats).reduce((s, t) => s + (t.correct || 0), 0);
+        const totalWrong = Object.values(typeStats).reduce((s, t) => s + (t.wrong || 0), 0);
+        const totalAnswers = totalCorrect + totalWrong;
+        const accuracyPct = totalAnswers > 0 ? Math.round((totalCorrect / totalAnswers) * 100) : null;
 
-      const rewardCard = document.getElementById('reportRewardCard');
-      if (rewardCard) {
-        rewardCard.innerHTML = `
-          <div class="report-reward-box">
-            <h4>🌟 Detective espacial Grado No 3 &mdash; Sistema de Recompensas</h4>
-            <p><strong>NEXs Acumulados:</strong> ${fmt(nexTotal)} / ${fmt(NEX_MAX)} NEXs (${Math.round(nexTotal / NEX_MAX * 100)}%) &bull; <em>${isComplete ? '¡Reto Completado con Éxito!' : 'Reto en progreso'}</em></p>
-            <div class="report-reward-pills">
-              <div class="report-reward-pill"><b>Evaluador de dispositivos:</b> ${doneGeneral ? '✓ Completado' : 'Pendiente'} (${fmt(doneGeneral ? NEX_EVAL / 2 : 0)} NEXs)</div>
-              <div class="report-reward-pill"><b>Evaluador de soluciones:</b> ${doneTecnico ? '✓ Completado' : 'Pendiente'} (${fmt(doneTecnico ? NEX_EVAL / 2 : 0)} NEXs)</div>
-              <div class="report-reward-pill"><b>Juego (Mejor Partida):</b> ${bestScoreVal}/12 (${fmt(nexGame)} NEXs)</div>
+        const statsGrid = document.getElementById('reportStatsGrid');
+        if (statsGrid) {
+          statsGrid.innerHTML = `
+            <div class="report-stat-card">
+              <div class="report-stat-value">${evalHistory.length}</div>
+              <div class="report-stat-label">Evaluaciones</div>
             </div>
-          </div>
-        `;
-      }
-
-      // 4. Análisis Cualitativo
-      const analysisEvalSrc = document.getElementById('analysisEval');
-      const analysisGameSrc = document.getElementById('analysisGame');
-      const repEval = document.getElementById('reportAnalysisEval');
-      const repGame = document.getElementById('reportAnalysisGame');
-      if (repEval) repEval.textContent = analysisEvalSrc ? analysisEvalSrc.textContent : 'Sin registros de evaluación.';
-      if (repGame) repGame.textContent = analysisGameSrc ? analysisGameSrc.textContent : 'Sin partidas registradas.';
-
-      // 5. Categorías
-      const catTable = document.getElementById('reportCategoryTable');
-      if (catTable) {
-        catTable.innerHTML = `
-          <table class="report-table">
-            <thead>
-              <tr>
-                <th>Tipo de Almacenamiento</th>
-                <th>Aciertos</th>
-                <th>Errores</th>
-                <th>Total Clasificaciones</th>
-                <th>Efectividad</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${['primario', 'secundario', 'terciario'].map(cat => {
-          const c = typeStats[cat] ? typeStats[cat].correct : 0;
-          const w = typeStats[cat] ? typeStats[cat].wrong : 0;
-          const tot = c + w;
-          const pct = tot > 0 ? Math.round((c / tot) * 100) + '%' : '-';
-          const label = cat === 'primario' ? 'Primario' : (cat === 'secundario' ? 'Secundario' : 'Terciario');
-          return `
-                  <tr>
-                    <td><strong>${label}</strong></td>
-                    <td style="color:#065F46; font-weight:700;">${c}</td>
-                    <td style="color:#991B1B; font-weight:700;">${w}</td>
-                    <td>${tot}</td>
-                    <td><strong>${pct}</strong></td>
-                  </tr>
-                `;
-        }).join('')}
-            </tbody>
-          </table>
-        `;
-      }
-
-      // 6. Historial de Evaluaciones
-      const evalWrap = document.getElementById('reportEvalTable');
-      if (evalWrap) {
-        if (evalHistory.length === 0) {
-          evalWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado evaluaciones en este navegador.</p>';
-        } else {
-          evalWrap.innerHTML = `
-            <table class="report-table">
-              <thead>
-                <tr>
-                  <th style="width:25px;">#</th>
-                  <th>Fecha/Hora</th>
-                  <th>Tipo de Evaluación</th>
-                  <th>Puntaje Obtenido</th>
-                  <th>Adecuaci&oacute;n %</th>
-                  <th>Veredicto</th>
-                  <th>Aspectos a Reforzar</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${evalHistory.map((ev, idx) => {
-            const date = ev.ts ? new Date(ev.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
-            const kindLabel = ev.kind === 'general' ? 'Dispositivo o medio' : 'Solución de almacenamiento';
-            const pct = Math.round((ev.total / ev.max) * 100);
-            const verdictClass = ev.verdict === 'high' ? 'badge-high' : (ev.verdict === 'mid' ? 'badge-mid' : 'badge-low');
-            const verdictText = ev.verdict === 'high' ? 'Alto / Confiable' : (ev.verdict === 'mid' ? 'Medio / Usar con cautela' : 'Bajo / No recomendado');
-            const weakText = ev.weak && ev.weak.length ? ev.weak.join(', ') : 'Ninguno (Excelente)';
-            return `
-                    <tr>
-                      <td>${idx + 1}</td>
-                      <td>${date}</td>
-                      <td><strong>${kindLabel}</strong></td>
-                      <td>${ev.total} / ${ev.max} pts</td>
-                      <td><strong>${pct}%</strong></td>
-                      <td><span class="report-badge ${verdictClass}">${verdictText}</span></td>
-                      <td>${weakText}</td>
-                    </tr>
-                  `;
-          }).join('')}
-              </tbody>
-            </table>
+            <div class="report-stat-card">
+              <div class="report-stat-value">${avgConfiabilidad !== null ? avgConfiabilidad + '%' : '-'}</div>
+              <div class="report-stat-label">Adecuación Promedio</div>
+            </div>
+            <div class="report-stat-card">
+              <div class="report-stat-value">${gameHistory.length}</div>
+              <div class="report-stat-label">Partidas Jugadas</div>
+            </div>
+            <div class="report-stat-card">
+              <div class="report-stat-value">${avgGameScore !== null ? avgGameScore.toFixed(1) + '/12' : '-'}</div>
+              <div class="report-stat-label">Aciertos Promedio</div>
+            </div>
+            <div class="report-stat-card">
+              <div class="report-stat-value">${accuracyPct !== null ? accuracyPct + '%' : (bestGameScore !== null ? bestGameScore + '/12' : '-')}</div>
+              <div class="report-stat-label">Precisión Global</div>
+            </div>
           `;
         }
-      }
 
-      // 7. Historial de Partidas
-      const gameWrap = document.getElementById('reportGameTable');
-      if (gameWrap) {
-        if (gameHistory.length === 0) {
-          gameWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado partidas del simulador en este navegador.</p>';
-        } else {
-          gameWrap.innerHTML = `
+        // 3. Recompensa NEXs
+        const NEX_MAX = 50000, NEX_EVAL = 25000, NEX_GAME = 25000;
+        const doneGeneral = evalHistory.some(e => e.kind === 'general');
+        const doneTecnico = evalHistory.some(e => e.kind === 'tecnico');
+        const nexEval = (doneGeneral ? NEX_EVAL / 2 : 0) + (doneTecnico ? NEX_EVAL / 2 : 0);
+        const bestScoreVal = bestGameScore !== null ? bestGameScore : 0;
+        const nexGame = Math.round((bestScoreVal / ITEMS.length) * NEX_GAME);
+        const nexTotal = nexEval + nexGame;
+        const isComplete = nexTotal >= NEX_MAX;
+
+        const rewardCard = document.getElementById('reportRewardCard');
+        if (rewardCard) {
+          rewardCard.innerHTML = `
+            <div class="report-reward-box">
+              <h4>🌟 Detective espacial Grado No 3 &mdash; Sistema de Recompensas</h4>
+              <p><strong>NEXs Acumulados:</strong> ${fmt(nexTotal)} / ${fmt(NEX_MAX)} NEXs (${Math.round(nexTotal / NEX_MAX * 100)}%) &bull; <em>${isComplete ? '¡Reto Completado con Éxito!' : 'Reto en progreso'}</em></p>
+              <div class="report-reward-pills">
+                <div class="report-reward-pill"><b>Evaluador de dispositivos:</b> ${doneGeneral ? '✓ Completado' : 'Pendiente'} (${fmt(doneGeneral ? NEX_EVAL / 2 : 0)} NEXs)</div>
+                <div class="report-reward-pill"><b>Evaluador de soluciones:</b> ${doneTecnico ? '✓ Completado' : 'Pendiente'} (${fmt(doneTecnico ? NEX_EVAL / 2 : 0)} NEXs)</div>
+                <div class="report-reward-pill"><b>Juego (Mejor Partida):</b> ${bestScoreVal}/12 (${fmt(nexGame)} NEXs)</div>
+              </div>
+            </div>
+          `;
+        }
+
+        // 4. Análisis Cualitativo
+        const analysisEvalSrc = document.getElementById('analysisEval');
+        const analysisGameSrc = document.getElementById('analysisGame');
+        const repEval = document.getElementById('reportAnalysisEval');
+        const repGame = document.getElementById('reportAnalysisGame');
+        if (repEval) repEval.textContent = analysisEvalSrc ? analysisEvalSrc.textContent : 'Sin registros de evaluación.';
+        if (repGame) repGame.textContent = analysisGameSrc ? analysisGameSrc.textContent : 'Sin partidas registradas.';
+
+        // 5. Categorías
+        const catTable = document.getElementById('reportCategoryTable');
+        if (catTable) {
+          catTable.innerHTML = `
             <table class="report-table">
               <thead>
                 <tr>
-                  <th>Partida</th>
-                  <th>Fecha/Hora</th>
+                  <th>Tipo de Almacenamiento</th>
                   <th>Aciertos</th>
                   <th>Errores</th>
+                  <th>Total Clasificaciones</th>
                   <th>Efectividad</th>
-                  <th>NEXs Estimados</th>
                 </tr>
               </thead>
               <tbody>
-                ${gameHistory.map((g, idx) => {
-            const date = g.ts ? new Date(g.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
-            const pct = Math.round((g.score / g.total) * 100);
-            const nex = Math.round((g.score / g.total) * 25000);
+                ${['primario', 'secundario', 'terciario'].map(cat => {
+            const c = typeStats[cat] ? typeStats[cat].correct : 0;
+            const w = typeStats[cat] ? typeStats[cat].wrong : 0;
+            const tot = c + w;
+            const pct = tot > 0 ? Math.round((c / tot) * 100) + '%' : '-';
+            const label = cat === 'primario' ? 'Primario' : (cat === 'secundario' ? 'Secundario' : 'Terciario');
             return `
                     <tr>
-                      <td><strong>Partida ${idx + 1}</strong></td>
-                      <td>${date}</td>
-                      <td style="color:#065F46; font-weight:700;">${g.score} / ${g.total}</td>
-                      <td style="color:#991B1B; font-weight:700;">${g.total - g.score}</td>
-                      <td><strong>${pct}%</strong></td>
-                      <td>+${fmt(nex)} NEXs</td>
+                      <td><strong>${label}</strong></td>
+                      <td style="color:#065F46; font-weight:700;">${c}</td>
+                      <td style="color:#991B1B; font-weight:700;">${w}</td>
+                      <td>${tot}</td>
+                      <td><strong>${pct}</strong></td>
                     </tr>
                   `;
           }).join('')}
@@ -3785,21 +3895,137 @@
             </table>
           `;
         }
+
+        // 6. Historial de Evaluaciones
+        const evalWrap = document.getElementById('reportEvalTable');
+        if (evalWrap) {
+          if (evalHistory.length === 0) {
+            evalWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado evaluaciones en este navegador.</p>';
+          } else {
+            evalWrap.innerHTML = `
+              <table class="report-table">
+                <thead>
+                  <tr>
+                    <th style="width:25px;">#</th>
+                    <th>Fecha/Hora</th>
+                    <th>Tipo de Evaluación</th>
+                    <th>Puntaje Obtenido</th>
+                    <th>Adecuaci&oacute;n %</th>
+                    <th>Veredicto</th>
+                    <th>Aspectos a Reforzar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${evalHistory.map((ev, idx) => {
+              const date = ev.ts ? new Date(ev.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+              const kindLabel = ev.kind === 'general' ? 'Dispositivo o medio' : 'Solución de almacenamiento';
+              const maxVal = ev.max || 1;
+              const totalVal = ev.total || 0;
+              const pct = Math.round((totalVal / maxVal) * 100);
+              const verdictClass = ev.verdict === 'high' ? 'badge-high' : (ev.verdict === 'mid' ? 'badge-mid' : 'badge-low');
+              const verdictText = ev.verdict === 'high' ? 'Alto / Confiable' : (ev.verdict === 'mid' ? 'Medio / Usar con cautela' : 'Bajo / No recomendado');
+              const weakText = ev.weak && ev.weak.length ? ev.weak.join(', ') : 'Ninguno (Excelente)';
+              return `
+                      <tr>
+                        <td>${idx + 1}</td>
+                        <td>${date}</td>
+                        <td><strong>${kindLabel}</strong></td>
+                        <td>${totalVal} / ${maxVal} pts</td>
+                        <td><strong>${pct}%</strong></td>
+                        <td><span class="report-badge ${verdictClass}">${verdictText}</span></td>
+                        <td>${weakText}</td>
+                      </tr>
+                    `;
+            }).join('')}
+                </tbody>
+              </table>
+            `;
+          }
+        }
+
+        // 7. Historial de Partidas
+        const gameWrap = document.getElementById('reportGameTable');
+        if (gameWrap) {
+          if (gameHistory.length === 0) {
+            gameWrap.innerHTML = '<p style="font-size:8pt; color:#666; font-style:italic; margin:4px 0;">No se han registrado partidas del simulador en este navegador.</p>';
+          } else {
+            gameWrap.innerHTML = `
+              <table class="report-table">
+                <thead>
+                  <tr>
+                    <th>Partida</th>
+                    <th>Fecha/Hora</th>
+                    <th>Aciertos</th>
+                    <th>Errores</th>
+                    <th>Efectividad</th>
+                    <th>NEXs Estimados</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${gameHistory.map((g, idx) => {
+              const date = g.ts ? new Date(g.ts).toLocaleDateString('es-CO', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-';
+              const totalVal = g.total || 12;
+              const scoreVal = g.score || 0;
+              const pct = Math.round((scoreVal / totalVal) * 100);
+              const nex = Math.round((scoreVal / totalVal) * 25000);
+              return `
+                      <tr>
+                        <td><strong>Partida ${idx + 1}</strong></td>
+                        <td>${date}</td>
+                        <td style="color:#065F46; font-weight:700;">${scoreVal} / ${totalVal}</td>
+                        <td style="color:#991B1B; font-weight:700;">${totalVal - scoreVal}</td>
+                        <td><strong>${pct}%</strong></td>
+                        <td>+${fmt(nex)} NEXs</td>
+                      </tr>
+                    `;
+            }).join('')}
+                </tbody>
+              </table>
+            `;
+          }
+        }
+      } catch (err) {
+        console.warn('Error en populatePrintReport:', err);
       }
     }
+
+    function imprimirReporteInstitucional() {
+      try {
+        populatePrintReport();
+      } catch (e) {
+        console.warn('Advertencia en preparación de impresión:', e);
+      }
+      document.body.classList.remove('printing-cards');
+      document.body.classList.add('printing-report');
+      document.title = 'Reto 3. Sistemas de Almacenamiento';
+
+      // Timeout para permitir que el motor del navegador aplique los estilos antes del diálogo
+      setTimeout(() => {
+        window.print();
+      }, 50);
+    }
+    window.imprimirReporteInstitucional = imprimirReporteInstitucional;
 
     const printReportBtn = document.getElementById('printReportBtn');
     if (printReportBtn) {
-      printReportBtn.addEventListener('click', () => {
-        populatePrintReport();
-        document.body.classList.add('printing-report');
-        window.print();
-      });
+      printReportBtn.addEventListener('click', imprimirReporteInstitucional);
     }
 
+    window.addEventListener('beforeprint', () => {
+      if (!document.body.classList.contains('printing-cards')) {
+        try {
+          populatePrintReport();
+        } catch (e) { }
+        document.title = 'Reto 3. Sistemas de Almacenamiento';
+      }
+    });
+
     window.addEventListener('afterprint', () => {
-      document.body.classList.remove('printing-cards');
-      document.body.classList.remove('printing-report');
+      setTimeout(() => {
+        document.body.classList.remove('printing-cards');
+        document.body.classList.remove('printing-report');
+        document.title = 'Sistemas de Almacenamiento — clasifica, evalúa y protege tus datos';
+      }, 1500);
     });
 
     // ---------- Mapa Mental Lightbox ----------
