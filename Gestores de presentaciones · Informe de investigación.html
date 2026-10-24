@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gestores de presentaciones · Informe de investigación</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Exo+2:wght@400;600&display=swap">
+<style>
+:root{--bg:#070b1f;--bg2:#0e1633;--cy:#22d3ee;--vi:#7c3aed;--pk:#f472b6;--ink:#1b2340;--mut:#5b6385;--card:#ffffff;--page:#eef2fb;--hf:'Orbitron','Segoe UI',Arial,sans-serif;--bf:'Exo 2','Segoe UI',Arial,sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font-family:var(--bf);color:var(--ink);background:var(--page);line-height:1.62;padding-top:env(safe-area-inset-top,0px)}
+.btn-print{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:50;border:0;border-radius:999px;padding:12px 22px;font:600 15px var(--bf);color:#fff;background:linear-gradient(90deg,var(--vi),var(--cy));box-shadow:0 6px 22px rgba(34,211,238,.45);cursor:pointer}
+.cover{min-height:100vh;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:48px 24px;position:relative;overflow:hidden;
+background:radial-gradient(circle at 78% 18%,rgba(244,114,182,.35),transparent 28%),radial-gradient(circle at 18% 82%,rgba(34,211,238,.28),transparent 32%),linear-gradient(160deg,#070b1f,#16104a 60%,#0b1a3d)}
+.cover:before{content:"";position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 12% 20%,#fff,transparent),radial-gradient(1px 1px at 33% 70%,#fff,transparent),radial-gradient(1.5px 1.5px at 62% 35%,#fff,transparent),radial-gradient(1px 1px at 85% 80%,#fff,transparent),radial-gradient(1px 1px at 47% 12%,#fff,transparent),radial-gradient(1.5px 1.5px at 92% 52%,#fff,transparent),radial-gradient(1px 1px at 8% 60%,#fff,transparent)}
+.planet{width:150px;height:150px;border-radius:50%;margin-bottom:28px;position:relative;background:radial-gradient(circle at 32% 30%,#67e8f9,#7c3aed 55%,#1e1b4b);box-shadow:0 0 60px rgba(124,58,237,.7)}
+.planet:after{content:"";position:absolute;left:-40px;right:-40px;top:62px;height:30px;border:3px solid rgba(34,211,238,.8);border-radius:50%;transform:rotate(-14deg)}
+.tag{font:600 13px var(--hf);letter-spacing:.3em;color:var(--cy);text-transform:uppercase;position:relative}
+.cover h1{font:800 clamp(30px,6vw,56px)/1.15 var(--hf);margin:18px 0 12px;position:relative;text-shadow:0 0 28px rgba(34,211,238,.5)}
+.cover p.sub{max-width:640px;color:#c7d2fe;font-size:18px;position:relative;margin:0 0 30px}
+.meta{position:relative;border:1px solid rgba(34,211,238,.5);border-radius:12px;padding:16px 26px;background:rgba(14,22,51,.7);text-align:left;font-size:15px}
+.meta b{color:var(--cy)}
+.wrap{max-width:900px;margin:0 auto;padding:36px 20px}
+.toc{background:var(--card);border-radius:16px;padding:30px;border-top:6px solid var(--vi);box-shadow:0 8px 30px rgba(30,27,75,.12)}
+.toc h2{margin-top:0}
+.toc ol{list-style:none;padding:0;margin:0;columns:2;column-gap:36px}
+.toc li{break-inside:avoid;padding:7px 0;border-bottom:1px dashed #c7cdea}
+.toc a{color:var(--ink);text-decoration:none;font-weight:600}
+.toc a span{color:var(--vi);font-family:var(--hf);margin-right:8px}
+section{background:var(--card);border-radius:16px;padding:30px 32px;margin:26px 0;box-shadow:0 8px 30px rgba(30,27,75,.10);border-left:6px solid var(--cy)}
+h2{font:800 22px var(--hf);color:var(--vi);margin:0 0 14px}
+h2 .n{display:inline-block;background:linear-gradient(135deg,var(--vi),var(--cy));color:#fff;border-radius:8px;padding:2px 10px;margin-right:10px;font-size:18px}
+h3{font:600 17px var(--hf);color:#0e7490;margin:22px 0 8px}
+p{margin:0 0 12px;text-align:justify}
+ul,ol.l{margin:0 0 12px;padding-left:22px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0 6px}
+th{background:linear-gradient(90deg,var(--vi),#4f46e5);color:#fff;text-align:left;padding:9px 10px;font-weight:600}
+td{padding:8px 10px;border-bottom:1px solid #d8def2;vertical-align:top}
+tr:nth-child(even) td{background:#f3f5fd}
+.box{background:linear-gradient(135deg,#ecfeff,#f5f3ff);border:1px solid #a5f3fc;border-radius:12px;padding:14px 18px;margin:14px 0}
+.box b{color:var(--vi)}
+.timeline{border-left:3px solid var(--pk);padding-left:18px;margin:10px 0}
+.timeline div{margin-bottom:10px;position:relative}
+.timeline div:before{content:"";position:absolute;left:-26px;top:7px;width:11px;height:11px;border-radius:50%;background:var(--cy);border:2px solid var(--vi)}
+.timeline b{color:var(--vi)}
+.refs p{text-align:left;padding-left:28px;text-indent:-28px;font-size:14px}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:10px 0 60px}
+@page{size:A4;margin:14mm}
+@media (max-width:640px){.toc ol{columns:1}section{padding:22px 18px}p{text-align:left}}
+@media print{
+.btn-print{display:none!important}
+body{background:#fff}
+.cover{min-height:265mm;page-break-after:always;break-after:page}
+.wrap{max-width:none;padding:0}
+.toc{page-break-after:always;break-after:page;box-shadow:none}
+section{box-shadow:none;margin:0 0 8mm;break-inside:auto;page-break-inside:auto;border:1px solid #d8def2;border-left:6px solid var(--cy)}
+h2,h3{break-after:avoid;page-break-after:avoid}
+table,.box,.timeline div,tr{break-inside:avoid;page-break-inside:avoid}
+#referencias{page-break-before:always;break-before:page}
+}
+</style>
+</head>
+<body>
+<button class="btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+
+<header class="cover">
+  <div class="planet"></div>
+  <div class="tag">Informe de investigación · Reto 6 · Planeta Byteon</div>
+  <h1>Gestores de presentaciones:<br>definición, características y funcionalidad</h1>
+  <p class="sub">Del proyector de transparencias a la colaboración en la nube: qué son, cómo se clasifican y cómo los aprovecha un técnico en talento humano.</p>
+  <div class="meta">
+    <div><b>Programa:</b> Técnico en Talento Humano</div>
+    <div><b>Competencia:</b> Operación de herramientas informáticas y digitales para talento humano</div>
+    <div><b>Autor(es):</b> ______________________________</div>
+    <div><b>Fecha:</b> octubre de 2026</div>
+  </div>
+</header>
+
+<main class="wrap">
+<nav class="toc" aria-label="Tabla de contenido">
+  <h2>Tabla de contenido</h2>
+  <ol>
+    <li><a href="#resumen"><span>01</span>Resumen y palabras clave</a></li>
+    <li><a href="#intro"><span>02</span>Introducción</a></li>
+    <li><a href="#problema"><span>03</span>Planteamiento del problema</a></li>
+    <li><a href="#objetivos"><span>04</span>Objetivos</a></li>
+    <li><a href="#justificacion"><span>05</span>Justificación</a></li>
+    <li><a href="#marco"><span>06</span>Marco teórico</a></li>
+    <li><a href="#historia"><span>07</span>Evolución histórica</a></li>
+    <li><a href="#clasificacion"><span>08</span>Tipos y clases</a></li>
+    <li><a href="#comparativo"><span>09</span>Cuadro comparativo de herramientas</a></li>
+    <li><a href="#diseno"><span>10</span>Buenas prácticas de diseño</a></li>
+    <li><a href="#talento"><span>11</span>Aplicación en talento humano</a></li>
+    <li><a href="#metodologia"><span>12</span>Metodología</a></li>
+    <li><a href="#conclusiones"><span>13</span>Conclusiones y recomendaciones</a></li>
+    <li><a href="#glosario"><span>14</span>Glosario</a></li>
+    <li><a href="#referencias"><span>15</span>Referencias</a></li>
+  </ol>
+</nav>
+
+<section id="resumen">
+  <h2><span class="n">01</span>Resumen y palabras clave</h2>
+  <p>Este informe describe los gestores de presentaciones (también llamados software de presentaciones): aplicaciones que permiten crear, editar y exhibir contenidos organizados en diapositivas o lienzos, combinando texto, imágenes, gráficos, audio y video. Se revisan su definición, sus características, su evolución desde 1987, sus clases y tipos, y se comparan siete herramientas de uso frecuente. Finalmente se proponen usos concretos en procesos de talento humano, como la inducción, la capacitación y el reporte de indicadores, junto con recomendaciones de diseño basadas en la investigación sobre aprendizaje multimedia.</p>
+  <p><b>Palabras clave:</b> gestor de presentaciones, diapositivas, PowerPoint, Google Slides, colaboración en línea, comunicación, talento humano.</p>
+</section>
+
+<section id="intro">
+  <h2><span class="n">02</span>Introducción</h2>
+  <p>Presentar información de forma clara es una tarea cotidiana en cualquier organización: explicar una política, inducir a un nuevo colaborador, capacitar a un equipo o rendir cuentas sobre un indicador. Los gestores de presentaciones se han convertido en la herramienta estándar para esa tarea, tanto en empresas como en instituciones educativas.</p>
+  <p>El documento parte de la guía «Retos del planeta Byteon» (Reto 6) y la amplía con información histórica y técnica contrastada con fuentes externas, de modo que el aprendiz pueda elegir y usar con criterio la herramienta más adecuada a cada situación.</p>
+</section>
+
+<section id="problema">
+  <h2><span class="n">03</span>Planteamiento del problema</h2>
+  <p>Existen decenas de gestores de presentaciones con enfoques distintos (tradicionales, en línea, no lineales, especializados). Quien los desconoce suele usar una sola herramienta para todo, produce diapositivas saturadas de texto o pierde la oportunidad de colaborar en tiempo real. En talento humano, donde se comunica información a públicos diversos, esto reduce la claridad y el impacto del mensaje.</p>
+  <div class="box"><b>Pregunta de investigación:</b> ¿qué es un gestor de presentaciones, cómo se clasifican las herramientas disponibles y qué criterios permiten elegir y usar la más adecuada en procesos de talento humano?</div>
+</section>
+
+<section id="objetivos">
+  <h2><span class="n">04</span>Objetivos</h2>
+  <h3>Objetivo general</h3>
+  <p>Caracterizar los gestores de presentaciones y su funcionalidad para aplicarlos en la comunicación de procesos de talento humano.</p>
+  <h3>Objetivos específicos</h3>
+  <ul>
+    <li>Definir el concepto de gestor de presentaciones y sus características principales.</li>
+    <li>Describir su evolución histórica y su clasificación en tipos y clases.</li>
+    <li>Comparar herramientas representativas según plataforma, colaboración y enfoque.</li>
+    <li>Proponer buenas prácticas de diseño y usos concretos en talento humano.</li>
+  </ul>
+</section>
+
+<section id="justificacion">
+  <h2><span class="n">05</span>Justificación</h2>
+  <p>La competencia del programa exige operar herramientas informáticas y digitales para talento humano. Dominar los gestores de presentaciones permite al técnico transformar datos (por ejemplo, el porcentaje de ausentismo por área) en información comprensible para jefes y equipos, apoyar procesos formativos y documentar resultados. Además, conocer varias alternativas, gratuitas y de pago, facilita trabajar en organizaciones con recursos distintos.</p>
+</section>
+
+<section id="marco">
+  <h2><span class="n">06</span>Marco teórico</h2>
+  <h3>6.1 Definición</h3>
+  <p>Un gestor de presentaciones es una aplicación diseñada para crear y utilizar apoyos visuales de manera profesional, con el fin de transmitir información de forma atractiva, dinámica y comprensible a una audiencia. Su unidad básica suele ser la diapositiva (en Beamer se llama «frame»; en Prezi, un lienzo único con zonas de enfoque).</p>
+  <h3>6.2 Características</h3>
+  <table>
+    <tr><th>Característica</th><th>Descripción</th></tr>
+    <tr><td>Interactividad</td><td>Incluyen encuestas, cuestionarios, hipervínculos y navegación entre diapositivas.</td></tr>
+    <tr><td>Multimedia</td><td>Integran texto, imágenes, gráficos, audio y video.</td></tr>
+    <tr><td>Flexibilidad</td><td>Permiten personalizar plantillas, estructura, colores y tipografías.</td></tr>
+    <tr><td>Facilidad de uso</td><td>Interfaces visuales (WYSIWYG) que no exigen programar; la excepción es Beamer, que se escribe en código LaTeX.</td></tr>
+    <tr><td>Compatibilidad</td><td>Exportan a formatos como PDF y se usan en distintos dispositivos y sistemas operativos.</td></tr>
+    <tr><td>Colaboración</td><td>Las versiones en línea permiten edición simultánea y comentarios.</td></tr>
+  </table>
+  <h3>6.3 Funcionalidad típica</h3>
+  <ul>
+    <li><b>Diseño:</b> plantillas, patrones de diapositiva, temas, cuadrículas y guías de alineación.</li>
+    <li><b>Contenido:</b> inserción de texto, tablas, gráficos, formas, imágenes, audio y video.</li>
+    <li><b>Movimiento:</b> transiciones y animaciones (que deben usarse con moderación).</li>
+    <li><b>Presentación:</b> modo presentador, notas del orador, cronómetro y proyección en pantalla externa.</li>
+    <li><b>Distribución:</b> exportación a PDF, enlaces para compartir y control de permisos.</li>
+  </ul>
+</section>
+
+<section id="historia">
+  <h2><span class="n">07</span>Evolución histórica</h2>
+  <div class="timeline">
+    <div><b>1984:</b> Robert Gaskins, vicepresidente de desarrollo de producto en la empresa Forethought, redacta el documento «Presentation Graphics for Overhead Projection»; poco después Dennis Austin se encarga del desarrollo.</div>
+    <div><b>20 de abril de 1987:</b> sale PowerPoint 1.0, solo para Macintosh, pensado para producir transparencias de retroproyector. El nombre original, «Presenter», se descartó por problemas de marca registrada.</div>
+    <div><b>1987:</b> Microsoft adquiere Forethought (cifra citada: unos 14 millones de dólares) y crea una unidad de negocio de gráficos.</div>
+    <div><b>22 de mayo de 1990:</b> aparece la primera versión de Microsoft para Windows 3.0, dentro de la familia Office.</div>
+    <div><b>1993–1997:</b> PowerPoint llega a cerca del 78 % del mercado de software de presentaciones en 1993 y al 85 % en 1997, según una reseña divulgativa. Competían Harvard Graphics y Lotus Freelance.</div>
+    <div><b>2003:</b> Apple lanza Keynote.</div>
+    <div><b>2009:</b> se funda Prezi en Budapest, con un enfoque no lineal basado en zoom.</div>
+    <div><b>2010 en adelante:</b> se consolidan las presentaciones en la nube (Google Slides) y herramientas basadas en plantillas.</div>
+    <div><b>2013:</b> se lanza Canva en Australia; desde 2022 incorpora funciones de inteligencia artificial como Magic Write.</div>
+  </div>
+  <p><i>Nota:</i> las cifras de cuota de mercado proceden de fuentes divulgativas y deben tomarse como aproximadas.</p>
+</section>
+
+<section id="clasificacion">
+  <h2><span class="n">08</span>Tipos y clases</h2>
+  <h3>Por enfoque (tipos)</h3>
+  <table>
+    <tr><th>Tipo</th><th>Rasgo principal</th><th>Ejemplos</th></tr>
+    <tr><td>Interactiva</td><td>Interacción directa con la audiencia (votaciones, preguntas)</td><td>AhaSlides, Mentimeter</td></tr>
+    <tr><td>No lineal</td><td>Navegación no secuencial sobre un lienzo</td><td>Prezi</td></tr>
+    <tr><td>Visual</td><td>Diseño atractivo apoyado en plantillas</td><td>Canva, Beautiful.ai</td></tr>
+    <tr><td>Simplista</td><td>Funciones básicas, interfaz mínima</td><td>Zoho Show, Haiku Deck</td></tr>
+    <tr><td>De video</td><td>Presentaciones animadas</td><td>Powtoon, VideoScribe</td></tr>
+  </table>
+  <h3>Por modelo de uso (clases)</h3>
+  <table>
+    <tr><th>Clase</th><th>Rasgo principal</th><th>Ejemplos</th></tr>
+    <tr><td>Tradicionales (de escritorio)</td><td>Instalados en el equipo; muy usados en empresas y educación</td><td>PowerPoint, Keynote, Corel Presentations, Harvard Graphics</td></tr>
+    <tr><td>En línea</td><td>Colaboración en tiempo real, acceso desde cualquier lugar</td><td>Google Slides, Prezi, Canva</td></tr>
+    <tr><td>Especializados</td><td>Orientados a públicos técnicos; escritos como código</td><td>LaTeX Beamer</td></tr>
+  </table>
+  <div class="box"><b>Observación:</b> las categorías se superponen. Prezi aparece como herramienta «no lineal» (por su enfoque) y también «en línea» (por su modelo de uso); Canva es «visual» y «en línea». Por eso conviene clasificar una herramienta con ambos criterios a la vez.</div>
+</section>
+
+<section id="comparativo">
+  <h2><span class="n">09</span>Cuadro comparativo de herramientas</h2>
+  <table>
+    <tr><th>Herramienta</th><th>Origen</th><th>Fortaleza</th><th>Consideración</th></tr>
+    <tr><td>PowerPoint</td><td>Forethought / Microsoft, 1987</td><td>Gran cantidad de funciones; estándar en las organizaciones</td><td>Mayor curva de aprendizaje; versión completa con licencia</td></tr>
+    <tr><td>Google Slides</td><td>Google, 2010</td><td>Edición simultánea y acceso desde el navegador</td><td>Requiere conexión para aprovechar la colaboración</td></tr>
+    <tr><td>Keynote</td><td>Apple, 2003</td><td>Transiciones y diseño cuidados</td><td>Pensado para el ecosistema Apple</td></tr>
+    <tr><td>Prezi</td><td>Budapest, 2009</td><td>Navegación no lineal con zoom</td><td>Exceso de movimiento puede marear a la audiencia</td></tr>
+    <tr><td>Canva</td><td>Australia, 2013</td><td>Plantillas y recursos gráficos</td><td>Algunos recursos solo en planes de pago</td></tr>
+    <tr><td>LaTeX Beamer</td><td>Till Tantau, 2003 (derechos de autor)</td><td>Ecuaciones y fórmulas de alta calidad; salida en PDF</td><td>Exige conocer LaTeX</td></tr>
+    <tr><td>Zoho Show / Haiku Deck</td><td>Zoho / Haiku Deck</td><td>Sencillez y rapidez</td><td>Menos funciones avanzadas</td></tr>
+  </table>
+  <p><i>Nota:</i> las funciones y los planes gratuitos cambian con frecuencia; verifique siempre en el sitio oficial de cada herramienta.</p>
+</section>
+
+<section id="diseno">
+  <h2><span class="n">10</span>Buenas prácticas de diseño</h2>
+  <p>La investigación sobre aprendizaje multimedia (Mayer, 2009) y sobre carga cognitiva (Sweller, 1988) sugiere que las personas aprenden mejor cuando las palabras se combinan con imágenes pertinentes y cuando se evita la información innecesaria. Críticos como Tufte (2003) advierten además que las listas de viñetas excesivas fragmentan el razonamiento. De ahí se derivan estas pautas:</p>
+  <ul>
+    <li>Una idea principal por diapositiva y frases breves.</li>
+    <li>Imágenes y gráficos que aporten información, no decoración.</li>
+    <li>Contraste alto entre texto y fondo, y tipografía legible a distancia.</li>
+    <li>Pocas fuentes y paleta de colores coherente.</li>
+    <li>Animaciones solo cuando ayuden a comprender.</li>
+    <li>Citar las fuentes de datos e imágenes y respetar los derechos de autor.</li>
+    <li>Ensayar la presentación y controlar el tiempo.</li>
+  </ul>
+</section>
+
+<section id="talento">
+  <h2><span class="n">11</span>Aplicación en talento humano</h2>
+  <table>
+    <tr><th>Proceso</th><th>Uso de la presentación</th><th>Herramienta sugerida</th></tr>
+    <tr><td>Inducción</td><td>Presentar la organización, normas y servicios al nuevo colaborador</td><td>PowerPoint o Canva</td></tr>
+    <tr><td>Capacitación</td><td>Sesiones con preguntas y encuestas en vivo</td><td>Mentimeter o AhaSlides</td></tr>
+    <tr><td>Reporte de indicadores</td><td>Mostrar ausentismo, rotación o clima laboral con gráficos</td><td>PowerPoint o Google Slides</td></tr>
+    <tr><td>Trabajo en equipo</td><td>Elaborar un informe entre varias personas a la vez</td><td>Google Slides</td></tr>
+    <tr><td>Comunicación interna</td><td>Piezas visuales para boletines y campañas</td><td>Canva</td></tr>
+  </table>
+  <div class="box"><b>Dato sensible:</b> en Colombia, la Ley 1581 de 2012 regula el tratamiento de datos personales. Las diapositivas con nombres, diagnósticos médicos u otros datos sensibles de colaboradores requieren finalidad, autorización y acceso restringido; en los reportes conviene usar cifras agregadas.</div>
+</section>
+
+<section id="metodologia">
+  <h2><span class="n">12</span>Metodología</h2>
+  <p>Se realizó una investigación documental de tipo descriptivo. Se partió de la guía «Retos del planeta Byteon» (Reto 6) y se contrastó con fuentes externas: documentación del paquete beamer en CTAN, entradas de Wikipedia sobre PowerPoint, Prezi, Canva y Beamer, y artículos divulgativos sobre la historia de PowerPoint. Los datos se organizaron en categorías (definición, historia, clasificación, comparación y aplicación). Limitaciones: algunas cifras proceden de fuentes no académicas y las herramientas evolucionan con rapidez.</p>
+</section>
+
+<section id="conclusiones">
+  <h2><span class="n">13</span>Conclusiones y recomendaciones</h2>
+  <h3>Conclusiones</h3>
+  <ul>
+    <li>Los gestores de presentaciones son herramientas de comunicación que integran contenido multimedia, interactividad y, en su versión en línea, colaboración en tiempo real.</li>
+    <li>Nacieron en 1987 para producir transparencias y hoy abarcan herramientas de escritorio, en línea, no lineales y especializadas.</li>
+    <li>La clasificación en tipos y clases no es excluyente: una misma herramienta puede pertenecer a varias categorías.</li>
+    <li>La calidad de una presentación depende más del diseño y del mensaje que de la herramienta.</li>
+  </ul>
+  <h3>Recomendaciones</h3>
+  <ul>
+    <li>Elegir la herramienta según el propósito, el público y la conectividad disponible.</li>
+    <li>Aplicar las buenas prácticas de diseño de la sección 10.</li>
+    <li>Proteger los datos personales y sensibles en toda presentación.</li>
+    <li>Verificar en los sitios oficiales las funciones y planes vigentes.</li>
+  </ul>
+</section>
+
+<section id="glosario">
+  <h2><span class="n">14</span>Glosario</h2>
+  <ul>
+    <li><b>Diapositiva (slide):</b> página individual de una presentación.</li>
+    <li><b>WYSIWYG:</b> «lo que ves es lo que obtienes»; edición visual sin código.</li>
+    <li><b>Patrón de diapositiva:</b> plantilla que define el formato común de todas las diapositivas.</li>
+    <li><b>Presentación no lineal:</b> la que no sigue un orden fijo de diapositivas.</li>
+    <li><b>Colaboración en tiempo real:</b> edición simultánea por varias personas.</li>
+    <li><b>Dato sensible:</b> dato cuyo uso indebido puede generar discriminación, como el diagnóstico médico.</li>
+  </ul>
+</section>
+
+<section id="referencias" class="refs">
+  <h2><span class="n">15</span>Referencias</h2>
+  <p>CTAN. (s. f.). <i>beamer: A class for producing presentations and slides</i>. Comprehensive TeX Archive Network. https://ctan.org/pkg/beamer</p>
+  <p>Colombia, Congreso de la República. (2012). <i>Ley Estatutaria 1581 de 2012, por la cual se dictan disposiciones generales para la protección de datos personales</i>.</p>
+  <p>Mayer, R. E. (2009). <i>Multimedia learning</i> (2.ª ed.). Cambridge University Press.</p>
+  <p>Sweller, J. (1988). Cognitive load during problem solving: Effects on learning. <i>Cognitive Science, 12</i>(2), 257–285.</p>
+  <p>Tufte, E. R. (2003). <i>The cognitive style of PowerPoint</i>. Graphics Press.</p>
+  <p>Wikipedia. (s. f.). <i>Microsoft PowerPoint</i>. https://en.wikipedia.org/wiki/Microsoft_PowerPoint</p>
+  <p>Wikipedia. (s. f.). <i>Prezi</i>. https://en.wikipedia.org/wiki/Prezi</p>
+  <p>Wikipedia. (s. f.). <i>Canva</i>. https://en.wikipedia.org/wiki/Canva</p>
+  <p>Wikipedia. (s. f.). <i>Beamer (LaTeX)</i>. https://en.wikipedia.org/wiki/Beamer_(LaTeX)</p>
+  <p>Think Big. (s. f.). La curiosa historia de PowerPoint. https://blogthinkbig.com/la-curiosa-historia-de-powerpoint</p>
+  <p>Silicon UK. (s. f.). Tales in tech history: PowerPoint. https://silicon.co.uk/software/office-suites/tales-tech-history-powerpoint-209949</p>
+  <p>SENA. (2025). <i>Retos del planeta Byteon: Reto No 6, gestor de presentaciones</i> [Guía de aprendizaje]. Técnico en Talento Humano.</p>
+</section>
+<footer>Informe de investigación · Reto 6 · Técnico en Talento Humano · Octubre de 2026</footer>
+</main>
+</body>
+</html>
