@@ -470,6 +470,106 @@
       color: #fff;
     }
 
+    /* Cuadros de documentos con previsualización */
+    .intro-docs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 26px;
+    }
+
+    @media (max-width: 880px) {
+      .intro-docs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .doc-box-with-preview {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      cursor: default;
+    }
+
+    .doc-box-with-preview:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(20, 33, 61, .12);
+    }
+
+    .doc-card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .doc-btn {
+      text-decoration: none;
+      font-weight: 700;
+      font-size: .8rem;
+      padding: 7px 13px;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all .18s ease;
+      font-family: inherit;
+    }
+
+    .doc-btn-open {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .doc-btn-open:hover {
+      background: var(--navy-2);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .doc-btn-dl {
+      background: rgba(31, 122, 108, .1);
+      color: var(--teal);
+      border-color: rgba(31, 122, 108, .25);
+    }
+
+    .doc-btn-dl:hover {
+      background: rgba(31, 122, 108, .2);
+      color: var(--teal-dark);
+      transform: translateY(-1px);
+    }
+
+    .doc-btn-print {
+      background: var(--parchment);
+      color: var(--ink);
+      border-color: var(--border);
+    }
+
+    .doc-btn-print:hover {
+      background: #ECE5D6;
+      transform: translateY(-1px);
+    }
+
+    .doc-preview-container {
+      margin-top: 4px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f8fafc;
+      height: 480px;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05);
+    }
+
+    .doc-preview-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
     /* ---------- Características / Clasificación cards ---------- */
     .char-card {
       background: var(--paper);
@@ -1435,7 +1535,9 @@
     @media print {
 
       body.printing-cards>.hero,
-      body.printing-cards>main>section {
+      body.printing-cards>main>section,
+      body.printing-cards .aduana-wrapper,
+      body.printing-cards #aduanaFrame {
         display: none !important;
       }
 
@@ -1446,7 +1548,9 @@
       body.printing-report>.hero,
       body.printing-report>main,
       body.printing-report>#printCards,
-      body.printing-report>.mapa-modal {
+      body.printing-report>.mapa-modal,
+      body.printing-report .aduana-wrapper,
+      body.printing-report #aduanaFrame {
         display: none !important;
       }
 
@@ -1576,10 +1680,19 @@
     }
 
     .report-project-title {
-      font-size: 10.5pt;
+      font-size: 11pt;
       font-weight: 900;
       color: #14213D;
       margin-bottom: 2px;
+    }
+
+    .report-project-context {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #8C5D1E;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 3px;
     }
 
     .report-project-sub {
@@ -2094,6 +2207,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="presencial">Actividad presencial</button>
         <button data-section="mapamental">Mapa Mental</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2133,6 +2247,81 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="presencial">✋ Actividad presencial — el semáforo de clasificación</button>
             <button data-goto="mapamental">🗺️ Mapa Mental — esquema conceptual completo</button>
+            <button data-goto="aduana">🛃 Aduana — Control y verificación de aprendizajes</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOS CUADROS UNO AL LADO DEL OTRO (MATERIAL DE APOYO CON PREVISUALIZACIÓN) -->
+      <div class="intro-docs-grid">
+        <!-- CUADRO IZQUIERDO: Información y Clasificación Investigación Byteon -->
+        <div class="material-card doc-box-with-preview" style="border-left: 6px solid var(--teal);">
+          <div style="display:flex; gap:14px; align-items:flex-start; width:100%; margin-bottom:10px;">
+            <div class="material-icon">📄</div>
+            <div class="material-body" style="flex:1;">
+              <span class="tag">DOCUMENTO / INVESTIGACIÓN HTML</span>
+              <a href="Informacion_y_Clasificacion_Investigacion_Byteon.html" target="_blank"
+                style="text-decoration:none; color:inherit;">
+                <h3 style="margin: 2px 0 6px;">Información y Clasificación — Investigación Byteon</h3>
+              </a>
+              <p style="margin-bottom: 0;">Investigación completa sobre la información en Talento Humano: atributos
+                esenciales (validez, vigencia, importancia, significado), pirámide de datos a sabiduría y marco
+                normativo.</p>
+            </div>
+          </div>
+          <div class="doc-card-actions">
+            <a href="Informacion_y_Clasificacion_Investigacion_Byteon.html" target="_blank"
+              class="doc-btn doc-btn-open">
+              ⤴ Abrir en pestaña nueva
+            </a>
+            <a href="Informacion_y_Clasificacion_Investigacion_Byteon.html"
+              download="Informacion_y_Clasificacion_Investigacion_Byteon.html" class="doc-btn doc-btn-dl">
+              ⬇ Descargar HTML
+            </a>
+            <button type="button"
+              onclick="printDocFrame('previewInvestigacion', 'Informacion_y_Clasificacion_Investigacion_Byteon.html')"
+              class="doc-btn doc-btn-print">
+              🖨️ Imprimir
+            </button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="previewInvestigacion" class="doc-preview-frame"
+              src="Informacion_y_Clasificacion_Investigacion_Byteon.html"
+              title="Previsualización de Información y Clasificación Investigación Byteon"></iframe>
+          </div>
+        </div>
+
+        <!-- CUADRO DERECHO: Byteon Data Classification Protocol (Presentación PDF) -->
+        <div class="material-card doc-box-with-preview" style="border-left: 6px solid var(--coral);">
+          <div style="display:flex; gap:14px; align-items:flex-start; width:100%; margin-bottom:10px;">
+            <div class="material-icon">📊</div>
+            <div class="material-body" style="flex:1;">
+              <span class="tag">PRESENTACIÓN EN PDF</span>
+              <a href="Byteon_Data_Classification_Protocol.pdf" target="_blank"
+                style="text-decoration:none; color:inherit;">
+                <h3 style="margin: 2px 0 6px;">Byteon Data Classification Protocol</h3>
+              </a>
+              <p style="margin-bottom: 0;">Presentación ejecutiva del protocolo de clasificación de datos corporativos:
+                niveles de acceso, confidencialidad, controles de seguridad y tratamiento institucional.</p>
+            </div>
+          </div>
+          <div class="doc-card-actions">
+            <a href="Byteon_Data_Classification_Protocol.pdf" target="_blank" class="doc-btn doc-btn-open">
+              ⤴ Abrir en pestaña nueva
+            </a>
+            <a href="Byteon_Data_Classification_Protocol.pdf" download="Byteon_Data_Classification_Protocol.pdf"
+              class="doc-btn doc-btn-dl">
+              ⬇ Descargar PDF
+            </a>
+            <button type="button" onclick="printDocFrame('previewProtocolo', 'Byteon_Data_Classification_Protocol.pdf')"
+              class="doc-btn doc-btn-print">
+              🖨️ Imprimir
+            </button>
+          </div>
+          <div class="doc-preview-container">
+            <iframe id="previewProtocolo" class="doc-preview-frame"
+              src="Byteon_Data_Classification_Protocol.pdf#toolbar=1&navpanes=0"
+              title="Previsualización de Byteon Data Classification Protocol"></iframe>
           </div>
         </div>
       </div>
@@ -2642,7 +2831,8 @@
         style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin-top:24px;">
         <button class="ghost" id="resetDashBtn" style="color:var(--coral);border-color:rgba(214,91,74,.35);">🗑️ Borrar
           historial del dashboard</button>
-        <button class="btn-print-dashboard" id="printReportBtn" type="button">🖨️ Imprimir registro del aprendiz y
+        <button class="btn-print-dashboard" id="printReportBtn" type="button"
+          onclick="imprimirReporteInstitucional()">🖨️ Imprimir registro del aprendiz y
           dashboard</button>
       </div>
     </section>
@@ -2686,6 +2876,36 @@
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas, carteles de zona y hoja de
           respuestas</button>
       </div>
+
+      <!-- CUADRO DE ACTIVIDAD PRESENCIAL (TIPO MATERIAL DE APOYO SIN PREVISUALIZACIÓN) -->
+      <div class="material-card"
+        style="margin: 22px 0 10px; border-left: 6px solid var(--gold); display: flex; align-items: flex-start; gap: 16px;">
+        <div class="material-icon">📋</div>
+        <div class="material-body" style="flex:1;">
+          <span class="tag">DOCUMENTO DE ACTIVIDAD PRESENCIAL</span>
+          <a href="Actividad_Informacion_con_Criterio_Talento_Humano.pdf" target="_blank"
+            style="text-decoration:none; color:inherit;">
+            <h3 style="margin: 2px 0 6px;">Actividad: Información con Criterio — Talento Humano</h3>
+          </a>
+          <p style="margin-bottom: 12px;">Guía pedagógica oficial y formato para el desarrollo de la actividad
+            presencial de análisis, evaluación y clasificación de la información con criterios de calidad y normatividad
+            en Talento Humano.</p>
+          <div class="doc-card-actions">
+            <a href="Actividad_Informacion_con_Criterio_Talento_Humano.pdf" target="_blank"
+              class="doc-btn doc-btn-open">
+              ⤴ Abrir en pestaña nueva
+            </a>
+            <a href="Actividad_Informacion_con_Criterio_Talento_Humano.pdf"
+              download="Actividad_Informacion_con_Criterio_Talento_Humano.pdf" class="doc-btn doc-btn-dl">
+              ⬇ Descargar PDF
+            </a>
+            <button type="button" onclick="printPdfUrl('Actividad_Informacion_con_Criterio_Talento_Humano.pdf')"
+              class="doc-btn doc-btn-print">
+              🖨️ Imprimir
+            </button>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- MAPA MENTAL -->
@@ -2716,6 +2936,15 @@
           </div>
           <span class="mapa-note">Diagrama generado a partir del contenido de la misión.</span>
         </div>
+      </div>
+    </section>
+
+    <!-- ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-wrapper aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
       </div>
     </section>
   </main>
@@ -2760,10 +2989,12 @@
     </div>
 
     <div class="report-project-card">
-      <div class="report-project-title">RETOS DEL PLANETA BYTEON — REPORTE DE EVALUACIÓN Y DESEMPEÑO</div>
+      <div class="report-project-title">Reto 9. Tratamiento y Clasificación de la Información</div>
+      <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        DESEMPE&Ntilde;O</div>
       <div class="report-project-sub"><strong>FASES DEL PROYECTO:</strong> TRATAMIENTO Y OFIMÁTICA •
-        <strong>PROGRAMA:</strong> TÉCNICO EN TALENTO HUMANO • <strong>RETO:</strong> 2. TRATAMIENTO Y
-        CLASIFICACIÓN DE LA INFORMACIÓN
+        <strong>PROGRAMA:</strong> TÉCNICO EN TALENTO HUMANO • <strong>RETO:</strong> Reto 9. Tratamiento y
+        Clasificación de la Información
       </div>
       <div class="report-ra">
         <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -2996,9 +3227,27 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => b.addEventListener('click', () => goTo(b.dataset.goto)));
+
+    // Sincronización de altura dinámica con el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
+    });
 
     // ---------- Evaluador sub-nav ----------
     const evalSubButtons = document.querySelectorAll('#evalSubnav button');
@@ -3324,6 +3573,37 @@
       answerBody.appendChild(tr);
     });
     document.getElementById('printBtn').addEventListener('click', () => { document.body.classList.add('printing-cards'); window.print(); });
+
+    function printDocFrame(frameId, fallbackUrl) {
+      const frame = document.getElementById(frameId);
+      if (frame && frame.contentWindow) {
+        try {
+          frame.contentWindow.focus();
+          frame.contentWindow.print();
+          return;
+        } catch (e) {
+          console.warn('Direct frame print restricted:', e);
+        }
+      }
+      const printWin = window.open(fallbackUrl, '_blank');
+      if (printWin) {
+        printWin.focus();
+        setTimeout(() => {
+          try { printWin.print(); } catch (err) { }
+        }, 800);
+      }
+    }
+
+    function printPdfUrl(url) {
+      const printWin = window.open(url, '_blank');
+      if (printWin) {
+        printWin.focus();
+        setTimeout(() => {
+          try { printWin.print(); } catch (err) { }
+        }, 800);
+      }
+    }
+
     // ---------- Registro del aprendiz (persistido en localStorage) ----------
     const REG_KEY = 'ci_registro_aprendiz_v1';
     function loadRegistro() {
@@ -3349,12 +3629,43 @@
       ['regNombre', 'regDocumento', 'regFicha', 'regInstructor'].forEach(id => document.getElementById(id).addEventListener('input', saveRegistro));
     })();
 
-    document.getElementById('printReportBtn').addEventListener('click', () => {
-      populatePrintReport();
+    function imprimirReporteInstitucional() {
+      try {
+        populatePrintReport();
+      } catch (e) {
+        console.warn('Advertencia en preparación de impresión:', e);
+      }
+      document.body.classList.remove('printing-cards');
       document.body.classList.add('printing-report');
-      window.print();
+      document.title = 'Reto 9. Tratamiento y Clasificación de la Información';
+
+      setTimeout(() => {
+        window.print();
+      }, 50);
+    }
+    window.imprimirReporteInstitucional = imprimirReporteInstitucional;
+
+    const printReportBtn = document.getElementById('printReportBtn');
+    if (printReportBtn) {
+      printReportBtn.addEventListener('click', imprimirReporteInstitucional);
+    }
+
+    window.addEventListener('beforeprint', () => {
+      if (!document.body.classList.contains('printing-cards')) {
+        try {
+          populatePrintReport();
+        } catch (e) { }
+        document.title = 'Reto 9. Tratamiento y Clasificación de la Información';
+      }
     });
-    window.addEventListener('afterprint', () => { document.body.classList.remove('printing-cards'); document.body.classList.remove('printing-report'); });
+
+    window.addEventListener('afterprint', () => {
+      setTimeout(() => {
+        document.body.classList.remove('printing-cards');
+        document.body.classList.remove('printing-report');
+        document.title = 'Tratamiento y Clasificación de la Información — analiza, clasifica y evalúa';
+      }, 1500);
+    });
 
     // ================= DASHBOARD =================
     function renderPieChart(containerId, slices) {
