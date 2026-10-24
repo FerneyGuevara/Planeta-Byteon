@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hardware, Software y Gestión Documental en Talento Humano</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#070b1a;--card:#0f1530;--cy:#22d3ee;--pu:#a78bfa;--pk:#f472b6;--tx:#e2e8f0;--mu:#94a3b8;--ln:#26305a}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 Inter,"Segoe UI",Arial,sans-serif;
+background-image:radial-gradient(1px 1px at 20px 30px,#fff8,transparent),radial-gradient(1.5px 1.5px at 90px 120px,#22d3ee99,transparent),radial-gradient(1px 1px at 160px 60px,#fff6,transparent);background-size:200px 160px}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+h1,h2,h3,.orb{font-family:Orbitron,"Segoe UI",Arial,sans-serif}
+.page{background:rgba(15,21,48,.92);border:1px solid var(--ln);border-radius:14px;padding:34px 38px;margin:26px 0}
+.cover{min-height:960px;display:flex;flex-direction:column;justify-content:space-between;text-align:center;background:radial-gradient(circle at 50% 38%,#2a1a6e 0,#0f1530 45%,#070b1a 100%);position:relative;overflow:hidden}
+.cover .tag{letter-spacing:.3em;color:var(--cy);font-size:.8rem;font-family:Orbitron,sans-serif}
+.cover h1{font-size:2.4rem;line-height:1.2;margin:14px 0;background:linear-gradient(90deg,var(--cy),var(--pu),var(--pk));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover .sub{color:var(--mu);max-width:560px;margin:0 auto}
+.cover svg{width:100%;max-width:420px;margin:10px auto}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;text-align:left;border-top:1px solid var(--ln);padding-top:16px;font-size:.92rem;color:var(--mu)}
+.meta b{color:var(--cy)}
+h2{color:var(--cy);font-size:1.4rem;border-bottom:2px solid var(--pu);padding-bottom:6px;margin:0 0 14px}
+h3{color:var(--pu);font-size:1.02rem;margin:22px 0 6px}
+h2 span{color:var(--pk)}
+p{margin:8px 0;text-align:justify}
+.toc ol{list-style:none;padding:0;margin:0;counter-reset:t}
+.toc li{border-bottom:1px dashed var(--ln);padding:8px 0;display:flex;gap:10px}
+.toc li::before{counter-increment:t;content:counter(t,decimal-leading-zero);font-family:Orbitron,sans-serif;color:var(--pk);min-width:34px}
+.toc a{color:var(--tx);text-decoration:none;flex:1}.toc a:hover{color:var(--cy)}
+.toc ul{margin:2px 0 0 0;padding-left:16px;color:var(--mu);font-size:.88rem}
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9rem}
+th{background:linear-gradient(90deg,#5b21b6,#0e7490);color:#fff;text-align:left;padding:8px 10px}
+td{padding:8px 10px;border:1px solid var(--ln);vertical-align:top}
+tr:nth-child(even) td{background:#121a3a}
+.box{border-left:4px solid var(--cy);background:#0b2236;border-radius:6px;padding:10px 14px;margin:14px 0}
+.box.p{border-color:var(--pu);background:#1a1540}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:12px 0}
+.cd{border:1px solid var(--ln);border-radius:10px;padding:12px 14px;background:#0b1128}
+.cd b{color:var(--cy)}
+ul{margin:6px 0;padding-left:22px}li{margin:3px 0}
+.ref{padding-left:28px;text-indent:-28px;text-align:left;font-size:.9rem;margin:7px 0}
+.btn{position:fixed;right:18px;bottom:18px;z-index:9;background:linear-gradient(90deg,#7c3aed,#0891b2);color:#fff;border:0;border-radius:30px;padding:13px 22px;font:700 .85rem Orbitron,sans-serif;cursor:pointer;box-shadow:0 4px 22px #22d3ee66}
+.btn:hover{filter:brightness(1.15)}
+footer{text-align:center;color:var(--mu);font-size:.8rem;padding:10px 0 60px}
+@page{size:A4;margin:14mm 12mm 16mm;@bottom-center{content:"Página " counter(page);font:9pt Arial;color:#64748b}}
+@media print{
+body{background:var(--bg)!important;font-size:11pt}
+.btn{display:none!important}
+.wrap{max-width:none;padding:0}
+.page{margin:0;border-radius:0;border:0;padding:6mm 4mm;break-after:page;page-break-after:always;background:var(--bg)!important}
+.cover{min-height:255mm;height:255mm}
+h2,h3{break-after:avoid;page-break-after:avoid}
+table,.box,.cd,.ref,tr{break-inside:avoid;page-break-inside:avoid}
+footer{display:none}
+}
+</style>
+</head>
+<body>
+<button class="btn" onclick="window.print()" title="Imprimir o guardar como PDF">🖨 IMPRIMIR / PDF</button>
+<div class="wrap">
+
+<!-- PORTADA -->
+<section class="page cover" id="portada">
+<div><div class="tag">MISIÓN BYTEON · INFORME DE INVESTIGACIÓN</div>
+<h1>HARDWARE, SOFTWARE Y GESTIÓN DOCUMENTAL</h1>
+<p class="sub" style="text-align:center">Componentes físicos y lógicos, redes, almacenamiento, seguridad y reprografía aplicados a la operación del Técnico en Talento Humano</p></div>
+<svg viewBox="0 0 420 300" aria-hidden="true">
+<defs><radialGradient id="pl" cx="35%" cy="35%"><stop offset="0" stop-color="#f9a8d4"/><stop offset=".5" stop-color="#7c3aed"/><stop offset="1" stop-color="#1e1b4b"/></radialGradient></defs>
+<circle cx="210" cy="150" r="88" fill="url(#pl)"/>
+<ellipse cx="210" cy="160" rx="170" ry="30" fill="none" stroke="#22d3ee" stroke-width="3" opacity=".8" transform="rotate(-14 210 160)"/>
+<g stroke="#22d3ee" fill="#0b1128" stroke-width="2"><rect x="30" y="40" width="26" height="26" rx="4"/><rect x="360" y="230" width="26" height="26" rx="4"/><circle cx="380" cy="60" r="10"/></g>
+<g stroke="#a78bfa" stroke-width="2"><path d="M43 66v40h60M373 256v-30h-50"/></g>
+<g fill="#fff"><circle cx="60" cy="230" r="2"/><circle cx="330" cy="30" r="2"/><circle cx="110" cy="20" r="1.5"/><circle cx="300" cy="280" r="1.5"/></g>
+</svg>
+<div class="meta">
+<div><b>Programa:</b> Técnico en Talento Humano</div><div><b>Competencia:</b> Operación de herramientas informáticas y digitales</div>
+<div><b>Misión básica:</b> N.° 5 · Retos del planeta Byteon</div><div><b>Fecha:</b> 21 de octubre de 2026</div>
+<div><b>Tipo de documento:</b> Informe de investigación documental</div><div><b>Autor / Aprendiz:</b> ______________________</div>
+</div>
+</section>
+
+<!-- TABLA DE CONTENIDO -->
+<section class="page toc" id="toc">
+<h2>TABLA DE <span>CONTENIDO</span></h2>
+<ol>
+<li><a href="#resumen">Resumen y palabras clave</a></li>
+<li><a href="#intro">Introducción</a><ul><li>Planteamiento, justificación y objetivos</li></ul></li>
+<li><a href="#hw">Marco teórico I: Hardware</a><ul><li>Arquitectura, memoria, almacenamiento, periféricos</li></ul></li>
+<li><a href="#sw">Marco teórico II: Software</a><ul><li>Sistema, aplicación, licencias, parametrización</li></ul></li>
+<li><a href="#red">Marco teórico III: Redes y nube</a></li>
+<li><a href="#arch">Marco teórico IV: Organización de archivos y datos</a></li>
+<li><a href="#seg">Marco teórico V: Seguridad y marco legal en Colombia</a></li>
+<li><a href="#repro">Marco teórico VI: Reprografía y digitalización</a></li>
+<li><a href="#th">Aplicación en Talento Humano</a></li>
+<li><a href="#met">Metodología</a></li>
+<li><a href="#conc">Conclusiones y recomendaciones</a></li>
+<li><a href="#glos">Glosario</a></li>
+<li><a href="#refs">Referencias bibliográficas</a></li>
+</ol>
+</section>
+
+<!-- RESUMEN + INTRO -->
+<section class="page" id="resumen">
+<h2>1. RESUMEN <span>Y PALABRAS CLAVE</span></h2>
+<p>Este informe describe los componentes físicos (hardware) y lógicos (software) que sostienen la operación de un área de Talento Humano, y cómo se conectan mediante redes, se almacenan en archivos y copias de seguridad, se protegen conforme a la normativa colombiana y se reproducen o digitalizan con equipos de reprografía. A partir de una revisión documental se proponen criterios para seleccionar equipos, nombrar archivos, respaldar información y tratar datos personales. Se concluye que la eficiencia del proceso no depende de un solo equipo, sino de la coordinación entre personas, tecnología, procedimientos y cumplimiento legal.</p>
+<div class="box"><b>Palabras clave:</b> hardware, software, redes, copias de seguridad, computación en la nube, parametrización, reprografía, protección de datos, talento humano.</div>
+
+<h2 id="intro" style="margin-top:28px">2. INTRODUCCIÓN</h2>
+<p>Un área de Talento Humano gestiona información de alto valor: hojas de vida, contratos, asistencia, nómina, afiliaciones y evaluaciones. Todo ese flujo depende de equipos, programas y redes que deben elegirse, configurarse y protegerse con criterio. Un archivo mal nombrado se pierde; un equipo sin respaldo puede borrar un expediente completo; un dato sensible mal manejado genera sanciones. Por eso el técnico necesita comprender los fundamentos de la informática aplicada, no solo usarla.</p>
+<h3>2.1 Planteamiento del problema</h3>
+<p>¿Cómo pueden los componentes de hardware, software, redes y reprografía organizarse para almacenar, proteger y distribuir de forma eficiente la información de Talento Humano?</p>
+<h3>2.2 Justificación</h3>
+<p>La Ley 1581 de 2012 obliga a proteger los datos personales y la Ley 594 de 2000 regula la gestión de archivos del país. El técnico que domina estos conceptos reduce riesgos, ahorra tiempo y garantiza la trazabilidad de los documentos laborales.</p>
+<h3>2.3 Objetivos</h3>
+<div class="grid"><div class="cd"><b>General</b><p>Conceptualizar los componentes de hardware, software, redes, seguridad y reprografía, y su aplicación en procesos de Talento Humano.</p></div>
+<div class="cd"><b>Específicos</b><ul><li>Diferenciar hardware y software con ejemplos.</li><li>Explicar la organización y respaldo de archivos.</li><li>Describir equipos de reprografía y su uso.</li><li>Identificar obligaciones legales sobre datos.</li></ul></div></div>
+</section>
+
+<!-- HARDWARE -->
+<section class="page" id="hw">
+<h2>3. MARCO TEÓRICO I: <span>HARDWARE</span></h2>
+<p>El hardware es el conjunto de elementos físicos de un sistema informático. La mayoría de computadores actuales sigue la arquitectura propuesta por John von Neumann en 1945, en la que una unidad de procesamiento, una memoria, dispositivos de entrada y salida y un almacenamiento trabajan coordinados (Von Neumann, 1945; Stallings, 2016).</p>
+<h3>3.1 Componentes principales</h3>
+<table><tr><th>Componente</th><th>Función</th><th>Ejemplo en Talento Humano</th></tr>
+<tr><td>CPU (procesador)</td><td>Ejecuta instrucciones y cálculos.</td><td>Calcular la nómina en una hoja de cálculo.</td></tr>
+<tr><td>Memoria RAM</td><td>Memoria temporal y rápida; se borra al apagar.</td><td>Abrir varios expedientes a la vez.</td></tr>
+<tr><td>Almacenamiento (HDD, SSD)</td><td>Guarda datos de forma persistente.</td><td>Archivo digital de contratos.</td></tr>
+<tr><td>Placa base</td><td>Interconecta todos los componentes.</td><td>Base del equipo de escritorio.</td></tr>
+<tr><td>Entrada</td><td>Introduce datos al sistema.</td><td>Teclado, escáner, lector biométrico.</td></tr>
+<tr><td>Salida</td><td>Presenta resultados.</td><td>Monitor, impresora.</td></tr></table>
+<h3>3.2 Almacenamiento: disco duro frente a SSD</h3>
+<p>El disco duro (HDD) guarda datos magnéticamente en platos giratorios; es económico por gigabyte pero más lento y sensible a golpes. El SSD usa memoria flash sin partes móviles, por lo que es más rápido y resistente (Tanenbaum y Bos, 2015).</p>
+<h3>3.2.1 Unidades de medida</h3>
+<p>Un bit es la unidad mínima (0 o 1) y un byte equivale a 8 bits. En el sistema decimal usado por fabricantes: 1 kB = 1.000 bytes, 1 MB = 1.000 kB, 1 GB = 1.000 MB y 1 TB = 1.000 GB. Existen además las unidades binarias (KiB, MiB, GiB) basadas en múltiplos de 1.024, normalizadas por la IEC.</p>
+<div class="box p"><b>Dato clave:</b> un archivo de 2 kB (decimal) contiene 2.000 × 8 = 16.000 bits.</div>
+<h3>3.3 Periféricos</h3>
+<p>Son dispositivos externos al núcleo del equipo. Se clasifican en entrada (teclado, ratón, escáner, lector de códigos), salida (monitor, impresora) y entrada/salida o mixtos (pantalla táctil, unidades externas, multifuncionales).</p>
+</section>
+
+<!-- SOFTWARE -->
+<section class="page" id="sw">
+<h2>4. MARCO TEÓRICO II: <span>SOFTWARE</span></h2>
+<p>El software es el conjunto de programas e instrucciones que indican al hardware qué hacer. Sin software, el equipo físico no puede realizar tareas útiles (Laudon y Laudon, 2016).</p>
+<div class="grid">
+<div class="cd"><b>Software de sistema</b><p>Administra los recursos del equipo: sistemas operativos (Windows, macOS, Linux, Android), controladores (drivers) y utilidades.</p></div>
+<div class="cd"><b>Software de aplicación</b><p>Resuelve tareas del usuario: procesadores de texto, hojas de cálculo, software de nómina, sistemas de información de recursos humanos (HRIS), correo.</p></div>
+<div class="cd"><b>Firmware</b><p>Programa grabado en el hardware, como el de una impresora o un router.</p></div>
+<div class="cd"><b>Software de seguridad</b><p>Antivirus, cortafuegos (firewall) y herramientas de copia de seguridad.</p></div></div>
+<h3>4.1 Tipos de licenciamiento</h3>
+<table><tr><th>Tipo</th><th>Característica</th></tr>
+<tr><td>Propietario</td><td>Se usa bajo licencia del fabricante; el código no suele ser accesible.</td></tr>
+<tr><td>Libre / código abierto</td><td>Permite usar, estudiar, modificar y distribuir (ej.: Linux, LibreOffice).</td></tr>
+<tr><td>Suscripción / SaaS</td><td>Se accede por internet y se paga periódicamente.</td></tr></table>
+<p>Usar software sin licencia constituye una infracción de derechos de autor, regulados en Colombia por la Ley 23 de 1982.</p>
+<h3>4.2 Parametrización</h3>
+<p>Parametrizar es establecer los criterios y valores de configuración de un sistema para que opere de modo uniforme: formatos de fecha, nombres de campos, permisos de usuario, plantillas, estructura de carpetas y reglas de nomenclatura. Una buena parametrización evita duplicados, errores y pérdida de tiempo.</p>
+<div class="box"><b>Ejemplo de convención de nombres:</b> AAAA-MM-DD_TIPO_Apellido-Nombre_v01.pdf → <i>2026-10-21_HV_Lopez-Maria_v01.pdf</i>. La fecha en formato año-mes-día permite ordenar cronológicamente.</div>
+</section>
+
+<!-- REDES -->
+<section class="page" id="red">
+<h2>5. MARCO TEÓRICO III: <span>REDES Y NUBE</span></h2>
+<p>Una red es un conjunto de dispositivos interconectados que comparten datos y recursos (impresoras, archivos, internet). Se clasifican por alcance:</p>
+<table><tr><th>Tipo</th><th>Alcance</th><th>Ejemplo</th></tr>
+<tr><td>LAN</td><td>Local: oficina o edificio.</td><td>Red interna de la empresa.</td></tr>
+<tr><td>WLAN</td><td>LAN inalámbrica (estándar IEEE 802.11, Wi-Fi).</td><td>Wi-Fi de la sala de selección.</td></tr>
+<tr><td>WAN</td><td>Amplia: ciudades o países.</td><td>Conexión entre sedes; internet.</td></tr></table>
+<p>La comunicación se rige por protocolos; el conjunto TCP/IP sustenta internet, y el modelo OSI de siete capas es una referencia teórica para explicarlo (Tanenbaum y Wetherall, 2011). Equipos habituales: router, switch y punto de acceso.</p>
+<h3>5.1 Computación en la nube</h3>
+<p>El NIST la define como un modelo que permite el acceso por red, bajo demanda, a recursos informáticos compartidos (Mell y Grance, 2011). Sus modelos de servicio son:</p>
+<ul><li><b>SaaS</b> (software como servicio): usar aplicaciones en línea, p. ej. correo o un HRIS web.</li><li><b>PaaS</b> (plataforma): entorno para desarrollar aplicaciones.</li><li><b>IaaS</b> (infraestructura): servidores y almacenamiento virtuales.</li></ul>
+<div class="box p"><b>Ventajas:</b> acceso remoto, redundancia, escalabilidad. <b>Riesgos:</b> dependencia de internet y del proveedor, y ubicación de los datos personales (verificar condiciones de transferencia internacional).</div>
+</section>
+
+<!-- ARCHIVOS -->
+<section class="page" id="arch">
+<h2>6. MARCO TEÓRICO IV: <span>ORGANIZACIÓN DE ARCHIVOS Y DATOS</span></h2>
+<p>Un <b>fichero</b> o archivo es la unidad básica de almacenamiento; una <b>carpeta</b> los agrupa jerárquicamente; el <b>sistema de archivos</b> (NTFS, FAT32, exFAT, ext4, APFS) define cómo se guardan en el disco.</p>
+<h3>6.1 Buenas prácticas de organización</h3>
+<ul><li>Estructura jerárquica por proceso: Selección, Contratación, Nómina, Capacitación, Retiro.</li><li>Nombres descriptivos, sin espacios ni caracteres especiales, con fecha y versión.</li><li>Un solo repositorio oficial por documento; evitar copias dispersas en el escritorio.</li><li>Permisos por rol: solo quien lo necesita accede a historias laborales.</li></ul>
+<h3>6.2 Copias de seguridad</h3>
+<p>Una copia de seguridad previene pérdidas por fallas, borrado accidental, robo o ransomware. La regla <b>3-2-1</b> recomienda mantener al menos <b>3</b> copias de los datos, en <b>2</b> tipos de medios distintos y <b>1</b> copia fuera del sitio (por ejemplo, en la nube), práctica difundida por el fotógrafo Peter Krogh y respaldada por CISA/US-CERT (Ruiz, 2012; US-CERT, 2012). Tipos de copia:</p>
+<table><tr><th>Tipo</th><th>Qué guarda</th></tr><tr><td>Completa</td><td>Todos los datos seleccionados.</td></tr><tr><td>Incremental</td><td>Solo lo cambiado desde la última copia.</td></tr><tr><td>Diferencial</td><td>Lo cambiado desde la última copia completa.</td></tr></table>
+<p>Una copia solo sirve si se prueba su restauración periódicamente (NIST, 2010).</p>
+<h3>6.3 Tipos de datos</h3>
+<table><tr><th>Tipo</th><th>Descripción</th><th>Ejemplo</th></tr>
+<tr><td>Numérico</td><td>Solo cifras, para cálculos.</td><td>Salario, horas.</td></tr>
+<tr><td>Alfabético</td><td>Solo letras.</td><td>Nombre del empleado.</td></tr>
+<tr><td>Alfanumérico</td><td>Letras y números.</td><td>Código de empleado EMP-0045.</td></tr>
+<tr><td>Códigos</td><td>Información codificada.</td><td>Código de barras en el carné, QR.</td></tr></table>
+<p>El código de barras se popularizó tras el primer escaneo comercial en 1974; el código QR fue creado en 1994 por Denso Wave y permite almacenar más datos en una matriz bidimensional.</p>
+</section>
+
+<!-- SEGURIDAD -->
+<section class="page" id="seg">
+<h2>7. MARCO TEÓRICO V: <span>SEGURIDAD Y MARCO LEGAL</span></h2>
+<p>La seguridad de la información se sostiene en tres propiedades, conocidas como tríada CIA: <b>confidencialidad</b> (solo accede quien debe), <b>integridad</b> (los datos no se alteran sin autorización) y <b>disponibilidad</b> (están accesibles cuando se necesitan). La norma ISO/IEC 27001 establece los requisitos de un sistema de gestión de seguridad de la información.</p>
+<h3>7.1 Controles básicos</h3>
+<ul><li>Contraseñas robustas y, si es posible, autenticación de doble factor.</li><li>Actualización de sistemas y antivirus; uso de cortafuegos.</li><li>Cifrado de dispositivos portátiles y discos externos.</li><li>Bloqueo de pantalla y política de escritorio limpio.</li><li>Capacitación ante el phishing, principal vía de ataque a empleados.</li></ul>
+<h3>7.2 Normativa colombiana relevante</h3>
+<table><tr><th>Norma</th><th>Aporte</th></tr>
+<tr><td>Ley 1581 de 2012</td><td>Régimen general de protección de datos personales (habeas data); define datos sensibles como los de salud, entre otros, y exige autorización, finalidad y seguridad.</td></tr>
+<tr><td>Decreto 1377 de 2013</td><td>Reglamenta parcialmente la Ley 1581 (autorización, políticas de tratamiento); hoy compilado en el Decreto 1074 de 2015.</td></tr>
+<tr><td>Ley 527 de 1999</td><td>Reconoce validez jurídica a los mensajes de datos y a las firmas digitales.</td></tr>
+<tr><td>Ley 594 de 2000</td><td>Ley General de Archivos: gestión documental y tablas de retención.</td></tr>
+<tr><td>Ley 1273 de 2009</td><td>Tipifica delitos informáticos (acceso abusivo, daño informático).</td></tr></table>
+<div class="box"><b>Aplicación:</b> un diagnóstico médico de un empleado es dato sensible. Solo puede tratarse con autorización expresa, para una finalidad definida y con acceso restringido.</div>
+</section>
+
+<!-- REPROGRAFÍA -->
+<section class="page" id="repro">
+<h2>8. MARCO TEÓRICO VI: <span>REPROGRAFÍA Y DIGITALIZACIÓN</span></h2>
+<p>La reprografía comprende los procesos y equipos para reproducir documentos. La fotocopia se basa en la xerografía, inventada por Chester Carlson en 1938, que usa electricidad estática y tóner.</p>
+<table><tr><th>Equipo</th><th>Funcionamiento</th><th>Criterios de selección</th></tr>
+<tr><td>Fotocopiadora</td><td>Lectura óptica y transferencia electrostática del tóner al papel.</td><td>Velocidad (ppm), ampliación/reducción, costo por copia.</td></tr>
+<tr><td>Escáner</td><td>Captura óptica y conversión a imagen digital; con OCR genera texto editable.</td><td>Resolución (ppp/dpi), alimentador automático, formatos PDF/A.</td></tr>
+<tr><td>Duplicadora</td><td>Reproduce grandes tirajes a partir de un original.</td><td>Velocidad, bajo costo por copia en volúmenes altos.</td></tr>
+<tr><td>Impresora láser</td><td>Proceso electrofotográfico con tóner.</td><td>Alta velocidad y volumen de oficina.</td></tr>
+<tr><td>Impresora de inyección</td><td>Proyecta gotas de tinta sobre el papel.</td><td>Buena calidad de color, bajo volumen.</td></tr></table>
+<h3>8.1 Digitalización de documentos</h3>
+<p>Para expedientes laborales se recomienda escanear entre 200 y 300 ppp en escala de grises o blanco y negro, aplicar OCR para búsqueda de texto y guardar en PDF, preferiblemente PDF/A para conservación a largo plazo (ISO 19005). Después se verifica la legibilidad, se nombra según la convención y se aplican los tiempos de retención definidos en la tabla de retención documental antes de destruir el original.</p>
+</section>
+
+<!-- APLICACIÓN -->
+<section class="page" id="th">
+<h2>9. APLICACIÓN <span>EN TALENTO HUMANO</span></h2>
+<p>El proceso de contratación ilustra la integración de los componentes:</p>
+<table><tr><th>Etapa</th><th>Hardware</th><th>Software</th><th>Red / seguridad</th></tr>
+<tr><td>Recepción de hojas de vida</td><td>Escáner, PC</td><td>OCR, correo, HRIS</td><td>Correo seguro; autorización de datos</td></tr>
+<tr><td>Contratación</td><td>Impresora láser</td><td>Procesador de texto, firma digital</td><td>Carpeta con permisos</td></tr>
+<tr><td>Control de asistencia</td><td>Lector biométrico o de carné</td><td>Monitor de asistencia</td><td>LAN; base de datos protegida</td></tr>
+<tr><td>Respaldo</td><td>Disco externo, NAS</td><td>Herramienta de copias</td><td>Copia en la nube (regla 3-2-1)</td></tr></table>
+<h3>9.1 Ejemplo de dimensionamiento</h3>
+<p>Si ingresan 120 expedientes al mes, de 25 páginas cada uno, y cada página escaneada pesa 0,2 MB: 120 × 25 × 0,2 = 600 MB al mes, es decir 7,2 GB al año. Con tres copias (regla 3-2-1) se requieren 21,6 GB anuales. Estas cifras son un ejemplo didáctico; el peso real depende de resolución y formato.</p>
+</section>
+
+<!-- METODOLOGÍA -->
+<section class="page" id="met">
+<h2>10. <span>METODOLOGÍA</span></h2>
+<p>Se realizó una investigación documental de tipo descriptivo. Las fuentes fueron libros de texto de arquitectura de computadores y sistemas de información, publicaciones del NIST y de CISA/US-CERT, normas colombianas vigentes y el material de la guía «Retos del planeta Byteon» (Misión Básica N.° 5). La información se clasificó por componentes (hardware, software, redes, archivos, seguridad y reprografía) y luego se relacionó con procesos de Talento Humano.</p>
+<div class="box p"><b>Limitaciones:</b> es un estudio teórico sin trabajo de campo; las normas y cifras deben verificarse en sus fuentes oficiales antes de su uso formal.</div>
+
+<h2 id="conc" style="margin-top:28px">11. CONCLUSIONES <span>Y RECOMENDACIONES</span></h2>
+<h3>Conclusiones</h3>
+<ul><li>Hardware y software son interdependientes: el equipo físico sin programas no opera, y los programas sin equipo adecuado no rinden.</li><li>La parametrización y la nomenclatura de archivos reducen errores y facilitan la búsqueda y la auditoría.</li><li>Las copias de seguridad bajo la regla 3-2-1, probadas periódicamente, son la defensa más práctica contra pérdidas de información.</li><li>Los datos de empleados son datos personales y a veces sensibles: su manejo exige autorización, finalidad y acceso restringido.</li><li>Los equipos de reprografía deben elegirse según volumen, calidad y costo, y complementarse con digitalización ordenada.</li></ul>
+<h3>Recomendaciones</h3>
+<ul><li>Definir una política escrita de nomenclatura, estructura de carpetas y respaldos.</li><li>Capacitar periódicamente al personal en seguridad y protección de datos.</li><li>Documentar permisos de acceso y revisarlos al menos semestralmente.</li><li>Probar la restauración de copias y actualizar software con regularidad.</li></ul>
+</section>
+
+<!-- GLOSARIO + REFS -->
+<section class="page" id="glos">
+<h2>12. <span>GLOSARIO</span></h2>
+<table><tr><th>Término</th><th>Definición</th></tr>
+<tr><td>Bit / Byte</td><td>Unidad mínima de información (0/1) / conjunto de 8 bits.</td></tr>
+<tr><td>HRIS</td><td>Sistema de información de recursos humanos.</td></tr>
+<tr><td>OCR</td><td>Reconocimiento óptico de caracteres.</td></tr>
+<tr><td>ppp / dpi</td><td>Puntos por pulgada: medida de resolución.</td></tr>
+<tr><td>NAS</td><td>Almacenamiento conectado a la red.</td></tr>
+<tr><td>Ransomware</td><td>Programa que cifra datos y exige un pago.</td></tr>
+<tr><td>Phishing</td><td>Engaño por correo o mensaje para robar credenciales.</td></tr>
+<tr><td>Habeas data</td><td>Derecho a conocer, actualizar y rectificar datos personales.</td></tr></table>
+
+<h2 id="refs" style="margin-top:24px">13. REFERENCIAS <span>BIBLIOGRÁFICAS</span> (APA 7)</h2>
+<p class="ref">Congreso de la República de Colombia. (2000). <i>Ley 594 de 2000, Ley General de Archivos</i>.</p>
+<p class="ref">Congreso de la República de Colombia. (2009). <i>Ley 1273 de 2009</i>. Protección de la información y de los datos.</p>
+<p class="ref">Congreso de la República de Colombia. (2012). <i>Ley Estatutaria 1581 de 2012</i>. Disposiciones generales para la protección de datos personales.</p>
+<p class="ref">Congreso de la República de Colombia. (1999). <i>Ley 527 de 1999</i>. Acceso y uso de los mensajes de datos, comercio electrónico y firmas digitales.</p>
+<p class="ref">International Organization for Standardization. (2022). <i>ISO/IEC 27001:2022 Information security management systems — Requirements</i>.</p>
+<p class="ref">Laudon, K. C., y Laudon, J. P. (2016). <i>Sistemas de información gerencial</i> (14.ª ed.). Pearson.</p>
+<p class="ref">Mell, P., y Grance, T. (2011). <i>The NIST definition of cloud computing</i> (NIST Special Publication 800-145). National Institute of Standards and Technology.</p>
+<p class="ref">Ruiz, P. (2012). <i>The 3-2-1 backup rule</i>. Referencia a Krogh, P., <i>The DAM Book</i> (2005, O'Reilly).</p>
+<p class="ref">National Institute of Standards and Technology. (2010). <i>Contingency planning guide for federal information systems</i> (NIST SP 800-34 Rev. 1).</p>
+<p class="ref">Stallings, W. (2016). <i>Organización y arquitectura de computadores</i> (10.ª ed.). Pearson.</p>
+<p class="ref">Tanenbaum, A. S., y Bos, H. (2015). <i>Modern operating systems</i> (4.ª ed.). Pearson.</p>
+<p class="ref">Tanenbaum, A. S., y Wetherall, D. J. (2011). <i>Computer networks</i> (5.ª ed.). Pearson.</p>
+<p class="ref">US-CERT. (2012). <i>Data backup options</i> (Security Tip ST04-004). Cybersecurity and Infrastructure Security Agency.</p>
+<p class="ref">Von Neumann, J. (1945). <i>First draft of a report on the EDVAC</i>. Moore School of Electrical Engineering, University of Pennsylvania.</p>
+<p class="ref">SENA. (2025). <i>Retos del planeta Byteon: Misión Básica N.° 5</i>. Técnico en Talento Humano. Material de formación.</p>
+</section>
+<footer>MISIÓN BYTEON · Informe de investigación · Técnico en Talento Humano</footer>
+</div>
+</body>
+</html>
