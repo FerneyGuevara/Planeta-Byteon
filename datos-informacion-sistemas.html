@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -402,6 +402,24 @@
       color: #FFFFFF;
     }
 
+    .intro-material-card {
+      display: block;
+    }
+
+    .intro-material-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .intro-file-preview {
+      display: block;
+      width: 100%;
+      height: 360px;
+      margin-top: 14px;
+      border: 1px solid var(--border-cool);
+      border-radius: 8px;
+      background: var(--paper);
+    }
+
     main {
       max-width: 1080px;
       margin: 0 auto;
@@ -441,6 +459,10 @@
       border: 1px solid var(--border-cool);
       border-radius: 10px;
       padding: 22px 24px;
+    }
+
+    .intro-grid>.card-basic {
+      align-self: start;
     }
 
     .card-intro-img {
@@ -565,6 +587,10 @@
       }
 
       .intro-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-material-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -1275,10 +1301,19 @@
       }
 
       .report-project-title {
-        font-size: 10.5pt;
+        font-size: 11pt;
         font-weight: 900;
         color: #14213D;
         margin-bottom: 2px;
+      }
+
+      .report-project-context {
+        font-size: 8pt;
+        font-weight: 700;
+        color: #8C5D1E;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 3px;
       }
 
       .report-project-sub {
@@ -2064,6 +2099,7 @@
         <button data-section="dashboard">Dashboard</button>
         <button data-section="fisica">Actividad presencial</button>
         <button data-section="partesinteresadas">Partes Interesadas</button>
+        <button data-section="aduana">Aduana</button>
       </nav>
     </div>
   </div>
@@ -2104,8 +2140,41 @@
             <button data-goto="dashboard">📊 Dashboard — resultados, gráficos y análisis</button>
             <button data-goto="fisica">✋ Actividad presencial — versión física del juego</button>
             <button data-goto="partesinteresadas">👥 Partes Interesadas - Esquema y diagrama de roles</button>
+            <button data-goto="aduana">📦 Aduana - Envío de evidencias y acumulador de NEXs</button>
           </div>
         </div>
+      </div>
+      <div class="material-grid intro-material-grid">
+        <article class="material-card intro-material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO HTML</span>
+            <h3>Del bit a la toma de decisiones</h3>
+            <p>Recurso interactivo para explorar datos, información y sistemas de información aplicados a la toma de
+              decisiones.</p>
+            <a href="Del%20bit%20a%20la%20toma%20de%20decisiones_%20datos.html" target="_blank" rel="noopener"
+              class="material-btn">Abrir documento ↗</a>
+            <a href="Del%20bit%20a%20la%20toma%20de%20decisiones_%20datos.html"
+              download="Del bit a la toma de decisiones_ datos.html" class="material-btn">Descargar documento ⬇</a>
+            <iframe src="Del%20bit%20a%20la%20toma%20de%20decisiones_%20datos.html" class="intro-file-preview"
+              title="Vista previa de Del bit a la toma de decisiones"></iframe>
+          </div>
+        </article>
+        <article class="material-card intro-material-card">
+          <div class="material-icon">📊</div>
+          <div class="material-body">
+            <span class="tag">PRESENTACIÓN POWERPOINT</span>
+            <h3>Del Bit a la Decisión</h3>
+            <p>Presentación de apoyo para la actividad sobre datos, información y toma de decisiones. Vista previa
+              convertida a PDF; se conserva el archivo PowerPoint original para descargar.</p>
+            <a href="Del_Bit_a_la_Decisi%C3%B3n.pdf" target="_blank" rel="noopener" class="material-btn">Abrir
+              vista previa ↗</a>
+            <a href="Del_Bit_a_la_Decisi%C3%B3n.pptx" download="Del_Bit_a_la_Decisión.pptx"
+              class="material-btn">Descargar PowerPoint ⬇</a>
+            <iframe src="Del_Bit_a_la_Decisi%C3%B3n.pdf#toolbar=1&navpanes=0" class="intro-file-preview"
+              title="Vista previa de la presentación Del Bit a la Decisión"></iframe>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -2537,7 +2606,6 @@
           </div>
           <div class="eval-actions">
             <button type="submit" class="primary">Ver veredicto</button>
-            <button type="button" class="ghost" data-reset="evalFormGeneral">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormGeneral">
@@ -2614,7 +2682,6 @@
           </div>
           <div class="eval-actions">
             <button type="submit" class="primary">Ver veredicto</button>
-            <button type="button" class="ghost" data-reset="evalFormTecnico">Reiniciar</button>
           </div>
         </form>
         <div class="verdict" id="verdict-evalFormTecnico">
@@ -2760,6 +2827,20 @@
         </ol>
         <button class="ghost print-btn" id="printBtn">🖨️ Imprimir tarjetas y hoja de respuestas</button>
       </div>
+      <div class="material-grid">
+        <article class="material-card">
+          <div class="material-icon">📄</div>
+          <div class="material-body">
+            <span class="tag">DOCUMENTO PDF</span>
+            <h3>Actividad del Bit a la Decisión — Talento Humano</h3>
+            <p>Documento de apoyo para realizar la actividad presencial de la misión.</p>
+            <a href="Actividad_Del_Bit_a_la_Decision_Talento_Humano.pdf" target="_blank" rel="noopener"
+              class="material-btn">Abrir documento PDF ↗</a>
+            <a href="Actividad_Del_Bit_a_la_Decision_Talento_Humano.pdf"
+              download="Actividad_Del_Bit_a_la_Decision_Talento_Humano.pdf" class="material-btn">Descargar PDF ⬇</a>
+          </div>
+        </article>
+      </div>
     </section>
 
     <!-- PARTES INTERESADAS -->
@@ -2821,6 +2902,15 @@
         </div>
       </div>
     </section>
+
+    <!-- PESTAÑA ADUANA -->
+    <section data-section="aduana">
+      <div class="aduana-frame-wrapper" style="width: 100%; min-height: 860px; margin: 0 auto;">
+        <iframe id="aduanaFrame" src="aduana.html" title="Aduana de Evidencias y Acumulador de NEXs"
+          style="width: 100%; border: none; min-height: 860px; background: transparent; display: block;"
+          loading="lazy"></iframe>
+      </div>
+    </section>
   </main>
 
   <!-- Printable content, only visible via window.print() -->
@@ -2860,12 +2950,13 @@
       </div>
 
       <div class="report-project-card">
-        <div class="report-project-title">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
+        <div class="report-project-title">Reto 2. Datos, informaci&oacute;n y sistemas de informaci&oacute;n</div>
+        <div class="report-project-context">RETOS DEL PLANETA BYTEON &mdash; REPORTE DE EVALUACI&Oacute;N Y
           DESEMPE&Ntilde;O</div>
         <div class="report-project-sub">
           <strong>FASES DEL PROYECTO:</strong> AN&Aacute;LISIS Y PLANEACI&Oacute;N &bull;
           <strong>PROGRAMA:</strong> T&Eacute;CNICO EN TALENTO HUMANO &bull;
-          <strong>RETO:</strong> 2. DATOS, INFORMACI&Oacute;N Y SISTEMAS DE INFORMACI&Oacute;N
+          <strong>RETO:</strong> Reto 2. Datos, informaci&oacute;n y sistemas de informaci&oacute;n
         </div>
         <div class="report-ra">
           <strong>RESULTADOS DE APRENDIZAJE:</strong>
@@ -3068,10 +3159,28 @@
       sections.forEach(s => s.classList.toggle('active', s.dataset.section === name));
       window.scrollTo({ top: 0, behavior: 'smooth' });
       if (name === 'dashboard') renderDashboard();
+      if (name === 'aduana') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && frame.contentWindow) {
+          try {
+            frame.contentWindow.postMessage({ type: 'aduana-check-height' }, '*');
+          } catch (e) { }
+        }
+      }
     }
     tabButtons.forEach(b => b.addEventListener('click', () => goTo(b.dataset.section)));
     document.querySelectorAll('[data-goto]').forEach(b => {
       b.addEventListener('click', () => goTo(b.dataset.goto));
+    });
+
+    // Ajuste dinámico de altura para el iframe de Aduana
+    window.addEventListener('message', (ev) => {
+      if (ev.data && ev.data.type === 'aduana-resize') {
+        const frame = document.getElementById('aduanaFrame');
+        if (frame && ev.data.height) {
+          frame.style.height = ev.data.height + 'px';
+        }
+      }
     });
 
     // ---------- Evaluador sub-nav ----------
@@ -3140,10 +3249,13 @@
         saveDash();
       });
 
-      form.parentElement.querySelector('[data-reset="' + formId + '"]').addEventListener('click', () => {
-        form.reset();
-        verdictBox.classList.remove('show', 'low', 'mid', 'high');
-      });
+      const resetBtn = form.parentElement.querySelector('[data-reset="' + formId + '"]');
+      if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+          form.reset();
+          verdictBox.classList.remove('show', 'low', 'mid', 'high');
+        });
+      }
     }
     setupEvaluator('evalFormGeneral');
     setupEvaluator('evalFormTecnico');
@@ -3759,13 +3871,17 @@
       printReportBtn.addEventListener('click', () => {
         populatePrintReport();
         document.body.classList.add('printing-report');
+        const prevTitle = document.title;
+        document.title = 'Reto 2. Datos, información y sistemas de información';
         window.print();
+        setTimeout(() => { document.title = prevTitle; }, 1000);
       });
     }
 
     window.addEventListener('afterprint', () => {
       document.body.classList.remove('printing-cards');
       document.body.classList.remove('printing-report');
+      document.title = 'Datos, información y sistemas de información — analiza, clasifica y evalúa';
     });
 
     // ---------- Modal Lightbox (Mapa Mental y Ciclo de Vida) ----------

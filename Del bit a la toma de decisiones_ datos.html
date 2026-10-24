@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Del bit a la toma de decisiones: datos, información y sistemas de información</title>
+<style>
+:root{--bg:#0b1026;--card:#121a3a;--tx:#e6ecff;--mu:#9fb0e0;--c1:#22d3ee;--c2:#8b5cf6;--c3:#f472b6;--bd:#26325f;--th:#1a2550;--h3:#b8a4ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f7ff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#d5ddf5;--th:#e8eeff;--h3:#6d28d9;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f4f7ff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#d5ddf5;--th:#e8eeff;--h3:#6d28d9;color-scheme:light}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 "Segoe UI",system-ui,-apple-system,Arial,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--bd)}
+.bar b{color:var(--c1);letter-spacing:.08em;font-size:.85rem}
+button{cursor:pointer;border:0;border-radius:999px;padding:9px 20px;font:600 .9rem inherit;color:#fff;background:linear-gradient(90deg,var(--c2),var(--c1))}
+main{max-width:900px;margin:0 auto;padding:20px}
+.cover{min-height:92vh;display:flex;flex-direction:column;justify-content:center;padding:48px 36px;border-radius:20px;color:#e6ecff;background:radial-gradient(circle at 80% 15%,#8b5cf655,transparent 40%),radial-gradient(circle at 10% 90%,#22d3ee44,transparent 40%),linear-gradient(160deg,#050816,#12195a);border:1px solid #3b4a9a;position:relative;overflow:hidden}
+.cover:before{content:"";position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#9fe 1px,transparent 1px);background-size:70px 70px,110px 110px;background-position:0 0,35px 50px;opacity:.25}
+.cover>*{position:relative}.tag{color:#22d3ee;letter-spacing:.3em;font-size:.8rem;font-weight:700}
+.cover h1{font-size:2.3rem;line-height:1.2;margin:14px 0;background:linear-gradient(90deg,#22d3ee,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cover p{color:#c7d2fe;margin:4px 0}.bits{font:700 .9rem/1.4 ui-monospace,Consolas,monospace;color:#22d3ee;opacity:.8;margin-top:18px;letter-spacing:.1em}
+.meta{margin-top:26px;border-left:3px solid #22d3ee;padding-left:16px;font-size:.95rem}
+nav.toc{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:22px 26px;margin:26px 0}
+nav.toc ol{columns:2;column-gap:30px;margin:0;padding-left:1.3em}nav.toc li{margin:3px 0;break-inside:avoid}
+a{color:var(--c1);text-decoration:none}a:hover{text-decoration:underline}
+h2{display:flex;align-items:center;gap:12px;font-size:1.5rem;margin:40px 0 12px;padding-bottom:8px;border-bottom:2px solid transparent;border-image:linear-gradient(90deg,var(--c1),var(--c2),transparent) 1;color:var(--c1);break-after:avoid}
+h2 i{font-style:normal;font-size:.9rem;min-width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:#fff;background:linear-gradient(135deg,var(--c2),var(--c1))}
+h3{color:var(--h3);font-size:1.1rem;margin:20px 0 6px;break-after:avoid}
+.tbl{overflow-x:auto;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:.88rem;background:var(--card)}
+th{background:linear-gradient(90deg,var(--c2),var(--c1));color:#fff;text-align:left}th,td{padding:8px 10px;border:1px solid var(--bd);vertical-align:top}tr:nth-child(even) td{background:var(--th)}
+code,.mono{font-family:ui-monospace,Consolas,monospace;color:var(--c3)}
+.box{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--c3);border-radius:10px;padding:10px 16px;margin:12px 0}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:14px 0}
+.flow div{flex:1 1 120px;background:var(--card);border:1px solid var(--bd);border-top:3px solid var(--c1);border-radius:10px;padding:8px 10px;font-size:.85rem;position:relative;break-inside:avoid}
+.flow div:nth-child(even){border-top-color:var(--c2)}.flow b{display:block;color:var(--c1)}
+.flow div:not(:last-child):after{content:"\2192";position:absolute;right:-12px;top:40%;color:var(--c3);font-weight:700}
+ul,ol{padding-left:1.3em}li{margin:3px 0}.kw{color:var(--mu);font-size:.92rem}.ref p{padding-left:2em;text-indent:-2em;margin:6px 0;font-size:.9rem}
+footer{text-align:center;color:var(--mu);font-size:.8rem;margin:40px 0 20px}
+@page{size:A4;margin:16mm 14mm;@bottom-center{content:"Página " counter(page);font:10pt sans-serif;color:#555}}
+@media print{
+:root,:root[data-theme]{--bg:#fff;--card:#fff;--tx:#14193a;--mu:#4a5680;--c1:#0891b2;--c2:#6d28d9;--c3:#be185d;--bd:#cfd8f3;--th:#eef2ff;--h3:#6d28d9;color-scheme:light}
+body{font-size:11pt;background:#fff}.bar,footer{display:none}main{max-width:none;padding:0}
+.cover{min-height:255mm;border-radius:0;break-after:page}nav.toc{break-after:page;margin:0}
+h2,h3{break-after:avoid}table,tr,.box,li,.flow div{break-inside:avoid}.tbl{overflow:visible}h2{margin-top:22px}a{color:inherit}}
+</style>
+</head>
+<body>
+<div class="bar"><b>◈ BYTEON · RETO 2</b><button onclick="window.print()">🖨 Imprimir / Guardar PDF</button></div>
+<main>
+<section class="cover">
+<div class="tag">TÉCNICO EN TALENTO HUMANO</div>
+<h1>Del bit a la toma de decisiones: datos, información y sistemas de información en la gestión del talento humano</h1>
+<p>Fundamentos del sistema binario, la transformación de datos en información y los componentes y el ciclo de vida de los sistemas de información, con aplicación al caso del planeta Byteon</p>
+<div class="bits">01000010 01011001 01010100 01000101</div>
+<div class="meta"><p><b>Competencia:</b> Operación de herramientas informáticas y digitales para talento humano</p><p><b>Autor(a):</b> [Nombre completo del aprendiz]</p><p><b>Instructor(a):</b> [Nombre del instructor]</p><p><b>Ficha / Centro:</b> [Número de ficha] – [Centro de formación]</p><p><b>Bogotá D.C., octubre de 2026</b></p></div>
+</section>
+
+<nav class="toc"><h2 style="margin-top:0">Tabla de contenido</h2>
+<ol>
+<li><a href="#s1">Resumen y palabras clave</a></li><li><a href="#s2">Introducción</a></li><li><a href="#s3">Planteamiento del problema y justificación</a></li><li><a href="#s4">Objetivos</a></li><li><a href="#s5">Metodología</a></li><li><a href="#s6">Marco teórico</a></li><li><a href="#s7">Aplicación en talento humano</a></li><li><a href="#s8">Marco normativo (Colombia)</a></li><li><a href="#s9">Aplicación al caso Byteon</a></li><li><a href="#s10">Conclusiones</a></li><li><a href="#s11">Recomendaciones</a></li><li><a href="#s12">Glosario</a></li><li><a href="#s13">Referencias</a></li><li><a href="#s14">Anexo: ejercicios de codificación</a></li>
+</ol></nav>
+
+<h2 id="s1"><i>01</i>Resumen y palabras clave</h2>
+<p>Este trabajo explica cómo los datos se convierten en información útil para decidir sobre las personas en una organización. Parte del Reto 2 de la guía «Retos del planeta Byteon», que propone comprender el bit, el sistema binario, la transformación de datos en información y los sistemas de información. Se revisan el bit y el byte, la codificación de caracteres (ASCII y Unicode), la jerarquía datos-información-conocimiento, los criterios de calidad del dato, los componentes y el ciclo de vida de un sistema de información, y el marco legal colombiano sobre datos personales. Se ilustra con un ejemplo de ausentismo y se aplica al caso ficticio de Byteon. Se concluye que ninguna decisión de talento humano es mejor que los datos que la sustentan ni que el sistema que los gestiona.</p>
+<p class="kw"><b>Palabras clave:</b> bit, byte, sistema binario, dato, información, conocimiento, sistema de información, talento humano.</p>
+
+<h2 id="s2"><i>02</i>Introducción</h2>
+<p>Todo lo que hoy se guarda en un computador, desde una hoja de vida hasta el registro de asistencia, se representa con ceros y unos. Esa representación mínima, el bit, es la base sobre la que se construyen los datos, y estos, bien organizados, se vuelven información para decidir. El técnico en talento humano trabaja a diario con ese proceso, aunque no siempre lo vea.</p>
+<p>La guía de aprendizaje plantea que los «neógenos» de Byteon, un planeta ficticio, inducen al aprendiz en sus sistemas de información empezando por el «dato byteonario», es decir, por el bit. Este documento desarrolla esos conceptos con fuentes académicas y normativas reales y los lleva a ejemplos de gestión humana.</p>
+
+<h2 id="s3"><i>03</i>Planteamiento del problema y justificación</h2>
+<p>Con frecuencia se confunden datos con información: se acumulan cifras sin contexto, se archivan en formatos distintos y se toman decisiones sin saber de dónde salió cada número. Esto produce reportes contradictorios, errores de nómina y riesgos legales.</p>
+<div class="box"><b>Pregunta de investigación:</b> ¿cómo se transforman los datos en información útil para la toma de decisiones de talento humano y qué componentes de un sistema de información lo hacen posible?</div>
+<p>Comprender esta cadena permite documentar procesos, revisar la calidad de los registros, comunicarse con el área de tecnología y cumplir las normas de protección de datos.</p>
+
+<h2 id="s4"><i>04</i>Objetivos</h2>
+<p><b>General:</b> explicar el paso del bit a la información y a la decisión, y los componentes de un sistema de información, aplicándolo a la gestión del talento humano y al caso Byteon.</p>
+<ol><li>Describir el bit, el byte y el sistema binario, y su uso para codificar caracteres.</li><li>Diferenciar dato, información y conocimiento con ejemplos de talento humano.</li><li>Identificar los componentes, los tipos y el ciclo de vida de un sistema de información.</li><li>Reconocer criterios de calidad del dato y el marco legal colombiano aplicable.</li><li>Aplicar los conceptos a un ejercicio de ausentismo y al caso Byteon.</li></ol>
+
+<h2 id="s5"><i>05</i>Metodología</h2>
+<p>Investigación <b>documental descriptiva</b>, de enfoque cualitativo: lectura de la guía base, revisión de libros de texto, estándares técnicos y normas colombianas, síntesis de conceptos y construcción de un ejemplo numérico y de un diagrama. <b>Limitación:</b> Byteon es un escenario ficticio, y las normas deben verificarse en su versión vigente.</p>
+
+<h2 id="s6"><i>06</i>Marco teórico</h2>
+<h3>6.1 El bit y el sistema binario</h3>
+<p>El <b>bit</b> (<i>binary digit</i>) es la unidad mínima de información y toma solo dos valores, 0 o 1. El término se atribuye a John Tukey y lo difundió Claude Shannon en su teoría matemática de la comunicación (1948). Leibniz ya había descrito la aritmética binaria en 1703, y Shannon mostró en 1937 que los circuitos de conmutación podían analizarse con álgebra de Boole, lo que fundamentó los computadores digitales. Físicamente, un bit equivale a un interruptor apagado (0) o encendido (1) (Tanenbaum y Austin, 2013).</p>
+<p>Con <i>n</i> bits se pueden representar 2<sup>n</sup> valores distintos: 8 bits permiten 256 combinaciones.</p>
+<h3>6.2 Byte y múltiplos</h3>
+<p>Un <b>byte</b> equivale a 8 bits. Para sus múltiplos coexisten dos sistemas: el decimal (kB, MB, GB, TB, potencias de 1.000) y el binario definido en IEC 80000-13 (KiB, MiB, GiB, TiB, potencias de 1.024).</p>
+<div class="tbl"><table><tr><th>Unidad</th><th>Decimal (SI)</th><th>Binaria (IEC)</th></tr>
+<tr><td>Kilobyte</td><td>1 kB = 1.000 B</td><td>1 KiB = 1.024 B</td></tr>
+<tr><td>Megabyte</td><td>1 MB = 1.000.000 B</td><td>1 MiB = 1.048.576 B</td></tr>
+<tr><td>Gigabyte</td><td>1 GB = 10<sup>9</sup> B</td><td>1 GiB = 1.073.741.824 B</td></tr>
+<tr><td>Terabyte</td><td>1 TB = 10<sup>12</sup> B</td><td>1 TiB = 1.099.511.627.776 B</td></tr></table></div>
+<h3>6.3 Codificación de caracteres: ASCII y Unicode</h3>
+<p>Para guardar texto, cada carácter se asigna a un número. <b>ASCII</b> (1963) usa 7 bits para 128 caracteres: la letra «A» es el 65, que en binario de 8 bits se escribe <code>01000001</code>. <b>Unicode</b> amplía el repertorio a la mayoría de escrituras del mundo (incluidas tildes y la «ñ»), y su codificación <b>UTF-8</b> usa de 1 a 4 bytes por carácter y es compatible con ASCII (Yergeau, 2003). Ejemplo: «Hola» en ASCII es <code>01001000 01101111 01101100 01100001</code>.</p>
+<h3>6.4 Dato, información y conocimiento</h3>
+<p>Ackoff (1989) ordenó los contenidos de la mente en datos, información, conocimiento y sabiduría. Aplicado a la gestión humana:</p>
+<div class="tbl"><table><tr><th>Nivel</th><th>Definición</th><th>Ejemplo</th></tr>
+<tr><td><b>Dato</b></td><td>Registro de un hecho, sin contexto ni significado por sí solo.</td><td>«216» o «7,5»</td></tr>
+<tr><td><b>Información</b></td><td>Datos organizados e interpretados que responden una pregunta.</td><td>«El área Núcleo de datos tuvo 7,5 % de ausentismo en octubre»</td></tr>
+<tr><td><b>Conocimiento</b></td><td>Información contrastada con la experiencia, que orienta la acción.</td><td>«El ausentismo sube en turnos nocturnos; conviene revisar la rotación de turnos»</td></tr></table></div>
+<div class="flow"><div><b>Bit</b>0 o 1</div><div><b>Byte</b>8 bits</div><div><b>Dato</b>registro sin contexto</div><div><b>Información</b>dato organizado</div><div><b>Conocimiento</b>información interpretada</div><div><b>Decisión</b>acción en talento humano</div></div>
+<p>La guía describe cuatro etapas para pasar de datos a información: <b>captura</b> (sensores, dispositivos de entrada, personas), <b>procesamiento</b> (algoritmos, bases de datos, software), <b>almacenamiento</b> (medios físicos y digitales) y <b>distribución</b> (redes de comunicación).</p>
+<h3>6.5 Calidad del dato</h3>
+<p>El modelo ISO/IEC 25012 define características de calidad de los datos, entre ellas exactitud, completitud, consistencia, credibilidad, actualidad, accesibilidad, confidencialidad, trazabilidad y disponibilidad. Un dato de baja calidad produce información engañosa, por eso conviene validar en la captura (formatos, campos obligatorios, rangos).</p>
+<h3>6.6 Sistemas de información: componentes, tipos y ciclo de vida</h3>
+<p>Un sistema de información recopila, almacena, procesa y distribuye información para apoyar decisiones, coordinación y control (Laudon y Laudon, 2016). Sus componentes son <b>hardware</b>, <b>software</b>, <b>bases de datos</b>, <b>redes de comunicación</b> y <b>usuarios</b>, a los que se suman los <b>procesos</b> y las políticas de uso. Según su función se distinguen sistemas transaccionales, gerenciales, de apoyo a la decisión y de planificación empresarial (O’Brien y Marakas, 2011). En talento humano, el HRIS integra nómina, selección, formación y desempeño.</p>
+<p>El <b>ciclo de vida</b> describe las fases por las que pasa un sistema. El modelo en cascada de Royce (1970) y la norma ISO/IEC/IEEE 12207:2017 sirven de referencia; una versión habitual es:</p>
+<div class="flow"><div><b>1. Planeación</b>necesidad y alcance</div><div><b>2. Análisis</b>requisitos</div><div><b>3. Diseño</b>datos y procesos</div><div><b>4. Construcción</b>desarrollo o configuración</div><div><b>5. Pruebas</b>validación</div><div><b>6. Operación</b>uso y mantenimiento</div><div><b>7. Retiro</b>migración o archivo</div></div>
+
+<h2 id="s7"><i>07</i>Aplicación en talento humano: del dato a la decisión</h2>
+<p>Ejemplo del mes de octubre. Los <b>datos</b> son las horas programadas y las horas de ausencia. La <b>información</b> es el porcentaje de ausentismo, calculado como horas de ausencia ÷ horas programadas × 100. La meta interna supuesta es 5 % o menos.</p>
+<div class="tbl"><table><tr><th>Área</th><th>Horas programadas</th><th>Horas de ausencia</th><th>Ausentismo</th></tr>
+<tr><td>Logística</td><td>1.600</td><td>96</td><td>6,0 %</td></tr>
+<tr><td>Mantenimiento</td><td>1.280</td><td>32</td><td>2,5 %</td></tr>
+<tr><td>Núcleo de datos</td><td>960</td><td>72</td><td>7,5 %</td></tr>
+<tr><td>Reclutamiento</td><td>640</td><td>16</td><td>2,5 %</td></tr>
+<tr><td><b>Total</b></td><td><b>4.480</b></td><td><b>216</b></td><td><b>4,8 %</b></td></tr></table></div>
+<div class="box"><b>Lectura:</b> el total (4,8 %) cumple la meta, pero oculta que dos áreas la superan. El conocimiento surge al preguntar por qué (turnos, clima, salud ocupacional) y la decisión puede ser investigar esas áreas, no actuar sobre el promedio. Los componentes del sistema en este caso: lector de asistencia (hardware), hoja de cálculo o HRIS (software), base de asistencia (datos), red interna, y jefes y analistas (usuarios).</div>
+
+<h2 id="s8"><i>08</i>Marco normativo (Colombia)</h2>
+<ul><li><b>Ley Estatutaria 1581 de 2012 y Decreto 1074 de 2015:</b> protección de datos personales; define principios (finalidad, seguridad, confidencialidad) y datos sensibles, como los de salud, que exigen tratamiento especial.</li><li><b>Ley 1266 de 2008:</b> habeas data; distingue datos públicos, semiprivados y privados.</li><li><b>Ley 527 de 1999:</b> reconoce validez jurídica y probatoria a los mensajes de datos y a la firma digital.</li><li><b>Ley 1273 de 2009:</b> delitos informáticos (acceso abusivo, violación de datos personales).</li></ul>
+
+<h2 id="s9"><i>09</i>Aplicación al caso Byteon</h2>
+<p>En la guía, los neógenos gestionan la información del «núcleo prohibido» y su sistema se basa en la «computación cuántica». Conviene precisar la diferencia con la realidad: la computación cuántica no reemplaza al bit sino que usa el <b>qubit</b>, que puede estar en una combinación de 0 y 1 hasta que se mide y entonces da 0 o 1 (Nielsen y Chuang, 2010). Los datos que se almacenan y se muestran a las personas siguen codificándose en bits.</p>
+<div class="tbl"><table><tr><th>En la guía de Byteon</th><th>Equivalente real</th></tr>
+<tr><td>«Dato byteonario»</td><td>El bit y el byte como unidad de representación</td></tr>
+<tr><td>Captura, procesamiento, almacenamiento, distribución</td><td>Ciclo de tratamiento de la información</td></tr>
+<tr><td>Hardware, software, bases de datos, redes, usuarios</td><td>Componentes de un sistema de información</td></tr>
+<tr><td>«Núcleo prohibido» y «matriz cuántica»</td><td>Repositorio central y plataforma de datos con acceso restringido</td></tr>
+<tr><td>Unificación humano-robótica</td><td>Integración e interoperabilidad entre sistemas</td></tr></table></div>
+<p>Para el reporte a la entidad central se recomienda un diagrama que muestre el flujo bit, dato, información, conocimiento y decisión, con los componentes y las fases del ciclo de vida, como sugiere LucIA.</p>
+
+<h2 id="s10"><i>10</i>Conclusiones</h2>
+<ol><li>El bit es la base de toda representación digital; el byte, la unidad práctica para almacenar caracteres.</li><li>Los datos solo se vuelven información cuando se organizan y se interpretan en un contexto; el conocimiento aparece al contrastarlos con la experiencia.</li><li>Un sistema de información se compone de hardware, software, datos, redes y personas, y atraviesa un ciclo de vida que debe gestionarse.</li><li>La calidad del dato determina la calidad de la decisión; un promedio puede ocultar problemas por área.</li><li>En Colombia, los datos de los trabajadores están protegidos, sobre todo los sensibles.</li></ol>
+
+<h2 id="s11"><i>11</i>Recomendaciones</h2>
+<ul><li>Validar los datos en el momento de captura y documentar el significado de cada campo.</li><li>Presentar indicadores por área y no solo totales.</li><li>Mantener copias de seguridad y control de acceso, con trazabilidad de cambios.</li><li>Definir finalidad y autorización antes de recolectar datos personales.</li><li>Involucrar a los usuarios en las fases de análisis y pruebas de cualquier sistema nuevo.</li></ul>
+
+<h2 id="s12"><i>12</i>Glosario</h2>
+<ul><li><b>Bit:</b> unidad mínima de información (0 o 1).</li><li><b>Byte:</b> conjunto de 8 bits.</li><li><b>ASCII / Unicode:</b> estándares de codificación de caracteres.</li><li><b>Dato:</b> registro de un hecho sin contexto.</li><li><b>Información:</b> datos organizados e interpretados.</li><li><b>Sistema de información:</b> conjunto de hardware, software, datos, redes y personas que gestionan información.</li><li><b>Qubit:</b> unidad de información cuántica.</li><li><b>Trazabilidad:</b> posibilidad de rastrear el origen y los cambios de un dato.</li></ul>
+
+<h2 id="s13"><i>13</i>Referencias</h2>
+<div class="ref">
+<p>Ackoff, R. L. (1989). From data to wisdom. <i>Journal of Applied Systems Analysis, 16</i>, 3–9.</p>
+<p>American Standards Association. (1963). <i>American Standard Code for Information Interchange (ASA X3.4-1963)</i>.</p>
+<p>Chiavenato, I. (2009). <i>Gestión del talento humano</i> (3.ª ed.). McGraw-Hill.</p>
+<p>Congreso de la República de Colombia. (1999). <i>Ley 527 de 1999</i>. (2008). <i>Ley 1266 de 2008</i>. (2009). <i>Ley 1273 de 2009</i>. (2012). <i>Ley Estatutaria 1581 de 2012</i>.</p>
+<p>International Electrotechnical Commission. (2008). <i>IEC 80000-13: Quantities and units. Part 13: Information science and technology</i>.</p>
+<p>ISO/IEC. (2008). <i>ISO/IEC 25012:2008. Data quality model</i>.</p>
+<p>ISO/IEC/IEEE. (2017). <i>ISO/IEC/IEEE 12207:2017. Systems and software engineering — Software life cycle processes</i>.</p>
+<p>Laudon, K. C., y Laudon, J. P. (2016). <i>Sistemas de información gerencial</i> (14.ª ed.). Pearson.</p>
+<p>Leibniz, G. W. (1703). Explication de l’arithmétique binaire. <i>Mémoires de l’Académie Royale des Sciences</i>.</p>
+<p>Ministerio de Comercio, Industria y Turismo. (2015). <i>Decreto 1074 de 2015</i>.</p>
+<p>Nielsen, M. A., y Chuang, I. L. (2010). <i>Quantum computation and quantum information</i> (10th anniversary ed.). Cambridge University Press.</p>
+<p>O’Brien, J. A., y Marakas, G. M. (2011). <i>Sistemas de información gerencial</i> (9.ª ed.). McGraw-Hill.</p>
+<p>Royce, W. W. (1970). Managing the development of large software systems. <i>Proceedings of IEEE WESCON</i>, 1–9.</p>
+<p>SENA. (s. f.). <i>Retos del planeta Byteon, Reto 2: Datos, información y sistema de información</i> [Guía de aprendizaje].</p>
+<p>Shannon, C. E. (1948). A mathematical theory of communication. <i>Bell System Technical Journal, 27</i>(3), 379–423.</p>
+<p>Tanenbaum, A. S., y Austin, T. (2013). <i>Structured computer organization</i> (6th ed.). Pearson.</p>
+<p>Yergeau, F. (2003). <i>UTF-8, a transformation format of ISO 10646</i> (RFC 3629). IETF.</p>
+</div>
+
+<h2 id="s14"><i>14</i>Anexo: ejercicios de codificación</h2>
+<div class="tbl"><table><tr><th>Ejercicio</th><th>Enunciado</th><th>Respuesta</th></tr>
+<tr><td>1</td><td>Decodifique, con ASCII: <code>01000010 01011001 01010100 01000101</code></td><td>B = 66, Y = 89, T = 84, E = 69: «BYTE»</td></tr>
+<tr><td>2</td><td>¿Cuántos valores distintos representa 1 byte?</td><td>2<sup>8</sup> = 256</td></tr>
+<tr><td>3</td><td>¿Cuántos bits tiene un archivo de 2 kB (decimal)?</td><td>2.000 × 8 = 16.000 bits</td></tr>
+<tr><td>4</td><td>Escriba el 5 en binario.</td><td><code>101</code> (4 + 1)</td></tr></table></div>
+</main>
+<footer>Documento de investigación · Bogotá D.C., 2026</footer>
+</body>
+</html>
