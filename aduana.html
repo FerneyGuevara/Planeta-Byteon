@@ -65,7 +65,7 @@
           </div>
           <div style="display:flex; justify-content:space-between; color:#C9D3E6; font-size:0.85rem;">
             <span id="lblPuntosAcumulados">⚡ NEXs: 0</span>
-            <span id="lblRetosEntregados">📂 Retos: 0 / 9</span>
+            <span id="lblRetosEntregados">📂 Retos: 0 / 15</span>
           </div>
           <div
             style="margin-top:6px; padding-top:6px; font-size:0.82rem; color:#9FB3D6; border-top:1px dashed rgba(255,255,255,0.15);"
@@ -164,8 +164,8 @@
     </div>
 
     <script>
-      const TOTAL_RETOS_MISION = 9;
-      const URL_APLICACION_WEB = "https://script.google.com/macros/s/AKfycbz2G8gkCBVhtu8FYQkFsiS8f2Go3AUK1eG-bjcTfKRXhS0tPDLmJ9QaJJKhS5Jdszf1/exec";
+      const TOTAL_RETOS_MISION = 15;
+      const URL_APLICACION_WEB = "https://script.google.com/macros/s/AKfycbwnQK8JuhYINRQsTyY_Y5o7FngG-h5l_YGHGLH6jw3lmnvt8LQdf0B371EKuXNLrmfk/exec";
 
       pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
@@ -318,15 +318,21 @@
 
               // Grado que corresponde a cada reto
               const GRADOS_POR_RETO = {
-                1: "investigador Galáctico grado 8",
-                2: "investigador Galáctico grado 9",
-                3: "investigador Galáctico grado 10",
-                4: "jefe de investigacion grado 1",
-                5: "jefe de investigacion grado 2",
-                6: "jefe de investigacion grado 3",
-                7: "jefe de investigacion grado 4",
-                8: "jefe de investigacion grado 5",
-                9: "jefe de investigacion grado 6"
+                1: "Detective espacial grado 1",
+                2: "Detective espacial grado 2",
+                3: "Detective espacial grado 3",
+                4: "Detective espacial grado 4",
+                5: "Detective espacial grado 5",
+                6: "Detective espacial grado 6",
+                7: "Detective espacial grado 7",
+                8: "Detective supremo",
+                9: "Investigador Galáctico grado 1",
+                10: "Investigador Galáctico grado 2",
+                11: "Investigador Galáctico grado 3",
+                12: "Investigador Galáctico grado 4",
+                13: "Investigador Galáctico grado 5",
+                14: "Investigador Galáctico grado 6",
+                15: "Investigador Galáctico grado 7"
               };
               const numRetoEntregado = Number(resultado.numReto || paquete.numReto);
               const gradoDelReto = GRADOS_POR_RETO[numRetoEntregado] || resultado.nuevoGrado;
@@ -403,7 +409,7 @@
     <script>
       // Este bloque es independiente del flujo de reportes. Reutiliza URL_APLICACION_WEB del script de arriba.
       // Retos que tienen talleres. El texto es opcional: el tema del reto (ej: "Procesador de texto").
-      const RETOS_CON_TALLER = { 1: "", 2: "", 3: "" };
+      const RETOS_CON_TALLER = { 13: "", 14: "", 15: "" };
       const NIVELES_TALLER = ["Básico", "Intermedio", "Avanzado"];
       const NEX_POR_TALLER = 5000;
       const MAX_MB_TALLER = 10;
